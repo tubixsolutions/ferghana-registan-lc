@@ -3,7 +3,7 @@ using RegistanFerghanaLC.Domain.Entities.Students;
 
 namespace RegistanFerghanaLC.DataAccess.Interfaces
 {
-    public interface ISudentSubjectRepository : IRepository<StudentSubject>
+    public interface IStudentSubjectRepository : IRepository<StudentSubject>
     {
     }
 }

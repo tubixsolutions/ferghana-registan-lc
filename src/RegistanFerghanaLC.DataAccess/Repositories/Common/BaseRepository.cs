@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 namespace RegistanFerghanaLC.DataAccess.Repositories.Common;
 public class BaseRepository<T> : IRepository<T> where T : BaseEntity
 {
-    private readonly AppDbContext _dbContext;
-    private readonly DbSet<T> _dbSet;
+    protected readonly AppDbContext _dbContext;
+    protected readonly DbSet<T> _dbSet;
 
     public BaseRepository(AppDbContext appDbContext)
     {
