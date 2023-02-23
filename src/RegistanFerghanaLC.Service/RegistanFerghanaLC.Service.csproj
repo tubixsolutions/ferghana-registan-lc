@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Common\Attributes\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Common\Security\" />
     <Folder Include="Dtos\Accounts\" />
     <Folder Include="Dtos\Common\" />
     <Folder Include="Interfaces\Accounts\" />
