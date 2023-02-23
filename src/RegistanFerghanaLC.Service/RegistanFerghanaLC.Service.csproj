@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RegistanFerghanaLC.DataAccess\RegistanFerghanaLC.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
