@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegistanFerghanaLC.Service.Services
+namespace RegistanFerghanaLC.Domain.Constants
 {
-    internal class Class1
+    public class TimeConstants
     {
+        public const int UTC = 5;
     }
 }

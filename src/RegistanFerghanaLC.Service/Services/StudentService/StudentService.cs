@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegistanFerghanaLC.Service.Interfaces
+namespace RegistanFerghanaLC.Service.Services.StudentService
 {
-    internal class Class1
+    internal class StudentService
     {
     }
 }
