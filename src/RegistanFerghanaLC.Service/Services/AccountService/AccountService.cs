@@ -22,45 +22,49 @@ public class AccountService : IAccountService
     }
     public async Task<string> LoginAsync(AccountLoginDto accountLoginDto)
     {
-        var user = await _repository.Admins.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
-        if (user is null) throw new NotFoundException(nameof(accountLoginDto.PhoneNumber), "No admin is found with this phone number.");
-
-        var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, user.Salt, user.PasswordHash);
-        if (hasherResult)
+        var admin = await _repository.Admins.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
+        if (admin is null)
         {
-            string token =  _authService.GenerateToken(user, "admin");
-            return token;
+            var teacher = await _repository.Teachers.FirstOrDefault(x=>x.PhoneNumber == accountLoginDto.PhoneNumber);
+            if(teacher is null)
+            {
+                var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
+                if (student is null) throw new NotFoundException(nameof(accountLoginDto.PhoneNumber), "No user with this phone number is found!");
+                else
+                {
+                    var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, student.Salt, student.PasswordHash);
+                    if (hasherResult)
+                    {
+                        string token = _authService.GenerateToken(student, "student");
+                        return token;
+                    }
+                    else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
+                }
+            }
+            else
+            {
+                var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, teacher.Salt, teacher.PasswordHash);
+                if (hasherResult)
+                {
+                    string token = _authService.GenerateToken(teacher, "teacher");
+                    return token;
+                }
+                else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
+            }
+            
         }
-        else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
+        else
+        {
+            var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, admin.Salt, admin.PasswordHash);
+            if (hasherResult)
+            {
+                string token = _authService.GenerateToken(admin, "admin");
+                return token;
+            }
+            else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
+        }
+    
     }
 
-    public async Task<bool> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
-    {
-        var checkStudent = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == studentRegisterDto.PhoneNumber);
-        if (checkStudent is not null) throw new AlreadyExistingException(nameof(studentRegisterDto.PhoneNumber), "This number is already registered!");
-
-        var hasherResult = PasswordHasher.Hash(studentRegisterDto.Password);
-        var newStudent = (Student)studentRegisterDto;
-        newStudent.PasswordHash = hasherResult.Hash;
-        newStudent.Salt = hasherResult.Salt;
-
-        _repository.Students.Add(newStudent);
-        var dbResult = await _repository.SaveChangesAsync();
-        return dbResult > 0;
-    }
-
-    public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
-    {
-        var checkTeacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == teacherRegisterDto.PhoneNumber);
-        if (checkTeacher is not null) throw new AlreadyExistingException(nameof(teacherRegisterDto.PhoneNumber), "This number is already registered!");
-
-        var hasherResult = PasswordHasher.Hash(teacherRegisterDto.Password);
-        var newTeacher = (Teacher)teacherRegisterDto;
-        newTeacher.PasswordHash = hasherResult.Hash;
-        newTeacher.Salt = hasherResult.Salt;
-
-        _repository.Teachers.Add(newTeacher);
-        var dbResult = await _repository.SaveChangesAsync();
-        return dbResult > 0;
-    }
+    
 }

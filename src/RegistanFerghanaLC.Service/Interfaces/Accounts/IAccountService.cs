@@ -8,8 +8,7 @@ namespace RegistanFerghanaLC.Service.Interfaces.Accounts
     {
 
         public Task<string> LoginAsync(AccountLoginDto accountLoginDto);
-        public Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto);
-        public Task<bool> RegisterStudentAsync(StudentRegisterDto dtudentRegisterDto);
+        
 
 
     }

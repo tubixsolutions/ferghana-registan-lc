@@ -39,7 +39,7 @@ public class IdentityService : IIdentityService
     {
         get
         {
-            var res = _accessor.HttpContext!.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+            var res = _accessor.HttpContext!.User.FindFirst("PhoneNumber");
             return res is not null ? res.Value : string.Empty;
         }
     }
@@ -48,7 +48,7 @@ public class IdentityService : IIdentityService
     {
         get
         {
-            var result = _accessor.HttpContext!.User.FindFirst("ImagePath");
+            var result = _accessor.HttpContext!.User.FindFirst("Image");
             return (result is null) ? String.Empty : result.Value;
         }
     }
