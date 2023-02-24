@@ -11,13 +11,12 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
     {
         public static void AddService(this IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
-            services.AddMemoryCache();
-
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthService, AuthService>();
 
+            services.AddMemoryCache();
+            services.AddHttpContextAccessor();
            
         }
     }
