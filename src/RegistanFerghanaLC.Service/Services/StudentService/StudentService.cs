@@ -16,17 +16,5 @@ public class StudentService : IStudentService
         this._repository = unitOfWork;
         this._authService = authService;
     }
-    public async Task<string> LoginAsync(AccountLoginDto accountLoginDto)
-    {
-        var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
-        if (student is null) throw new NotFoundException(nameof(accountLoginDto.PhoneNumber), "No student is found with this phone number.");
-
-        var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, student.Salt, student.PasswordHash);
-        if (hasherResult)
-        {
-            string token = _authService.GenerateToken(student, "student");
-            return token;
-        }
-        else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
-    }
+    
 }
