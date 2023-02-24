@@ -1,10 +1,13 @@
+using Microsoft.Extensions.DependencyInjection;
 using RegistanFerghanaLC.Web.Configuration.LayerConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureDataAccess(builder.Configuration);
 builder.Services.AddService();
+builder.Services.AddWeb(builder.Configuration);
 
 var app = builder.Build();
 
