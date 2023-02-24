@@ -1,4 +1,7 @@
-﻿<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+﻿@using RegistanFerghanaLC.Service.ViewModels.Accounts;
+@model AccountBaseViewModel
+
+<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
     <!--begin::Menu wrapper-->
     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
         <img alt="Pic" src="~/media/avatars/150-26.jpg" />
@@ -16,10 +19,9 @@
                 <!--begin::Username-->
                 <div class="d-flex flex-column">
                     <div class="fw-bolder d-flex align-items-center fs-5">
-                        @Model.FirstName @Model.LastName
+                        @*@Model.FirstName @Model.LastName*@ Salom
                         <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span>
                     </div>
-                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">@Model.Email</a>
                 </div>
                 <!--end::Username-->
             </div>
@@ -40,7 +42,7 @@
         <!--end::Menu item-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a class="menu-link px-5" asp-controller="accounts" asp-action="logout">Chiqish</a>
+            <a class="menu-link px-5" href="#" @*asp-controller="accounts" asp-action="logout"*@>Chiqish</a>
         </div>
         <!--end::Menu item-->
         <!--begin::Menu separator-->
