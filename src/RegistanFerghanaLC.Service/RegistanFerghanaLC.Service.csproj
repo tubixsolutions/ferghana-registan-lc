@@ -7,7 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\Common\**" />
+    <Compile Remove="Services\Accounts\**" />
+    <EmbeddedResource Remove="Dtos\Common\**" />
+    <EmbeddedResource Remove="Services\Accounts\**" />
+    <None Remove="Dtos\Common\**" />
+    <None Remove="Services\Accounts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RegistanFerghanaLC.DataAccess\RegistanFerghanaLC.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Attributes\" />
+    <Folder Include="Common\Security\" />
+    <Folder Include="Dtos\Accounts\" />
+    <Folder Include="Interfaces\Accounts\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.27.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
   </ItemGroup>
 
 </Project>

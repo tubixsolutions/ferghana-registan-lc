@@ -12,9 +12,10 @@ namespace RegistanFerghanaLC.DataAccess.Repositories.Common
         public IExtraLessonDetailsRepository ExtraLessonDetails { get; }
         public IExtraLessonRepository ExtraLessons { get; }
         public IStudentRepository Students { get; }
-        public IStudentSubjectRepository StudentsSubject { get; }
+        public IStudentSubjectRepository StudentSubjects { get; }
         public ISubjectRepository Subjects { get; }
         public ITeacherRepository Teachers { get; }
+
 
         public UnitOfWork(AppDbContext appDbContext)
         {
@@ -26,7 +27,7 @@ namespace RegistanFerghanaLC.DataAccess.Repositories.Common
             ExtraLessons = new ExtraLessonRepository(appDbContext);
 
             Students = new StudentRepository(appDbContext);
-            StudentsSubject = new StudentSubjectRepository(appDbContext);
+            StudentSubjects = new StudentSubjectRepository(appDbContext);
 
             Subjects = new SubjectRepository(appDbContext);
 
