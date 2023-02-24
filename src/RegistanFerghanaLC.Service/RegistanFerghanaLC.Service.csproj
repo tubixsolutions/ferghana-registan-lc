@@ -24,7 +24,6 @@
     <Folder Include="Common\Security\" />
     <Folder Include="Dtos\Accounts\" />
     <Folder Include="Interfaces\Accounts\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
