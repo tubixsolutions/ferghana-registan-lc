@@ -1,4 +1,5 @@
 ﻿using RegistanFerghanaLC.Service.Intefaces.Common;
+using RegistanFerghanaLC.Service.Service.Common;
 
 namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
 {
