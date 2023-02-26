@@ -53,6 +53,6 @@ public class AccountsController : Controller
         {
             Expires = TimeHelper.GetCurrentServerTime().AddDays(-1)
         });
-        return RedirectToAction("Index", "Home", new { area = "" });
+        return RedirectToAction("login", "accounts", new { area = "" });
     }
 }

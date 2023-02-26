@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RegistanFerghanaLC.Web.Configuration.LayerConfigurations;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,16 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+
+//app.UseStatusCodePages(async context =>
+//{
+//    if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+//    {
+//        context.HttpContext.Response.Redirect("accounts/login");
+//    }
+//});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
