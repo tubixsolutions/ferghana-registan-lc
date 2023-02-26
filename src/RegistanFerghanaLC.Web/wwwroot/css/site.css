@@ -4065,6 +4065,7 @@ textarea.form-control-lg {
 
 .dropdown-menu {
     position: absolute;
+    left:0;
     z-index: 1000;
     display: none;
     min-width: 10rem;
@@ -4083,7 +4084,7 @@ textarea.form-control-lg {
 
     .dropdown-menu[data-bs-popper] {
         top: 100%;
-        left: 0;
+        left: -20px;
         margin-top: 0.125rem;
     }
 
