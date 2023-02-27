@@ -12,8 +12,8 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         public AdminsController(IAdminTeacherService adminTeacherService, IAdminStudentService adminStudentService)
         {
-            _adminTeacherService = adminTeacherService;
-            _adminStudentService = adminStudentService;
+            this._adminTeacherService = adminTeacherService;
+            this._adminStudentService = adminStudentService;
         }
 
         [HttpGet("register")]
