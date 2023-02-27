@@ -14,11 +14,12 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IIdentityService, IdentityService>();
-
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
-           
+            services.AddAutoMapper(typeof(MappingConfiguration));
+
         }
     }
 }

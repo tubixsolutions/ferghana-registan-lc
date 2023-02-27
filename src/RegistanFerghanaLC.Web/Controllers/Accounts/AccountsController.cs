@@ -2,6 +2,7 @@
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
+using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 
 namespace RegistanFerghanaLC.Web.Controllers.Accounts;
@@ -13,6 +14,25 @@ public class AccountsController : Controller
     public AccountsController(IAccountService accountService)
     {
         _service = accountService;
+    }
+    [HttpGet("register")]
+    public ViewResult Register() => View("Register");
+    [HttpPost("register")]
+    public async Task<IActionResult> AdminRegisterAsync(AdminRegisterDto adminRegisterDto)
+    {
+        if (ModelState.IsValid)
+        {
+            bool result = await _service.AdminRegisterAsync(adminRegisterDto);
+            if (result)
+            {
+                return RedirectToAction("login", "accounts", new { area = "" });
+            }
+            else
+            {
+                return Register();
+            }
+        }
+        else return Register();
     }
 
     [HttpGet("login")]
