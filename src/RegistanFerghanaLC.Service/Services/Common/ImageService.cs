@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 
 namespace RegistanFerghanaLC.Service.Services.Common;
@@ -7,7 +9,7 @@ public class ImageService: IImageService
 {
     private readonly string rootPath;
     private readonly string images = "media/images";
-    public ImageService(IWe environment)
+    public ImageService(IWebHostEnvironment environment)
     {
         rootPath = environment.WebRootPath;
     }
