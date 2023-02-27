@@ -1,5 +1,4 @@
-﻿using RegistanFerghanaLC.Service.Common.Validations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace RegistanFerghanaLC.Service.Common.Attributes;
