@@ -1,0 +1,34 @@
+﻿@using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
+@model PagedList<SalaryBaseViewModel>
+
+
+<div class="py-5">
+    <table class="table table-row-dashed table-row-gray-300 gy-7">
+        <thead>
+            <tr class="fw-bolder fs-6 text-gray-800">
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Lessons Number</th>
+                <th>Average Rank</th>
+                <th>Get</th>
+            </tr>
+        </thead>
+        @{
+            foreach (var item in Model)
+            {
+
+                <tbody>
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.LessonsNumber</td>
+                        <td>@item.AverageRank</td>
+                        <td>"=>"</td>
+                    </tr>
+                </tbody>
+            }
+        }
+    </table>
+</div>
