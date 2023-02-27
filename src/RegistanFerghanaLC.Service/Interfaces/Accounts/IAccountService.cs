@@ -6,10 +6,6 @@ namespace RegistanFerghanaLC.Service.Interfaces.Accounts
 {
     public interface IAccountService
     {
-
         public Task<string> LoginAsync(AccountLoginDto accountLoginDto);
-        
-
-
     }
 }
