@@ -7,11 +7,13 @@ namespace RegistanFerghanaLC.Web.Controllers
 {
     public class AdminsController : Controller
     {
-        private readonly IAdminService _adminService;
+        private readonly IAdminTeacherService _adminTeacherService;
+        private readonly IAdminStudentService _adminStudentService;
 
-        public AdminsController(IAdminService adminService)
+        public AdminsController(IAdminTeacherService adminTeacherService, IAdminStudentService adminStudentService)
         {
-            this._adminService = adminService;
+            this._adminTeacherService = adminTeacherService;
+            this._adminStudentService = adminStudentService;
         }
 
         [HttpGet("register")]
@@ -25,7 +27,7 @@ namespace RegistanFerghanaLC.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await _adminService.RegisterTeacherAsync(teacherRegisterDto);
+                var result = await _adminTeacherService.RegisterTeacherAsync(teacherRegisterDto);
                 if (result)
                 {
                     return RedirectToAction("login", "accounts", new { area = "" });
@@ -43,7 +45,7 @@ namespace RegistanFerghanaLC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _adminService.RegisterStudentAsync(studentRegisterDto);
+                var result = await _adminStudentService.RegisterStudentAsync(studentRegisterDto);
                 if (result)
                 {
                     return RedirectToAction("login", "accounts", new { area = "" });
