@@ -4,7 +4,7 @@ using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 
-namespace RegistanFerghanaLC.Web.Controllers;
+namespace RegistanFerghanaLC.Web.Controllers.Accounts;
 [Route("accounts")]
 public class AccountsController : Controller
 {
@@ -12,7 +12,7 @@ public class AccountsController : Controller
 
     public AccountsController(IAccountService accountService)
     {
-        this._service = accountService;
+        _service = accountService;
     }
 
     [HttpGet("login")]
