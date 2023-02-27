@@ -1,4 +1,6 @@
-﻿using RegistanFerghanaLC.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Domain.Entities;
+using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Attributes;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +15,9 @@ public class AccountRegisterDto: AccountLoginDto
     public string LastName { get; set; } = String.Empty;
 
     [Required(ErrorMessage = "Select the role of the person.")]
-    public string Role { get; set; } = String.Empty;
+
+    [ImageFile]
+    public IFormFile? Image { get; set; } 
     public DateTime BirthDate { get; set; }
 
 }
