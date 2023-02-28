@@ -15,16 +15,11 @@ namespace RegistanFerghanaLC.Web.ViewComponents
         {
             AccountBaseViewModel accountBaseViewModel = new AccountBaseViewModel()
             {
-                //Id = _identityService.Id!.Value,
-                //PhoneNumber = _identityService.PhoneNumber,
-                //FirstName = _identityService.FirstName,
-                //LastName = _identityService.LastName,
-                //Image = _identityService.ImagePath
-                Id = 1,
-                PhoneNumber = "+998974336861",
-                FirstName = "Mansurov",
-                LastName = "Komil",
-                Image = ""
+                Id = _identityService.Id!.Value,
+                PhoneNumber = _identityService.PhoneNumber,
+                FirstName = _identityService.FirstName,
+                LastName = _identityService.LastName,
+                Image = _identityService.ImagePath
             };
             return View(accountBaseViewModel);
         }
