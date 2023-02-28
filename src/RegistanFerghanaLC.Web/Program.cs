@@ -26,13 +26,13 @@ app.UseRouting();
 
 app.UseMiddleware<TokenRedirectMiddleware>();
 
-//app.UseStatusCodePages(async context =>
-//{
-//    if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-//    {
-//        context.HttpContext.Response.Redirect("accounts/login");
-//    }
-//});
+app.UseStatusCodePages(async context =>
+{
+    if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+    {
+        context.HttpContext.Response.Redirect("accounts/login");
+    }
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
