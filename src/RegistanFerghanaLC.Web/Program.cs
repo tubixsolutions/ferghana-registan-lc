@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RegistanFerghanaLC.Web.Configuration.LayerConfigurations;
+using RegistanFerghanaLC.Web.Midllewares;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureDataAccess(builder.Configuration);
-builder.Services.AddService();
 builder.Services.AddWeb(builder.Configuration);
+builder.Services.AddService();
+
 
 var app = builder.Build();
 
@@ -22,6 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseMiddleware<TokenRedirectMiddleware>();
 
 //app.UseStatusCodePages(async context =>
 //{
