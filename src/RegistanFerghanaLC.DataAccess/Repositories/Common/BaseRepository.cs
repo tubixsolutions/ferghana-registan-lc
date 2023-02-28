@@ -31,6 +31,11 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     public virtual async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
         => await _dbSet.FirstOrDefaultAsync(expression);
 
+    public void TrackingDeteched(T entity)
+    {
+        _dbContext.Entry<T>(entity!).State = EntityState.Detached;
+    }
+
     public virtual void Update(int id, T entity)
     {
         entity.Id = id;

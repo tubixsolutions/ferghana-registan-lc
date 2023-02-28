@@ -13,4 +13,6 @@ public interface IRepository<T> where T : BaseEntity
     public void Update(int id, T entity);
 
     public void Delete(int id);
+    public void TrackingDeteched(T entity);
+
 }

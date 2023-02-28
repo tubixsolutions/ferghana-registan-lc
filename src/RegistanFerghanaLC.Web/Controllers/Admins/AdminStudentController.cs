@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
@@ -9,6 +11,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
     {
 
         private readonly IAdminStudentService _adminStudentService;
+        private readonly int _pageSize = 6;
 
         public AdminStudentController(IAdminStudentService adminStudentService)
         {
@@ -38,5 +41,13 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else return Register();
         }
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            var students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+            ViewBag.HomeTitle = "Students";
+            return View("Index", students);
+        }
+
     }
 }
