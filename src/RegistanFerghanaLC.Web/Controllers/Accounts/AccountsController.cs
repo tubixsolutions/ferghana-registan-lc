@@ -17,6 +17,7 @@ public class AccountsController : Controller
     }
     [HttpGet("register")]
     public ViewResult Register() => View("Register");
+    
     [HttpPost("register")]
     public async Task<IActionResult> AdminRegisterAsync(AdminRegisterDto adminRegisterDto)
     {

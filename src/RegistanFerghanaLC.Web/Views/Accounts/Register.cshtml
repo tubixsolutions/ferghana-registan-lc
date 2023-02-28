@@ -4,59 +4,71 @@
     Layout = "_AccountLayout.cshtml";
 }
 
-<div class="card w-500px h-630px mt-10 mb-10" style="border: 2px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); margin-left:auto; margin-right:auto; background-color: rgba(255,255,255,0.13); box-shadow: 0 0 40px rgba(8,7,16,0.6);">
-    <div class="py-10 pe-10 px-10">
-        <form asp-controller="accounts" asp-action="Register" method="post">
-            <label class="form-label fs-2" style="">Sign Up</label>
-            <div class="mt-5">
-                <label class="required form-label">First Name</label>
-                <input type="text" asp-for=FirstName class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0 0 40px rgba(8,7,16,0.6);">
+    <!--begin::Form-->
+    <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="/metronic8/demo1/../demo1/authentication/layouts/corporate/sign-in.html" action="#">
+        <!--begin::Heading-->
+        <div class="text-center mb-11">
+            <!--begin::Title-->
+            <h1 class="text-dark fw-bolder mb-3">
+                Sign Up
+            </h1>
+            <!--end::Title-->
+        </div>
+        <!--begin::Heading-->
+        <!--begin::Input group--->
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="text" asp-for=FirstName placeholder="First Name" autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="text" asp-for="LastName" placeholder="Last Name" autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="date" asp-for=BirthDate placeholder="Birth Date" autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="text" asp-for="Address" placeholder="Address" autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="text" asp-for="PhoneNumber" placeholder="+998yyxxxaazz" autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <!--begin::Input group-->
+        <div class="fv-row mb-8 fv-plugins-icon-container" data-kt-password-meter="true">
+            <!--begin::Wrapper-->
+            <div class="mb-1">
+                <!--begin::Input wrapper-->
+                <div class="position-relative mb-3">
+                    <input class="form-control bg-transparent" asp-for=Password type="password" placeholder="Password" autocomplete="off">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                        <i class="bi bi-eye-slash fs-2"></i>
+                        <i class="bi bi-eye fs-2 d-none"></i>
+                    </span>
+                </div>
+                <!--end::Input wrapper-->
             </div>
-            <div class="mt-5">
-                <label class="required form-label">Last Name</label>
-                <input type="text" asp-for=LastName class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label">Phone Number</label>
-                <input type="text" asp-for=PhoneNumber class="form-control form-control-solid" placeholder="+998yyxxxxxxx" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label">Address</label>
-                <input type="text" asp-for=Address class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label">Birth date</label>
-                <input type="date" asp-for=BirthDate class="form-control form-control-solid" placeholder="Example@gmail.com" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label">Password</label>
-                <input type="password" asp-for=Password class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label">Image</label>
-                <input type="image" asp-for=Image class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-check form-check-custom form-check-solid mt-5 ">
-                <input class="form-check-input" type="checkbox" value="" />
-                <label class="form-check-label" for="flexCheckDefault" style="color: #ffffff">
-                    I <a href="www.google.com">agree</a> to the terms of use!
-                </label>
-            </div>
-            <div class="mt-8">
-                <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="SIGN UP" />
-            </div>
-            <div class="mt-8 mb-10">
-                <a class="btn btn-secondary" style="width:100%;" asp-controller="accounts" asp-action="login">
-                    SIGN IN
-                </a>
-            </div>
-        </form>
-    </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Input group--->
+        <div class="d-grid mb-10">
+            <button type="submit" id="kt_sign_up_submit" class="btn btn-registan">
+                <span class="indicator-label">
+                    Sign Up
+                </span>
+            </button>
+        </div>
+        <div class="d-grid mb-10">
+            <button asp-controller="accounts" asp-action="login" type="submit" id="kt_sign_in_submit" class="btn btn-secondary">
+                <span class="indicator-label">
+                    Sign In
+                </span>
+            </button>
+        </div>
+    </form>
+    <!--end::Form-->
 </div>
