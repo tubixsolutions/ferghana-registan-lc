@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
@@ -16,6 +17,7 @@ public class AccountsController : Controller
         _service = accountService;
     }
     [HttpGet("register")]
+    [Authorize(Roles = "admin")]
     public ViewResult Register() => View("Register");
     
     [HttpPost("register")]

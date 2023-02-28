@@ -4,10 +4,10 @@
     Layout = "_AccountLayout.cshtml";
 }
 
-<div class="card w-500px h-470px mt-20 mb-100 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0 0 40px rgba(8,7,16,0.6);">
+<div class="card w-500px h-470px mt-20 mb-100 shadow1" style="margin-left:auto; margin-right:auto;">
     <div class="py-10 pe-10 px-10">
         <form asp-controller="accounts" asp-action="Login" method="post" >
-            <label class="form-label fs-2">Sign In</label>
+            <label class="form-label fs-2 text-center">Sign In</label>
             <div class="form__inputBox mt-5">
                 <label class="required form-label">Phone Number</label>
                 <input type="text" asp-for=PhoneNumber class="form-control form-control-solid"/>
