@@ -37,5 +37,22 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                          });
             return await PagedList<SalaryBaseViewModel>.ToPagedListAsync(query, @params);
         }
+
+        public async Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params)
+        {
+            var query = (from extra in _unitOfWork.ExtraLessons.GetAll()
+                         join extraDetails in _unitOfWork.ExtraLessonDetails.GetAll()
+                         on extra.Id equals extraDetails.ExtraLessonId
+                         where extra.TeacherId == id
+                         select new SalaryViewModel()
+                         {
+                             Id = extra.Id,
+                             Rank = extraDetails.Rank,
+                             Comment = extraDetails.Comment,
+                             StartTime = extra.StartTime,
+                             EndTime = extra.EndTime,
+                         });
+            return await PagedList<SalaryViewModel>.ToPagedListAsync(query, @params);
+        }
     }
 }
