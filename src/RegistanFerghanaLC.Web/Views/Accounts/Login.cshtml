@@ -8,7 +8,7 @@
     <div class="py-10 pe-10 px-10">
         <form asp-controller="accounts" asp-action="Login" method="post" >
             <label class="form-label fs-2">Sign In</label>
-            <div class="form__inputBox mt-5 " >
+            <div class="form__inputBox mt-5">
                 <label class="required form-label">Phone Number</label>
                 <input type="text" asp-for=PhoneNumber class="form-control form-control-solid"/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
