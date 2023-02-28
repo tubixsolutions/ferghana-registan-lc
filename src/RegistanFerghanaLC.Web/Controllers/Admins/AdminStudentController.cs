@@ -7,6 +7,7 @@ using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
+    [Route("admins/students")]
     public class AdminStudentController : Controller
     {
 
