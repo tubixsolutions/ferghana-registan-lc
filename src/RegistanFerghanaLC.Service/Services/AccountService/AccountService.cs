@@ -40,7 +40,6 @@ public class AccountService : IAccountService
 
         var hashresult = PasswordHasher.Hash(adminRegisterDto.Password);
         var admin = _mapper.Map<Admin>(adminRegisterDto);
-        admin.Image = await _imageService.SaveImageAsync(adminRegisterDto.Image!);
         admin.PasswordHash = hashresult.Hash;
         admin.Salt = hashresult.Salt;
         admin.CreatedAt = TimeHelper.GetCurrentServerTime();

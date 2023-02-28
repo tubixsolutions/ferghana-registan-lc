@@ -1,10 +1,10 @@
 ﻿@using RegistanFerghanaLC.Service.ViewModels;
 @model AccountBaseViewModel
 
-<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+<div class="d-flex align-items-center" id="kt_header_user_menu_toggle">
     <!--begin::Menu wrapper-->
     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img alt="Pic" src="~/media/avatars/150-26.jpg" />
+        <img alt="Pic" src="~/media/avatars/150-26.jpg"/>
     </div>
     <!--begin::Menu-->
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -13,16 +13,15 @@
             <div class="menu-content d-flex align-items-center px-3">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-50px me-5">
-                    <img alt="Logo" src="~/media/avatars/150-26.jpg" />
+                    <img alt="Logo" src="~/media/avatars/150-26.jpg"/>
                 </div>
                 <!--end::Avatar-->
                 <!--begin::Username-->
                 <div class="d-flex flex-column">
                     <div class="fw-bolder d-flex align-items-center fs-5">
                         @Model.FirstName @Model.LastName
-                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span>
                     </div>
-                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">@Model.PhoneNumber</a>
+                    <a class="fw-bold text-muted text-hover-primary fs-7">@Model.PhoneNumber</a>
                 </div>
                 <!--end::Username-->
             </div>
