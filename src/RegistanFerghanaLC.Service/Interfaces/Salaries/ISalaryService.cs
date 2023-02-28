@@ -1,4 +1,5 @@
-﻿using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
+﻿using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace RegistanFerghanaLC.Service.Interfaces.Salaries
 {
     public interface ISalaryService
     {
-        public Task<IEnumerable<SalaryBaseViewModel>> GetAllAsync();
+        public Task<PagedList<SalaryBaseViewModel>> GetAllAsync(PaginationParams @params);
     }
 }

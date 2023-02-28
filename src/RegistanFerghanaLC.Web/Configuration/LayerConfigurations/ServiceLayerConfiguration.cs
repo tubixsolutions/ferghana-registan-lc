@@ -2,8 +2,10 @@
 using RegistanFerghanaLC.DataAccess.Repositories.Common;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.Interfaces.Salaries;
 using RegistanFerghanaLC.Service.Services.AccountService;
 using RegistanFerghanaLC.Service.Services.Common;
+using RegistanFerghanaLC.Service.Services.SalaryService;
 
 namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
 {
@@ -16,6 +18,8 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ISalaryService, SalaryService>();
+
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(MappingConfiguration));

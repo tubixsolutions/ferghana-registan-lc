@@ -8,7 +8,7 @@ namespace RegistanFerghanaLC.Service.ViewModels.SalaryViewModels
 {
     public class SalaryBaseViewModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public int LessonsNumber { get; set; }
