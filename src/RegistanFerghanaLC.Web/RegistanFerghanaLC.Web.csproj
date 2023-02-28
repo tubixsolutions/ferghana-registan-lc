@@ -27,4 +27,8 @@
     <ProjectReference Include="..\RegistanFerghanaLC.Service\RegistanFerghanaLC.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admins\" />
+  </ItemGroup>
+
 </Project>
