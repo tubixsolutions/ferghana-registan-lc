@@ -49,7 +49,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.HomeTitle = "Students";
             return View("Index", students);
         }
-        [HttpGet]
+        
 
     }
 }
