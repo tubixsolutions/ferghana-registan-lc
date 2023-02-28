@@ -9,6 +9,7 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
     {
         public static void ConfigureDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             string connectionString = configuration.GetConnectionString("DatabaseConnection");
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();

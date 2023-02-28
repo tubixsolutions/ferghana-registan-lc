@@ -6,14 +6,12 @@
 
 <div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0 0 40px rgba(8,7,16,0.6);">
     <!--begin::Form-->
-    <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="/metronic8/demo1/../demo1/authentication/layouts/corporate/sign-in.html" action="#">
+    <form asp-controller="accounts" asp-action="register">
         <!--begin::Heading-->
         <div class="text-center mb-11">
-            <!--begin::Title-->
             <h1 class="text-dark fw-bolder mb-3">
                 Sign Up
             </h1>
-            <!--end::Title-->
         </div>
         <!--begin::Heading-->
         <!--begin::Input group--->
@@ -34,7 +32,7 @@
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
         <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="PhoneNumber" placeholder="+998yyxxxaazz" autocomplete="off" class="form-control bg-transparent">
+            <input type="tel" asp-for="PhoneNumber" placeholder="+998yyxxxzzzz" autocomplete="off" class="form-control bg-transparent">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <!--begin::Input group-->
@@ -63,11 +61,11 @@
             </button>
         </div>
         <div class="d-grid mb-10">
-            <button asp-controller="accounts" asp-action="login" type="submit" id="kt_sign_in_submit" class="btn btn-secondary">
+            <a asp-controller="accounts" asp-action="login" class="btn btn-secondary">
                 <span class="indicator-label">
                     Sign In
                 </span>
-            </button>
+            </a>
         </div>
     </form>
     <!--end::Form-->
