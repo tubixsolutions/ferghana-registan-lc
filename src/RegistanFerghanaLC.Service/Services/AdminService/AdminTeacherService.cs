@@ -3,6 +3,7 @@ using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Security;
+using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
@@ -19,6 +20,23 @@ public class AdminTeacherService : IAdminTeacherService
         this._repository = unitOfWork;
         this._authService = authService;
     }
+
+    public Task<bool> DeleteAsync(int id)
+    {
+        throw new Exception();
+
+    }
+
+    public Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<TeacherViewDto> GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
     {
         var checkTeacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == teacherRegisterDto.PhoneNumber);
@@ -32,5 +50,10 @@ public class AdminTeacherService : IAdminTeacherService
         _repository.Teachers.Add(newTeacher);
         var dbResult = await _repository.SaveChangesAsync();
         return dbResult > 0;
+    }
+
+    public Task<bool> UpdateAsync(TeacherRegisterDto teacherRegisterDto, long id)
+    {
+        throw new NotImplementedException();
     }
 }
