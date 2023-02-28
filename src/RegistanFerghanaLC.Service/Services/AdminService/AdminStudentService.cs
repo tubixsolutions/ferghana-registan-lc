@@ -81,8 +81,7 @@ public class AdminStudentService : IAdminStudentService
         var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
-        
-
+        _repository.Students.TrackingDeteched(student);
         student.FirstName = studentRegisterDto.FirstName;
         student.LastName = studentRegisterDto.LastName;
         student.PhoneNumber = studentRegisterDto.PhoneNumber;
