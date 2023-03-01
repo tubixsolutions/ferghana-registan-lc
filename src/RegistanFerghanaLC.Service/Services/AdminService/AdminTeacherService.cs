@@ -1,12 +1,18 @@
 ﻿
+using AutoMapper;
+using AutoMapper.Execution;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Service.Common.Exceptions;
+using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
+using System.Net;
 
 namespace RegistanFerghanaLC.Service.Services.AdminService;
 
@@ -14,27 +20,39 @@ public class AdminTeacherService : IAdminTeacherService
 {
     private readonly IUnitOfWork _repository;
     private readonly IAuthService _authService;
+    private readonly IMapper _mapper;
 
-    public AdminTeacherService(IUnitOfWork unitOfWork, IAuthService authService)
+    public AdminTeacherService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper)
     {
         this._repository = unitOfWork;
         this._authService = authService;
+        _mapper = mapper;
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new Exception();
+        var temp = _repository.Teachers.FindByIdAsync(id);
+        if(temp is null)
+            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher not found");
+        _repository.Teachers.Delete(id);
+        var result = await _repository.SaveChangesAsync();
+        return result > 0;
 
     }
 
-    public Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params)
+    public async Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var query = _repository.Teachers.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 
-    public Task<TeacherViewDto> GetById(int id)
+    public async Task<TeacherViewDto> GetById(int id)
     {
-        throw new NotImplementedException();
+        var temp = await _repository.Teachers.FindByIdAsync(@id);
+        if (temp is null)
+            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher is not Found");
+        var res = _mapper.Map<TeacherViewDto>(temp);
+        return res;
     }
 
     public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
@@ -52,8 +70,22 @@ public class AdminTeacherService : IAdminTeacherService
         return dbResult > 0;
     }
 
-    public Task<bool> UpdateAsync(TeacherRegisterDto teacherRegisterDto, long id)
+    public async Task<bool> UpdateAsync(TeacherRegisterDto dto, int id)
     {
-        throw new NotImplementedException();
+        var temp = await _repository.Teachers.FindByIdAsync(id);
+        if (temp is null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+        _repository.Teachers.TrackingDeteched(temp);
+        temp.FirstName = dto.FirstName;
+        temp.LastName =  dto.LastName;
+        temp.PhoneNumber = dto.PhoneNumber;
+        temp.BirthDate = dto.BirthDate;
+        temp.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+        _repository.Teachers.Update(id, temp);
+
+        var result = await _repository.SaveChangesAsync();
+        return result > 0;
     }
+
+    
 }
