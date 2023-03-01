@@ -2,14 +2,18 @@
 @model PagedList<SalaryBaseViewModel>
 
 <div class="my-10 mx-10 me-10 d-flex flex-row align-items-md-center">
-    <div>
+    <div class="mb-7">
+        <label class="required form-label">Time</label>
+        <input type="datetime-local" class="form-control" data-val="true" data-val-required="The StartDate field is required." id="StartDate" name="StartDate" value="">
+        <span class="text-danger field-validation-valid" data-valmsg-for="StartDate" data-valmsg-replace="true"></span>
+    </div>
+    @*<div>
         <input type="month" class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
 
     </div>
     <div>
         <input type="month" class="form-control form-control-solid" style="backdrop-filter: blur(1px); background-color: rgba(255,255,255,0.13)" />
-
-    </div>
+    </div>*@
     <div class="sm-end">
         <a href="#" class="btn btn-light">
             <span class="svg-icon svg-icon-muted svg-icon-2hx">
