@@ -6,7 +6,7 @@ public interface IAdminTeacherService
 {
     public Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto);
     public Task<bool> DeleteAsync(int id);
-    public Task<bool> UpdateAsync(TeacherRegisterDto teacherRegisterDto, long id);
+    public Task<bool> UpdateAsync(TeacherRegisterDto teacherRegisterDto, int id);
     public Task<TeacherViewDto> GetById(int id);
     public Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params);
 
