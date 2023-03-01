@@ -10,5 +10,5 @@ public interface IAdminStudentService
     public Task<bool> UpdateAsync(int id, StudentRegisterDto studentRegisterDto);
     public Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params);
     public Task<StudentViewModel> GetByIdAsync(int id);
-    public Task<StudentViewModel> GetByNameAsync(string name);
+    public Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name);
 }

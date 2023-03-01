@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Service.Common.Exceptions;
@@ -12,6 +13,7 @@ using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RegistanFerghanaLC.Service.Services.AdminService;
 
@@ -43,7 +45,9 @@ public class AdminStudentService : IAdminStudentService
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
         var query = _repository.Students.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<StudentBaseViewModel>(x));
-        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
+        var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
+        if (students.Count != 0) return students;
+        else throw new StatusCodeException(HttpStatusCode.NotFound, "No student in the database.");
     }
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
@@ -56,9 +60,13 @@ public class AdminStudentService : IAdminStudentService
         return res;
     }
 
-    public async Task<StudentViewModel> GetByNameAsync(string name)
+    public async Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name)
     {
-        throw new NotImplementedException();
+        var query = _repository.Students.Where( x=> x.FirstName.ToLower().Contains(name.ToLower()) 
+        || x.LastName.ToLower().Contains(name.ToLower())).Select(x => _mapper.Map<StudentBaseViewModel>(x));
+        var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
+        if (students.Count != 0) return students;
+        else throw new StatusCodeException(HttpStatusCode.NotFound, "No info has been according to the input.");
     }
 
     public async Task<bool> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
