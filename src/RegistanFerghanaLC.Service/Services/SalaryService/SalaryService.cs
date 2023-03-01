@@ -23,7 +23,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                          join teacher in _unitOfWork.Teachers.GetAll()
                          on salary.TeacherId equals teacher.Id
                          let lessonsNumber = _unitOfWork.ExtraLessons.GetAll().Where(a => a.TeacherId == teacher.Id).Count()
-                         let averageRank = (from extra in _unitOfWork.ExtraLessons.GetAll().Where(b => b.TeacherId == teacher.Id)
+                         let averageRank = (from extra in _unitOfWork.ExtraLessons.GetAll()
                                             join details in _unitOfWork.ExtraLessonDetails.GetAll()
                                             on extra.Id equals details.ExtraLessonId
                                             select details.Rank).Average()
