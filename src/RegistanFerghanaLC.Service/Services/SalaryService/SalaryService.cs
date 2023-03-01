@@ -19,22 +19,38 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
         }
         public async Task<PagedList<SalaryBaseViewModel>> GetAllAsync(PaginationParams @params)
         {
-            var query = (from salary in _unitOfWork.ExtraLessons.GetAll()
-                         join teacher in _unitOfWork.Teachers.GetAll()
-                         on salary.TeacherId equals teacher.Id
-                         let lessonsNumber = _unitOfWork.ExtraLessons.GetAll().Where(a => a.TeacherId == teacher.Id).Count()
-                         let averageRank = (from extra in _unitOfWork.ExtraLessons.GetAll().Where(b => b.TeacherId == teacher.Id)
+            var query = (from teacher in _unitOfWork.Teachers.GetAll()
+                         let teacherExtraLessons = _unitOfWork.ExtraLessons.GetAll()
+                            .Where(a => a.TeacherId == teacher.Id).ToList()
+                         let lessonsNumber = teacherExtraLessons.Count()
+                         let averageRank = (from extra in teacherExtraLessons
                                             join details in _unitOfWork.ExtraLessonDetails.GetAll()
                                             on extra.Id equals details.ExtraLessonId
-                                            select details.Rank).Average()
+                                            select details.Rank).ToList()
                          select new SalaryBaseViewModel()
                          {
                              Id = teacher.Id,
                              FirstName = teacher.FirstName,
                              LastName = teacher.LastName,
                              LessonsNumber = lessonsNumber,
-                             AverageRank = averageRank
+                             AverageRank = averageRank.Count == 0 ? 0 : averageRank.Average()
                          });
+            //var query = (from salary in _unitOfWork.ExtraLessons.GetAll()
+            //             join teacher in _unitOfWork.Teachers.GetAll()
+            //             on salary.TeacherId equals teacher.Id
+            //             let lessonsNumber = _unitOfWork.ExtraLessons.GetAll().Where(a => a.TeacherId == teacher.Id).Count()
+            //             let averageRank = (from extra in _unitOfWork.ExtraLessons.GetAll()
+            //                                join details in _unitOfWork.ExtraLessonDetails.GetAll()
+            //                                on extra.Id equals details.ExtraLessonId
+            //                                select details.Rank).Average()
+            //             select new SalaryBaseViewModel()
+            //             {
+            //                 Id = teacher.Id,
+            //                 FirstName = teacher.FirstName,
+            //                 LastName = teacher.LastName,
+            //                 LessonsNumber = lessonsNumber,
+            //                 AverageRank = averageRank
+            //             });
             return await PagedList<SalaryBaseViewModel>.ToPagedListAsync(query, @params);
         }
 
