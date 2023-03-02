@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.Salaries;
 using RegistanFerghanaLC.Service.Interfaces.Salaries;
 
 namespace RegistanFerghanaLC.Web.Controllers.Salaries
@@ -15,9 +17,19 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         }
         public async Task<ViewResult> Index(int page = 1)
         {
-            var reults = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
-            return View("Index", reults);
+            var results = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
+            return View("Index", results);
         }
+
+        [HttpGet("GetAllByDate")]
+        public async Task<ViewResult> GetAllByDateAsync(int page = 1)
+        {
+            var startDate = DateTime.Parse(Request.QueryString.Value![11..21]); 
+            var endDate = DateTime.Parse(Request.QueryString.Value[30..40]);
+            var results = await _salaryService.GetAllByDateAsync(new PaginationParams(page, _pageSize), startDate, endDate);
+            return View("Index", results);
+        }
+
         [HttpGet("{teacherId}")]
         public async Task<ViewResult> GetAllByIdAsync(int teacherId, int page = 1)
         {
