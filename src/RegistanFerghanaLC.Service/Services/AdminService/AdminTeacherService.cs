@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using AutoMapper.Execution;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Service.Common.Exceptions;
@@ -40,9 +41,21 @@ public class AdminTeacherService : IAdminTeacherService
 
     }
 
-    public async Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params)
+    public async Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params)
     {
-        var query = _repository.Teachers.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        var query = _repository.Teachers.GetAll().Select(x => _mapper.Map<TeacherViewDto>(x));
+        //new TeacherViewDto
+        //{
+        //    id= x.Id,
+        //    FirstName= x.FirstName,
+        //    LastName = x.LastName,
+        //    BirthDate= x.BirthDate,
+        //    PartOfDay= x.PartOfDay,
+        //    Subject= x.Subject,
+        //    PhoneNumber= x.PhoneNumber,
+        //    TeacherLevel= x.TeacherLevel,
+
+        //});
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 

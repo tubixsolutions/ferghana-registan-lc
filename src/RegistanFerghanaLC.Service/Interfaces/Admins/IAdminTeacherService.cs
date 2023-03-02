@@ -8,6 +8,6 @@ public interface IAdminTeacherService
     public Task<bool> DeleteAsync(int id);
     public Task<bool> UpdateAsync(TeacherRegisterDto teacherRegisterDto, int id);
     public Task<TeacherViewDto> GetById(int id);
-    public Task<IEnumerable<TeacherViewDto>> GetAll(PaginationParams @params);
+    public Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params);
 
 }
