@@ -83,7 +83,7 @@ public class AdminTeacherService : IAdminTeacherService
         return dbResult > 0;
     }
 
-    public async Task<bool> UpdateAsync(TeacherRegisterDto dto, int id)
+    public async Task<bool> UpdateAsync(TeacherUpdateDto dto, int id)
     {
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
