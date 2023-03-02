@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
-using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
-    [Route("adminteacher")]
+    [Route("teachers")]
     public class AdminTeacherController : Controller
     {
         private readonly IAdminTeacherService _adminTeacherService;
@@ -26,33 +25,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet("register")]
-        public ViewResult Register()
-        {
-            return View("TeacherRegister");
-        }
+        public ViewResult Register() => View("Register");
 
-        [HttpPost("registerteacher")]
-        public async Task<ViewResult> RegisterTeacher(TeacherRegisterDto dto)
-        {
-            if(ModelState.IsValid)
-            {
-                var res = await _adminTeacherService.RegisterTeacherAsync(dto);
-                if (res)
-                {
-                    return View("loginteacher");
-                }
-                else
-                {
-                    return View("TeacherRegister");
-                }
-            }
-            else
-            {
-                return View("TeacherRegister");
-            }
-        }
-
-        [HttpPost("registerteacher")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
         {
             if (ModelState.IsValid)
@@ -69,6 +44,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else return Register();
         }
+
         [HttpGet("Delete")] 
         public async Task<IActionResult> DeleteTeacherAsync(int Id)
         {
@@ -88,8 +64,5 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.HomeTittle = "Admin/Teacher/Update";
             return View("Update", teacher);
         }
-
-
-
     }
 }
