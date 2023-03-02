@@ -54,6 +54,27 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
             return await PagedList<SalaryBaseViewModel>.ToPagedListAsync(query, @params);
         }
 
+        public async Task<PagedList<SalaryBaseViewModel>> GetAllByDateAsync(PaginationParams @params, DateTime startDate, DateTime endDate)
+        {
+            var query = (from teacher in _unitOfWork.Teachers.GetAll()
+                         let teacherExtraLessons = _unitOfWork.ExtraLessons.GetAll().Where(x => x.StartTime>startDate && x.EndTime<endDate)
+                            .Where(a => a.TeacherId == teacher.Id).ToList()
+                         let lessonsNumber = teacherExtraLessons.Count()
+                         let averageRank = (from extra in teacherExtraLessons
+                                            join details in _unitOfWork.ExtraLessonDetails.GetAll()
+                                            on extra.Id equals details.ExtraLessonId
+                                            select details.Rank).ToList()
+                         select new SalaryBaseViewModel()
+                         {
+                             Id = teacher.Id,
+                             FirstName = teacher.FirstName,
+                             LastName = teacher.LastName,
+                             LessonsNumber = lessonsNumber,
+                             AverageRank = averageRank.Count == 0 ? 0 : averageRank.Average()
+                         });
+            return await PagedList<SalaryBaseViewModel>.ToPagedListAsync(query, @params);
+        }
+
         public async Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params)
         {
             var query = (from extra in _unitOfWork.ExtraLessons.GetAll()
