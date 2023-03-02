@@ -1,5 +1,4 @@
-﻿using RegistanFerghanaLC.Domain.Entities;
-using RegistanFerghanaLC.Domain.Entities.Teachers;
+﻿using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
@@ -13,7 +12,6 @@ public class TeacherRegisterDto: AccountRegisterDto
     public string Subject { get; set; } = String.Empty;
     public EnglishLevel TeacherLevel { get; set; }
     public PartOfDay PartOfDay { get; set; }
-
     public bool WorkDays { get; set; } = true;
 
     public static implicit operator Teacher(TeacherRegisterDto teacherRegisterDto)

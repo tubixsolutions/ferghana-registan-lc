@@ -4,7 +4,7 @@
     Layout = "_AccountLayout.cshtml";
 }
 
-<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto;">
+<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0px 0px 15px gray;">
     <!--begin::Form-->
     <form asp-controller="accounts" asp-action="register">
         <!--begin::Heading-->
@@ -36,7 +36,7 @@
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <!--begin::Input group-->
-        <div class="fv-row mb-8 fv-plugins-icon-container" data-kt-password-meter="true">
+        <div class="fv-row mb-10 fv-plugins-icon-container" data-kt-password-meter="true">
             <!--begin::Wrapper-->
             <div class="mb-1">
                 <!--begin::Input wrapper-->
@@ -53,7 +53,7 @@
             <!--end::Wrapper-->
         </div>
         <!--end::Input group--->
-        <div class="d-grid mb-10">
+        <div class="d-grid mb-8">
             <button type="submit" id="kt_sign_up_submit" class="btn btn-registan">
                 <span class="indicator-label">
                     Sign Up
