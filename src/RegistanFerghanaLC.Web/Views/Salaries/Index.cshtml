@@ -2,7 +2,7 @@
 @model PagedList<SalaryBaseViewModel>
 
 <form asp-controller="Salaries" asp-action="GetAllByDate" method="get">
-    <div class="my-10 mx-10 me-10 d-flex flex-row align-items-md-center">
+    <div class="my-3 mx-5 me-5 d-flex flex-row align-items-md-center">
         <div class="mb-7">
             <label class="required form-label">Start Date</label>
             <input type="date" class="form-control" data-val="true" data-val-required="The StartDate field is required." id="StartDate" name="StartDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">

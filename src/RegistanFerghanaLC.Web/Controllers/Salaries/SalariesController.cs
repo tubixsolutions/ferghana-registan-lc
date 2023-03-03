@@ -34,7 +34,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         public async Task<ViewResult> GetAllByIdAsync(int teacherId, int page = 1)
         {
             var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize));
-            return View("Index", results);
+            return View("GetAllById", results);
         }
     }
 }
