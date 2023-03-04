@@ -1,15 +1,10 @@
 ﻿using RegistanFerghanaLC.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
     public class TeacherViewDto
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; } = String.Empty;
 
         public string LastName { get; set; } = String.Empty;
