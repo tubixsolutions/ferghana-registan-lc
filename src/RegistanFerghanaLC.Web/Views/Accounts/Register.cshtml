@@ -1,10 +1,7 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Admins;
 @model AdminRegisterDto
-@{
-    Layout = "_AccountLayout.cshtml";
-}
 
-<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0px 0px 15px gray;">
+<div class="card w-lg-450px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right:auto; box-shadow: 0px 0px 15px gray;">
     <!--begin::Form-->
     <form asp-controller="accounts" asp-action="register">
         <!--begin::Heading-->
@@ -61,9 +58,9 @@
             </button>
         </div>
         <div class="d-grid mb-10">
-            <a asp-controller="accounts" asp-action="login" class="btn btn-secondary">
+            <a asp-controller="home" asp-action="index" class="btn btn-secondary">
                 <span class="indicator-label">
-                    Sign In
+                    Close
                 </span>
             </a>
         </div>
