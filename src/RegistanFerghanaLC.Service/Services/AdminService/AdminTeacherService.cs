@@ -59,7 +59,7 @@ public class AdminTeacherService : IAdminTeacherService
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 
-    public async Task<TeacherViewDto> GetById(int id)
+    public async Task<TeacherViewDto> GetByIdAsync(int id)
     {
         var temp = await _repository.Teachers.FindByIdAsync(@id);
         if (temp is null)
