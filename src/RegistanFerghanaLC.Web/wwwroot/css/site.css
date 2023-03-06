@@ -5597,7 +5597,7 @@ textarea.form-control-lg {
 
 .page-link:hover {
     z-index: 2;
-    color: #009EF7;
+    color: #FF6D0E;
     text-decoration: none;
     background-color: #F1FAFF;
     border-color: transparent;
@@ -5605,7 +5605,7 @@ textarea.form-control-lg {
 
 .page-link:focus {
     z-index: 3;
-    color: #009EF7;
+    color: #FF6D0E;
     background-color: #F1FAFF;
     outline: 0;
     box-shadow: none;
@@ -5618,7 +5618,7 @@ textarea.form-control-lg {
 .page-item.active .page-link {
     z-index: 3;
     color: #FFFFFF;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     border-color: transparent;
 }
 
