@@ -44,6 +44,7 @@ public class AdminStudentController : Controller
         }
         else return Register();
     }
+
     [HttpGet]
     public async Task<IActionResult> Index(int page = 1)
     {
@@ -62,6 +63,7 @@ public class AdminStudentController : Controller
         }
         return View();
     }
+
     [HttpPost("delete")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
@@ -70,4 +72,5 @@ public class AdminStudentController : Controller
         return View();
     }
     
+
 }
