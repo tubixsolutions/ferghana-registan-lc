@@ -80,10 +80,13 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
             var query = (from extra in _unitOfWork.ExtraLessons.GetAll()
                          join extraDetails in _unitOfWork.ExtraLessonDetails.GetAll()
                          on extra.Id equals extraDetails.ExtraLessonId
+                         join teacher in _unitOfWork.Teachers.GetAll()
+                         on extra.TeacherId equals teacher.Id
                          where extra.TeacherId == id
                          select new SalaryViewModel()
                          {
                              Id = extra.Id,
+                             FullName = teacher.LastName + " " + teacher.FirstName,
                              Rank = extraDetails.Rank,
                              Comment = extraDetails.Comment,
                              StartTime = extra.StartTime,

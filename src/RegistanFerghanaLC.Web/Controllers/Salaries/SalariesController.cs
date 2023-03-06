@@ -10,7 +10,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
     public class SalariesController : Controller
     {
         private readonly ISalaryService _salaryService;
-        private readonly int _pageSize = 2;
+        private readonly int _pageSize = 3;
         public SalariesController(ISalaryService salaryService)
         {
             this._salaryService = salaryService;
