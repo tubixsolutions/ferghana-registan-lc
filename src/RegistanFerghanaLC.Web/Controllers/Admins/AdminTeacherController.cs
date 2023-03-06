@@ -45,7 +45,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             else return Register();
         }
 
-        [HttpGet("Delete")] 
+        [HttpGet("delete")] 
         public async Task<IActionResult> DeleteTeacherAsync(int Id)
         {
             var result = await _adminTeacherService.DeleteAsync(Id);
@@ -58,11 +58,22 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         }
         [HttpGet("Update")]
-        public async Task<IActionResult> UpdateRedirectAsync(int id)
+        public async Task<IActionResult> UpdateRedirectAsync(int teacherid)
         {
-            var teacher = await _adminTeacherService.GetById(id);
+            var teacher = await  _adminTeacherService.GetByIdAsync(teacherid);
+
+            var dto = new TeacherUpdateDto()
+            {
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                PhoneNumber= teacher.PhoneNumber,
+                Image= teacher.Image,
+                BirthDate= teacher.BirthDate,
+                Subject= teacher.Subject
+            };
+
             ViewBag.HomeTittle = "Admin/Teacher/Update";
-            return View("Update", teacher);
+            return View("Update", dto);
         }
     }
 }
