@@ -2,7 +2,7 @@
 @model PagedList<TeacherViewDto>
 
 
-<div class="card card-flush" style="box-shadow: 0px 0px 5px gray;">
+<div class="card card-flush">
     <!--begin::Card header-->
     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
         <!--begin::Card title-->
@@ -43,15 +43,12 @@
                     <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2" style="width: 29.9px;">Id</th>
-                            <th class="min-w-200px sorting" style="width: 265.638px;">Teacher</th>
-                            <th class="text-end min-w-100px" style="width: 134.337px;">PHONE NUMBER</th>
-                            <th class="text-end min-w-70px" style="width: 124.425px;">PART OF DAY</th>
-                            <th class="text-end min-w-100px" style="width: 134.337px;">LEVEL</th>
-                            <th class="text-end min-w-100px" style="width: 134.337px;">SUBJECT</th>
-                            <th class="text-end min-w-100px" style="width: 130.337px;">WORK DAYS</th>
-                            <th class="text-end min-w-100px" style="width: 134.337px;">Status</th>
-                            <th class="text-end min-w-70px" style="width: 130.938px;">Actions</th>
+                            <th class="text-start w-10px pe-2" style="width: 29.9px;">ID</th>
+                            <th class="text-start min-w-200px" style="width: 265.638px;">TEACHER (F.L)</th>
+                            <th class="text-start min-w-100px" style="width: 134.337px;">PHONE NUMBER</th>
+                            <th class="text-start min-w-70px" style="width: 124.425px;">PART OF DAY</th>
+                            <th class="text-start min-w-100px" style="width: 150.337px;">SUBJECT</th>
+                            <th class="text-start min-w-70px" style="width: 130.938px;">Actions</th>
                         </tr>
                         <!--end::Table row-->
                     </thead>
@@ -61,38 +58,41 @@
                         @foreach (var teacher in Model)
                         {
                             <tr class="tr-shadow text-dark">
-                                <td class="text-end pe-0">
+                                <td class="text-start px-sm-0">
                                     <span class="fw-bold">@teacher.Id</span>
                                 </td>
 
-                                <td>
+                                <td class="text-start px-sm-0">
+                                    <span class="fw-bold text-gray-800 ms-3">@teacher.FirstName @teacher.LastName</span>
+                                </td>
+                                @*<td>
                                     <div class="d-flex align-items-center">
                                         <a href="/ceres-html-pro/?page=apps/ecommerce/catalog/edit-product" class="symbol symbol-50px">
                                             <span class="symbol-label" style="background-image:url(/ceres-html-pro/assets/media//stock/ecommerce/9.gif);"></span>
                                         </a>
-                            <a asp-area="" asp-controller="teachers" asp-action="Update" asp-route-teacherid="@teacher.Id" class="btn btn-warning" style="border-radius: 15px">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                </svg>
-                            </a>
-                            <a asp-controller="teachers" asp-action="delete" asp-route-Id="@teacher.Id" class="btn btn-danger" style="border-radius: 15px">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                </svg>
-                            </a>
+                                        <a asp-area="" asp-controller="teachers" asp-action="Update" asp-route-teacherid="@teacher.Id" class="btn btn-warning" style="border-radius: 15px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                            </svg>
+                                        </a>
+                                        <a asp-controller="teachers" asp-action="delete" asp-route-Id="@teacher.Id" class="btn btn-danger" style="border-radius: 15px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                            </svg>
+                                        </a>
                                         <div class="ms-5">
                                             <a class="text-gray-800 text-hover-primary fs-5 fw-bold">@teacher.FirstName @teacher.LastName</a>
                                         </div>
                                     </div>
-                                </td>
+                                </td>*@
 
-                                <td class="text-end pe-0">
+                                <td class="text-start px-sm-0">
                                     <span class="fw-bold text-gray-800 ms-3">@teacher.PhoneNumber</span>
                                 </td>
 
-                                <td class="text-end pe-0">@teacher.PartOfDay</td>
+                                <td class="text-start px-sm-0">@teacher.PartOfDay</td>
 
-                                <td class="text-end pe-0">
+                                <td class="text-start px-sm-0">
                                     <span class="fw-bold">@teacher.TeacherLevel</span>
                                 </td>
                             </tr>
@@ -102,60 +102,60 @@
                 </table>
             </div>
             @*<div class="row">
-                <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-                    <div class="dataTables_length">
-                        <label>
-                            <select name="kt_ecommerce_products_table_length" class="form-select form-select-sm form-select-solid">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                    <div class="dataTables_paginate paging_simple_numbers" id="kt_ecommerce_products_table_paginate">
-                        <ul class="pagination">
-                            <li class="paginate_button page-item previous disabled" id="kt_ecommerce_products_table_previous">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="0" tabindex="0" class="page-link">
-                                    <i class="previous"></i>
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item active">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="1" tabindex="0" class="page-link">
-                                    1
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="2" tabindex="0" class="page-link">
-                                    2
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="3" tabindex="0" class="page-link">
-                                    3
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="4" tabindex="0" class="page-link">
-                                    4
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="5" tabindex="0" class="page-link">
-                                    5
-                                </a>
-                            </li>
-                            <li class="paginate_button page-item next" id="kt_ecommerce_products_table_next">
-                                <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="6" tabindex="0" class="page-link">
-                                    <i class="next">
-                                    </i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+            <div class="dataTables_length">
+            <label>
+            <select name="kt_ecommerce_products_table_length" class="form-select form-select-sm form-select-solid">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            </select>
+            </label>
+            </div>
+            </div>
+            <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+            <div class="dataTables_paginate paging_simple_numbers" id="kt_ecommerce_products_table_paginate">
+            <ul class="pagination">
+            <li class="paginate_button page-item previous disabled" id="kt_ecommerce_products_table_previous">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="0" tabindex="0" class="page-link">
+            <i class="previous"></i>
+            </a>
+            </li>
+            <li class="paginate_button page-item active">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="1" tabindex="0" class="page-link">
+            1
+            </a>
+            </li>
+            <li class="paginate_button page-item ">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="2" tabindex="0" class="page-link">
+            2
+            </a>
+            </li>
+            <li class="paginate_button page-item ">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="3" tabindex="0" class="page-link">
+            3
+            </a>
+            </li>
+            <li class="paginate_button page-item ">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="4" tabindex="0" class="page-link">
+            4
+            </a>
+            </li>
+            <li class="paginate_button page-item ">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="5" tabindex="0" class="page-link">
+            5
+            </a>
+            </li>
+            <li class="paginate_button page-item next" id="kt_ecommerce_products_table_next">
+            <a href="#" aria-controls="kt_ecommerce_products_table" data-dt-idx="6" tabindex="0" class="page-link">
+            <i class="next">
+            </i>
+            </a>
+            </li>
+            </ul>
+            </div>
+            </div>
             </div>*@
         </div>
         <!--end::Table-->
