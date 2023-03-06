@@ -35,7 +35,7 @@ public class AdminStudentController : Controller
             var result = await _adminStudentService.RegisterStudentAsync(studentRegisterDto);
             if (result)
             {
-                return RedirectToAction("index", "adminstudent", new { area = "Admins" });
+                return RedirectToAction("index", "home", new { area = "" });
             }
             else
             {
@@ -52,16 +52,22 @@ public class AdminStudentController : Controller
         return View("Index", students);
     }
 
-    /*[HttpGet("delete")]
-    public async Task<ViewResult> DeleteAsync(int id)
+    [HttpGet("delete")]
+    public async Task<ViewResult> Delete(int id)
     {
-        var admin = await _adminStudentService.GetByIdAsync(id);
-
+        var student = await _adminStudentService.GetByIdAsync(id);
+        if(student != null)
+        {
+            return View(student);
+        }
+        return View();
     }
-
-    [HttpPost("update")]
-    public async Task<IActionResult> UpdateStudentAsync(int id, StudentAllUpdateDto studentUpdateDto)
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteAsync(int id)
     {
-
-    }*/
+        var res = await _adminStudentService.DeleteAsync(id);
+        if (res) return RedirectToAction("index", "home", new { area = "" });
+        return View();
+    }
+    
 }
