@@ -1,4 +1,6 @@
-﻿<div id="kt_body" class="card bg-white">
+﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
+@model TeacherRegisterDto
+<div id="kt_body" class="card bg-white">
     <!--begin::Theme mode setup on page load-->
     <script>
         var defaultThemeMode = "light";
@@ -24,32 +26,27 @@
     </script>
     <!--end::Theme mode setup on page load-->
     <!--Begin::Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!--End::Google Tag Manager (noscript) -->
+@*    <noscript><iframe src="~/media/patterns/10" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+*@    <!--End::Google Tag Manager (noscript) -->
     <!--begin::Main-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Login-->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">
             <!--begin::Aside-->
-            <div class="d-flex flex-column flex-lg-row-auto bg-primary w-lg-600px pt-15 pt-lg-0">
+           <div class="d-flex flex-column flex-lg-row-auto w-lg-50px pt-15 pt-lg-0">
                 <!--begin::Aside Top-->
                 <div class="d-flex flex-row-fluid flex-center flex-column-auto flex-column text-center mb-5">
-                    <!--begin::Aside Subtitle-->
-                    <h3 class="fw-bold fs-2x text-white lh-lg">
-                        Discover Start<br>
-                        with great build tools
-                    </h3>
-                    <!--end::Aside Subtitle-->
+                    <img src="~/media/patterns/10.png" />
                 </div>
                 <!--end::Aside Top-->
                 <!--begin::Illustration-->
-                <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url(/start-html-pro/assets/media/illustrations/sigma-1/2.png">
+               <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px">
                 </div>
                 <!--end::Illustration-->
             </div>
             <!--begin::Aside-->
             <!--begin::Content-->
-            <div class="login-content flex-lg-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden py-10 py-lg-20 px-10 p-lg-7 mx-auto mw-450px w-100">
+            <div class="login-content flex-lg-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden py-10 py-lg-20 px-10 p-lg-7 mx-auto mw-250px w-100">
                 <!--begin::Wrapper-->
                 <div class="d-flex flex-column-fluid flex-center py-10">
 
@@ -66,10 +63,36 @@
                         <!--begin::Title-->
                         <!--begin::Form group-->
                         <div class="fv-row mb-10 fv-plugins-icon-container">
-                            <label class="form-label fs-6 fw-bold text-dark">Email</label>
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off">
+                            <label class="form-label fs-6 fw-bold text-dark">Firstname</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" asp-for="FirstName" autocomplete="off">
                             <div class="fv-plugins-message-container invalid-feedback"></div>
                         </div>
+                         <div class="fv-row mb-10 fv-plugins-icon-container">
+                           <label class="form-label fs-6 fw-bold text-dark">Lastname</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" asp-for="LastName" autocomplete="off">
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                           <label class="form-label fs-6 fw-bold text-dark">Phone number</label>
+                            <input class="form-control form-control-lg form-control-solid" type="tel" asp-for="PhoneNumber"  autocomplete="off">
+                             <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                           <label class="form-label fs-6 fw-bold text-dark">Part of day</label>
+                            <input class="form-control form-control-lg form-control-solid" type="tel" asp-for="PartOfDay"  autocomplete="off">
+                             <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                            <label class="form-label fs-6 fw-bold text-dark">Subject</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" asp-for="Subject" autocomplete="off">
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+                         <div class="fv-row mb-10 fv-plugins-icon-container">
+                           <label class="form-label fs-6 fw-bold text-dark">Level</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" asp-for="TeacherLevel" autocomplete="off">
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+
                         <!--end::Form group-->
                         <!--begin::Form group-->
                         <div class="fv-row mb-10 fv-plugins-icon-container">
