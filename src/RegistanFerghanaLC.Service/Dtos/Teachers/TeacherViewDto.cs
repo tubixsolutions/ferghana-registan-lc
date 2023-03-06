@@ -1,15 +1,15 @@
-﻿using RegistanFerghanaLC.Domain.Enums;
+﻿using RegistanFerghanaLC.Domain.Common;
+using RegistanFerghanaLC.Domain.Enums;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
-    public class TeacherViewDto
+    public class TeacherViewDto : BaseEntity
     {
-        public int Id { get; set; }
         public string FirstName { get; set; } = String.Empty;
 
         public string LastName { get; set; } = String.Empty;
 
-        public string? Image { get; set; }
+        public string? ImagePath { get; set; }
 
         public string PhoneNumber { get; set; } = String.Empty;
 

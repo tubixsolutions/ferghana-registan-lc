@@ -67,7 +67,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 PhoneNumber= teacher.PhoneNumber,
-                Image= teacher.Image,
+                Image= teacher.ImagePath,
                 BirthDate= teacher.BirthDate,
                 Subject= teacher.Subject
             };
