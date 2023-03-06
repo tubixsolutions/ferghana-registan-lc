@@ -1,55 +1,67 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
-namespace RegistanFerghanaLC.Web.Controllers.Admins
+namespace RegistanFerghanaLC.Web.Controllers.Admins;
+
+[Route("adminstudents")]
+public class AdminStudentController : Controller
 {
-    [Route("admins/students")]
-    public class AdminStudentController : Controller
+
+    private readonly IAdminStudentService _adminStudentService;
+    private readonly int _pageSize = 6;
+
+    public AdminStudentController(IAdminStudentService adminStudentService)
     {
+        _adminStudentService = adminStudentService;
+    }
 
-        private readonly IAdminStudentService _adminStudentService;
-        private readonly int _pageSize = 6;
+    [HttpGet("register")]
+    public ViewResult Register()
+    {
+        return View("Register");
+    }
 
-        public AdminStudentController(IAdminStudentService adminStudentService)
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
+    {
+        if (ModelState.IsValid)
         {
-            _adminStudentService = adminStudentService;
-        }
-
-        [HttpGet("register")]
-        public ViewResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost("register/student")]
-        public async Task<IActionResult> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
-        {
-            if (ModelState.IsValid)
+            var result = await _adminStudentService.RegisterStudentAsync(studentRegisterDto);
+            if (result)
             {
-                var result = await _adminStudentService.RegisterStudentAsync(studentRegisterDto);
-                if (result)
-                {
-                    return RedirectToAction("login", "accounts", new { area = "" });
-                }
-                else
-                {
-                    return Register();
-                }
+                return RedirectToAction("index", "adminstudent", new { area = "Admins" });
             }
-            else return Register();
+            else
+            {
+                return Register();
+            }
         }
-        [HttpGet]
-        public async Task<IActionResult> Index(int page = 1)
-        {
-            var students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
-            ViewBag.HomeTitle = "Students";
-            return View("Index", students);
-        }
-        
+        else return Register();
+    }
+    [HttpGet]
+    public async Task<IActionResult> Index(int page = 1)
+    {
+        var students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+        ViewBag.HomeTitle = "Students";
+        return View("Index", students);
+    }
+
+    /*[HttpGet("delete")]
+    public async Task<ViewResult> DeleteAsync(int id)
+    {
+        var admin = await _adminStudentService.GetByIdAsync(id);
 
     }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateStudentAsync(int id, StudentAllUpdateDto studentUpdateDto)
+    {
+
+    }*/
 }
