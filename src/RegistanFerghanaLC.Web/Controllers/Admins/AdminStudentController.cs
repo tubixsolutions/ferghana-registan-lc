@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
@@ -22,10 +24,10 @@ public class AdminStudentController : Controller
     [HttpGet("register")]
     public ViewResult Register()
     {
-        return View();
+        return View("Register");
     }
 
-    [HttpPost("register/student")]
+    [HttpPost("register")]
     public async Task<IActionResult> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
     {
         if (ModelState.IsValid)
@@ -33,7 +35,7 @@ public class AdminStudentController : Controller
             var result = await _adminStudentService.RegisterStudentAsync(studentRegisterDto);
             if (result)
             {
-                return RedirectToAction("login", "accounts", new { area = "" });
+                return RedirectToAction("index", "adminstudent", new { area = "Admins" });
             }
             else
             {
@@ -50,9 +52,16 @@ public class AdminStudentController : Controller
         return View("Index", students);
     }
 
+    /*[HttpGet("delete")]
+    public async Task<ViewResult> DeleteAsync(int id)
+    {
+        var admin = await _adminStudentService.GetByIdAsync(id);
+
+    }
+
     [HttpPost("update")]
     public async Task<IActionResult> UpdateStudentAsync(int id, StudentAllUpdateDto studentUpdateDto)
     {
 
-    }
+    }*/
 }
