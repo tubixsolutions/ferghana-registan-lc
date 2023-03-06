@@ -10,7 +10,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
     public class SalariesController : Controller
     {
         private readonly ISalaryService _salaryService;
-        private readonly int _pageSize = 5;
+        private readonly int _pageSize = 2;
         public SalariesController(ISalaryService salaryService)
         {
             this._salaryService = salaryService;
@@ -18,6 +18,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         public async Task<ViewResult> Index(int page = 1)
         {
             var results = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
+            ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
+            ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
+            
             return View("Index", results);
         }
 
@@ -26,8 +29,21 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         {
             var startDate = DateTime.Parse(Request.QueryString.Value![11..21]); 
             var endDate = DateTime.Parse(Request.QueryString.Value[30..40]);
-            var results = await _salaryService.GetAllByDateAsync(new PaginationParams(page, _pageSize), startDate, endDate);
-            return View("Index", results);
+            if (startDate == DateTime.Now && endDate == DateTime.Now || endDate < startDate)
+            {
+                var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize)); 
+                ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
+                ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
+                return View("Index", results);
+            }
+            else
+            {
+                var results = await _salaryService.GetAllByDateAsync(new PaginationParams(page, _pageSize), startDate, endDate);
+                ViewBag.start = startDate.ToString("yyyy-MM-dd"); 
+                ViewBag.end = endDate.ToString("yyyy-MM-dd");
+                return View("Index", results);
+            }
+
         }
 
         [HttpGet("{teacherId}")]
