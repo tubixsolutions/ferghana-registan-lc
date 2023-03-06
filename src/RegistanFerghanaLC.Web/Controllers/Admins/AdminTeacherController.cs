@@ -60,7 +60,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet("Update")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherid)
         {
+<<<<<<< HEAD
             var teacher = await  _adminTeacherService.GetByIdAsync(teacherid);
+=======
+            var teacher = await _adminTeacherService.GetById(teacherid);
+>>>>>>> 4986b08 (update controller)
             var dto = new TeacherUpdateDto()
             {
                 FirstName = teacher.FirstName,
