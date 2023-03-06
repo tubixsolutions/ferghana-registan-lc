@@ -9,6 +9,7 @@ namespace RegistanFerghanaLC.Service.ViewModels.SalaryViewModels
     public class SalaryViewModel
     {
         public int Id { get; set; }
+        public string FullName { get; set; } = string.Empty;
         public int Rank { get; set; }
         public string Comment { get; set; } = string.Empty;
         public DateTime StartTime { get; set; }
