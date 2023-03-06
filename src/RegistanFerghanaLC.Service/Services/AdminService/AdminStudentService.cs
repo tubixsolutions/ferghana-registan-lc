@@ -84,16 +84,16 @@ public class AdminStudentService : IAdminStudentService
         return dbResult > 0;
     }
 
-    public async Task<bool> UpdateAsync(int id, StudentRegisterDto studentRegisterDto)
+    public async Task<bool> UpdateAsync(int id, StudentAllUpdateDto studentAllUpdateDto)
     {
         var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
         _repository.Students.TrackingDeteched(student);
-        student.FirstName = studentRegisterDto.FirstName;
-        student.LastName = studentRegisterDto.LastName;
-        student.PhoneNumber = studentRegisterDto.PhoneNumber;
-        student.BirthDate = studentRegisterDto.BirthDate;
+        student.FirstName = studentAllUpdateDto.FirstName;
+        student.LastName = studentAllUpdateDto.LastName;
+        student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
+        student.BirthDate = studentAllUpdateDto.BirthDate;
         student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
         _repository.Students.Update(id, student);
 
