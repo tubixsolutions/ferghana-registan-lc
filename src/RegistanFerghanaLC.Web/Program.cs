@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using RegistanFerghanaLC.Web.Configuration.LayerConfigurations;
 using RegistanFerghanaLC.Web.Midllewares;
 using System.Net;
@@ -10,7 +10,10 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureDataAccess(builder.Configuration);
 builder.Services.AddWeb(builder.Configuration);
 builder.Services.AddService();
-
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Registon API", Version = "v1"});
+});
 
 var app = builder.Build();
 
@@ -23,7 +26,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Registon API V1");
+    c.RoutePrefix = "area/swagger";
+});
 app.UseMiddleware<TokenRedirectMiddleware>();
 
 app.UseStatusCodePages(async context =>
