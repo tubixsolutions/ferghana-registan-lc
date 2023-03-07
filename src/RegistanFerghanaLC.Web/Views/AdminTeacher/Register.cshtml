@@ -13,38 +13,45 @@
         <!--begin::Heading-->
         <!--begin::Input group--->
         <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for=FirstName placeholder="First Name" autocomplete="off" class="form-control bg-transparent">
+            <label class="required form-label text-dark">Firstname</label>
+            <input type="text" asp-for=FirstName  autocomplete="off" class="form-control bg-transparent">
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
         <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="LastName" placeholder="Last Name" autocomplete="off" class="form-control bg-transparent">
+             <label class="required form-label text-dark">Lastname</label>
+            <input type="text" asp-for="LastName"  autocomplete="off" class="form-control bg-transparent">
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
         <div class="fv-row mb-8 fv-plugins-icon-container">
+            <label class="required form-label text-dark">Birth date</label>
             <input type="date" asp-for=BirthDate placeholder="Birth Date" autocomplete="off" class="form-control bg-transparent">
             <span asp-validation-for="BirthDate" class="text-danger"></span>
         </div>
-
-        <label class="required form-label text-dark mt-5">Level</label>
-        <select class="form-select form-select-solid" asp-for=TeacherLevel name="Level" aria-label="Select example">
-            <option value="Beginner">Beginner</option>
-            <option value="Elementary">Elementary</option>
-            <option value="Preintermediate">Preintermediate</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="IELTS">IELTS</option>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <label class="required form-label text-dark">Subject</label>
+            <input type="text" asp-for=Subject  autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="Subject" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <label class="required form-label text-dark">Level</label>
+            <input type="text" asp-for="TeacherLevel"  autocomplete="off" class="form-control bg-transparent">
+            <span asp-validation-for="TeacherLevel" class="text-danger"></span>
+        </div>
+        <label class="required form-label text-dark mt-5">Part Day</label>
+        <select class="form-select form-select-solid" asp-for=PartOfDay name="Part" id="Part" aria-label="Select example">
+            <option value="true">Morning</option>
+            <option value="false">Afternoon</option>
         </select>
-
-        <div class="fv-row mb-8 mt-8 fv-plugins-icon-container">
-            <input type="tel" asp-for="PhoneNumber" placeholder="+998yyxxxzzzz" autocomplete="off" class="form-control bg-transparent">
+        <label class="required form-label text-dark mt-5">Work days</label>
+        <select class="form-select form-select-solid" asp-for=WorkDays name="Part" id="Part" aria-label="Select example">
+            <option value="true">Odd</option>
+            <option value="false">Even</option>
+        </select>
+        
+        <label class="required form-label text-dark">Phone number</label>
+        <div class="fv-row mb-8 fv-plugins-icon-container">
+            <input type="text" asp-for="PhoneNumber" placeholder=" " autocomplete="off" class="form-control bg-transparent">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="PartOfDay" placeholder="Part Day" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="PartOfDay" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="WorkDays" placeholder=" " autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="WorkDays" class="text-danger"></span>
         </div>
         <!--begin::Input group-->
         <div class="fv-row mb-8 fv-plugins-icon-container" data-kt-password-meter="true">
@@ -52,6 +59,7 @@
             <div class="mb-1">
                 <!--begin::Input wrapper-->
                 <div class="position-relative mb-3">
+                    <label class="required form-label text-dark">Password</label>
                     <input class="form-control bg-transparent" asp-for=Password type="password" placeholder="Password" autocomplete="off">
                     <span asp-validation-for="Password" class="text-danger"></span>
                     <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
@@ -71,6 +79,7 @@
                 </span>
             </button>
         </div>
-    <!--end::Form-->
+        <!--end::Form-->
     </form>
+
 </div>

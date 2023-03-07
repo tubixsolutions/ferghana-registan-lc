@@ -12,7 +12,7 @@ namespace RegistanFerghanaLC.Domain.Entities.Teachers
         
         public string Salt { get; set; } = String.Empty;
 
-        public EnglishLevel TeacherLevel { get; set; }
+        public string TeacherLevel { get; set; } = String.Empty;
 
         public string Subject { get; set; } = String.Empty;
     }
