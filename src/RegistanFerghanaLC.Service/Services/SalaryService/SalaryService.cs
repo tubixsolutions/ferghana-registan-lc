@@ -77,16 +77,17 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
 
         public async Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params)
         {
-            var query = (from extra in _unitOfWork.ExtraLessons.GetAll()
+            var query = (from extra in _unitOfWork.ExtraLessons.GetAll().Where(x => x.TeacherId == id)
                          join extraDetails in _unitOfWork.ExtraLessonDetails.GetAll()
                          on extra.Id equals extraDetails.ExtraLessonId
-                         join teacher in _unitOfWork.Teachers.GetAll()
-                         on extra.TeacherId equals teacher.Id
+                         join student in _unitOfWork.Students.GetAll()
+                         on extra.StudentId equals student.Id
                          where extra.TeacherId == id
                          select new SalaryViewModel()
                          {
                              Id = extra.Id,
-                             FullName = teacher.LastName + " " + teacher.FirstName,
+                             FirstName = student.FirstName,
+                             LastName = student.LastName,
                              Rank = extraDetails.Rank,
                              Comment = extraDetails.Comment,
                              StartTime = extra.StartTime,
