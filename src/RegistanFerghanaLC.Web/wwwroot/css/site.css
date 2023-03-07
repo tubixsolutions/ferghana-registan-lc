@@ -5583,7 +5583,7 @@ textarea.form-control-lg {
 .page-link {
     position: relative;
     display: block;
-    color: #5E6278;
+    color: #FF6D0E;
     background-color: transparent;
     border: 0 solid transparent;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5599,14 +5599,14 @@ textarea.form-control-lg {
     z-index: 2;
     color: #FF6D0E;
     text-decoration: none;
-    background-color: #F1FAFF;
+    background-color: #FFF5F1;
     border-color: transparent;
 }
 
 .page-link:focus {
     z-index: 3;
     color: #FF6D0E;
-    background-color: #F1FAFF;
+    background-color: #FFF5F1;
     outline: 0;
     box-shadow: none;
 }
@@ -34563,12 +34563,12 @@ a {
     }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link i, .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link i {
-            color: #5E6278;
+            color: #FF6D0E;
         }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g), .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
             transition: fill 0.3s ease;
-            fill: #5E6278;
+            fill: #FF6D0E;
         }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g), .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34590,12 +34590,12 @@ a {
         }
 
     .page-item:focus:not(.disabled) .page-link i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .page-item:focus:not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .page-item:focus:not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34671,12 +34671,12 @@ a {
     }
 
     .page-item.disabled .page-link i {
-        color: #B5B5C3;
+        color: #FF6D0E;
     }
 
     .page-item.disabled .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #B5B5C3;
+        fill: #FF6D0E;
     }
 
     .page-item.disabled .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
