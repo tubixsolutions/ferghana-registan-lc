@@ -10,7 +10,7 @@ public class TeacherRegisterDto: AccountRegisterDto
 {
     [Required(ErrorMessage = "Please select the subject of the teacher!")]
     public string Subject { get; set; } = String.Empty;
-    public EnglishLevel TeacherLevel { get; set; }
+    public string TeacherLevel { get; set; } = String.Empty;
     public PartOfDay PartOfDay { get; set; }
     public bool WorkDays { get; set; } = true;
 

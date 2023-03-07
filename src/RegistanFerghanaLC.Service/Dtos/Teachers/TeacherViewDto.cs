@@ -18,7 +18,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
 
         public bool WorkDays { get; set; } = true;
 
-        public EnglishLevel TeacherLevel { get; set; }
+        public string TeacherLevel { get; set; } = String.Empty;
 
         public string Subject { get; set; } = String.Empty;
     }
