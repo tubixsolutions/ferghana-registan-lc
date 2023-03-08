@@ -17,11 +17,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
             this._salaryService = salaryService;
         }
 
-        //public async Task<ViewResult> IndexAsync(int page = 1, string startdate = "", string enddate = "")
-        //{
-
-        //}
-
         public async Task<ViewResult> Index(int page = 1)
         {
             var res = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
@@ -83,13 +78,17 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
                 };
                 return View("Index", res);
             }
-
         }
 
         [HttpGet("{teacherId}")]
-        public async Task<ViewResult> GetAllByIdAsync(int teacherId, int page = 1)
+        public async Task<ViewResult> GetAllByIdAsync(int teacherId,string start, string end, string teacherName, int page = 1)
         {
-            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize));
+            var startDate = DateTime.Parse(start);
+            var endDate = DateTime.Parse(end);
+            ViewBag.start = startDate; 
+            ViewBag.end = endDate;
+            ViewBag.teacherName = teacherName;
+            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize), startDate, endDate);
             return View("GetAllById", results);
         }
     }
