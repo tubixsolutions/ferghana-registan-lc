@@ -79,6 +79,7 @@ public class AdminStudentController : Controller
         if (student != null) { return View(student); }
         else return View();
     }
+
     [HttpPost("update")]
     public async Task<IActionResult> UpdateAsync(int id, StudentAllUpdateDto dto)
     {
@@ -91,4 +92,5 @@ public class AdminStudentController : Controller
         }
         return View();
     }
+    
 }
