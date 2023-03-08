@@ -14,7 +14,7 @@ public class AdminStudentController : Controller
 {
 
     private readonly IAdminStudentService _adminStudentService;
-    private readonly int _pageSize = 6;
+    private readonly int _pageSize = 5;
 
     public AdminStudentController(IAdminStudentService adminStudentService)
     {

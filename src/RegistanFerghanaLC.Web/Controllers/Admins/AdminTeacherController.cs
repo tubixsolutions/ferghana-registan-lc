@@ -9,7 +9,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
     public class AdminTeacherController : Controller
     {
         private readonly IAdminTeacherService _adminTeacherService;
-        private readonly int _pageSize = 6;
+        private readonly int _pageSize = 5;
 
         public AdminTeacherController(IAdminTeacherService adminTeacherService)
         {
