@@ -14,7 +14,7 @@ builder.Services.AddService();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v2", new OpenApiInfo { Title = "RegistonAPI.swagger", Version = "v2"});
-
+});
 
 var app = builder.Build();
 
