@@ -1,194 +1,213 @@
-﻿@using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
-@model PagedList<SalaryBaseViewModel>
+﻿@using RegistanFerghanaLC.Service.Dtos.Salaries;
+@model SoftDto
 
-<form asp-controller="Salaries" asp-action="GetAllByDate" method="get">
+
+<form asp-controller="Salaries" asp-action="GetAllByDate" method="post">
     <div class="my-3 mx-5 me-5 d-flex flex-row align-items-md-center">
         <div class="mb-7">
             <label class="required form-label">Start Date</label>
-            <input type="date" class="form-control" data-val="true" data-val-required="The StartDate field is required." id="StartDate" name="StartDate" value="@(ViewBag.start==DateTime.Now.ToString("yyyy-MM-dd")?@DateTime.Now.ToString("yyyy-MM-dd"):ViewBag.start)">
-            <span class="text-danger field-validation-valid" data-valmsg-for="StartDate" data-valmsg-replace="true"></span>
+            <input type="date" asp-for=StartDate class="form-control" data-val="true" data-val-required="The StartDate field is required." id="StartDate" name="StartDate" value="@(Model.StartDate=="2023-02-25"?"2023-02-25":Model.StartDate)">
+            <span class="text-danger field-validation-valid" asp-validation-for="StartDate" data-valmsg-for="StartDate" data-valmsg-replace="true"></span>
         </div>
         <div class="mb-7 ms-5">
             <label class="required form-label">End Date</label>
-            <input type="date" class="form-control" data-val="true" data-val-required="The End Date field is required." id="EndDate" name="EndDate" value="@(ViewBag.end==DateTime.Now.ToString("yyyy-MM-dd")?@DateTime.Now.ToString("yyyy-MM-dd"):ViewBag.end)">
-            <span class="text-danger field-validation-valid" data-valmsg-for="EndDate" data-valmsg-replace="true"></span>
+            <input type="date" asp-for=EndDate class="form-control" data-val="true" data-val-required="The End Date field is required." id="EndDate" name="EndDate" value="@(Model.EndDate==DateTime.Now.ToString("yyyy-MM-dd")?DateTime.Now.ToString("yyyy-MM-dd"):Model.EndDate)">
+            <span class="text-danger field-validation-valid" asp-validation-for="EndDate" data-valmsg-for="EndDate" data-valmsg-replace="true"></span>
         </div>
         <div class="sm-end ms-5">
-            <button type="submit" class="btn btn-white">
-                <span class="svg-icon svg-icon-muted text-dark">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="currentColor" />
-                        <path opacity="1" d="M11 20C6 20 2 16 2 11C2 6 6 2 11 2C16 2 20 6 20 11C20 16 16 20 11 20ZM11 4C7.1 4 4 7.1 4 11C4 14.9 7.1 18 11 18C14.9 18 18 14.9 18 11C18 7.1 14.9 4 11 4ZM8 11C8 9.3 9.3 8 11 8C11.6 8 12 7.6 12 7C12 6.4 11.6 6 11 6C8.2 6 6 8.2 6 11C6 11.6 6.4 12 7 12C7.6 12 8 11.6 8 11Z" fill="currentColor" />
-                    </svg>
-                </span>
+            <button type="submit" class="btn btn-light">
+            <span class="svg-icon svg-icon-muted text-dark">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="currentColor" />
+                    <path opacity="1" d="M11 20C6 20 2 16 2 11C2 6 6 2 11 2C16 2 20 6 20 11C20 16 16 20 11 20ZM11 4C7.1 4 4 7.1 4 11C4 14.9 7.1 18 11 18C14.9 18 18 14.9 18 11C18 7.1 14.9 4 11 4ZM8 11C8 9.3 9.3 8 11 8C11.6 8 12 7.6 12 7C12 6.4 11.6 6 11 6C8.2 6 6 8.2 6 11C6 11.6 6.4 12 7 12C7.6 12 8 11.6 8 11Z" fill="currentColor" />
+                </svg>
+            </span>
             </button>
         </div>
     </div>
-</form>
-<div class="py-5">
-    <table id="kt_datatable_example_2" class="table table-striped table-row-bordered gy-5 gs-7">
-        <thead>
-            <tr class="fw-bold fs-6 text-gray-800">
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Lessons Number</th>
-                <th>Average Rank</th>
-                <th>Get</th>
-            </tr>
-        </thead>
-        @{
-            foreach (var item in Model)
-            {
-
-                <tbody>
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.LessonsNumber</td>
-                        <td>
-                            @{
-                                if (item.AverageRank == 0)
-                                {
-                                    <span class="badge badge-secondary">
-                                        @item.AverageRank
-                                    </span>
-                                }
-                                else if (item.AverageRank >= 3.5)
-                                {
-                                    <span class="badge badge-primary">
-                                        @($"{item.AverageRank:.0}")
-                                    </span>
-                                }
-                                else if (item.AverageRank >= 2.5 && 3.5 > item.AverageRank)
-                                {
-                                    <span class="badge badge-warning">
-                                        @($"{item.AverageRank:.0}")
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">
-                                        @($"{item.AverageRank:.0}")
-                                    </span>
-                                }
-                            }
-                        </td>
-                        <td>
-                            <a asp-controller="Salaries" asp-action="GetAllById" asp-route-teacherId="@item.Id" class="btn btn-secondary fs-10 w-50px">
-                                <span class="svg-icon svg-icon-muted">
-                                    <svg width="2" height="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.5" x="18" y="13" width="15" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
-                                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            }
-        }
-    </table>
-    <div class="row">
-        <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-        </div>
-        <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-        <div class="dataTables_paginate paging_simple_numbers" id="kt_ecommerce_products_table_paginate">
+    <div class="py-5">
+        <table id="kt_datatable_example_2" class="table table-striped table-row-bordered gy-5 gs-7">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800">
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Lessons Number</th>
+                    <th>Average Rank</th>
+                    <th>Get</th>
+                </tr>
+            </thead>
             @{
-                if (Model.MetaData.TotalPages > 1 && Model.MetaData.CurrentPage <= Model.MetaData.TotalPages)
+                foreach (var item in Model.Salaries!)
                 {
-                    <ul class="pagination pagination-outline">
-                        @{
-                            if (@Model.MetaData.HasPrevious)
-                            {
-                                <li class="page-item previous m-1">
-                                    <a asp-controller="Salaries" asp-action="Index" asp-route-page="@(Model.MetaData.CurrentPage-1)" class="page-link"><i class="previous"></i></a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="page-item previous disabled m-1">
-                                    <a href="#" class="page-link"><i class="previous"></i></a>
-                                </li>
-                            }
-                            if (Model.MetaData.TotalPages > 5)
-                            {
-                                if (Model.MetaData.CurrentPage == 1)
-                                {
-                                    <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="1" class="page-link">1</a></li>
-                                }
-                                else
-                                {
-                                    <li class="page-item m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="1" class="page-link">1</a></li>
-                                }
-                                if (Model.MetaData.CurrentPage < 4)
-                                {
-                                    if (2 == Model.MetaData.CurrentPage)
-                                    {
-                                        <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="2" class="page-link">2</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="3" class="page-link">3</a></li>
-                                    }
-                                    <li class="page-item disabled"><a class="page-link">...</a></li>
-                                }
-                                else if (Model.MetaData.CurrentPage >= 4 && Model.MetaData.CurrentPage < Model.MetaData.TotalPages - 2)
-                                {
-                                    <li class="page-item disabled"><a class="page-link">...</a></li>
-                                    <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@Model.MetaData.CurrentPage" class="page-link">@Model.MetaData.CurrentPage</a></li>
-                                    <li class="page-item disabled"><a class="page-link">...</a></li>
-                                }
-                                else if (Model.MetaData.CurrentPage >= Model.MetaData.TotalPages - 2)
-                                {
-                                    <li class="page-item disabled"><a class="page-link">...</a></li>
-                                    if (Model.MetaData.TotalPages - 2 == Model.MetaData.CurrentPage)
-                                    {
-                                        <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@(Model.MetaData.TotalPages - 2)" class="page-link">@(Model.MetaData.TotalPages - 2)</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@(Model.MetaData.TotalPages - 1)" class="page-link">@(Model.MetaData.TotalPages - 1)</a></li>
-                                    }
-                                }
-                                if (Model.MetaData.TotalPages == Model.MetaData.CurrentPage)
-                                {
-                                    <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@Model.MetaData.TotalPages" class="page-link">@Model.MetaData.TotalPages</a></li>
-                                }
-                                else
-                                {
-                                    <li class="page-item m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@Model.MetaData.TotalPages" class="page-link">@Model.MetaData.TotalPages</a></li>
-                                }
-                            }
-                            else
-                            {
-                                for (int _page = 1; _page <= Model.MetaData.TotalPages; _page++)
-                                {
 
-                                    if (_page == Model.MetaData.CurrentPage)
+                    <tbody>
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.LessonsNumber</td>
+                            <td>
+                                @{
+                                    if (item.AverageRank == 0)
                                     {
-                                        <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@_page" class="page-link">@_page</a></li>
+                                        <span class="badge badge-secondary">
+                                            @item.AverageRank
+                                        </span>
+                                    }
+                                    else if (item.AverageRank >= 3.5)
+                                    {
+                                        <span class="badge badge-primary">
+                                            @($"{item.AverageRank:.0}")
+                                        </span>
+                                    }
+                                    else if (item.AverageRank >= 2.5 && 3.5 > item.AverageRank)
+                                    {
+                                        <span class="badge badge-warning">
+                                            @($"{item.AverageRank:.0}")
+                                        </span>
                                     }
                                     else
                                     {
-                                        <li class="page-item m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@_page" class="page-link">@_page</a></li>
+                                        <span class="badge badge-danger">
+                                            @($"{item.AverageRank:.0}")
+                                        </span>
                                     }
                                 }
-                            }
-                            if (Model.MetaData.HasNext)
-                            {
-                                <li class="page-item next m-1"><a asp-controller="Salaries" asp-action="Index" asp-route-page="@(Model.MetaData.CurrentPage + 1)" class="page-link"><i class="next"></i></a></li>
-                            }
-                            else
-                            {
-                                <li class="page-item next disabled m-1"><a href="#" class="page-link"><i class="next"></i></a></li>
-                            }
-                        }
-                    </ul>
+                            </td>
+                            <td>
+                                <a asp-controller="Salaries" asp-action="GetAllById" asp-route-teacherId="@item.Id" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-teacherName="@(item.FirstName + " " + item.LastName)" class="btn btn-secondary fs-10 w-50px">
+                                    <span class="svg-icon svg-icon-muted">
+                                        <svg width="2" height="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="18" y="13" width="15" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                 }
             }
-        </div>
+        </table>
+        <div class="row">
+            <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+            </div>
+            <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+                <div class="dataTables_paginate paging_simple_numbers" id="kt_ecommerce_products_table_paginate">
+                    @{
+                        if (Model.Salaries.MetaData.TotalPages > 1 && Model.Salaries.MetaData.CurrentPage <= Model.Salaries.MetaData.TotalPages)
+                        {
+                            <ul class="pagination pagination-outline">
+                                @{
+                                    if (@Model.Salaries.MetaData.HasPrevious)
+                                    {
+                                        <li class="page-item previous m-1">
+                                            <a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.CurrentPage-1)" class="page-link"><i class="previous"></i></a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item previous disabled m-1">
+                                            <a href="#" class="page-link"><i class="previous"></i></a>
+                                        </li>
+                                    }
+                                    if (Model.Salaries.MetaData.TotalPages > 5)
+                                    {
+                                        if (Model.Salaries.MetaData.CurrentPage == 1)
+                                        {
+                                            <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="1" class="page-link">1</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="1" class="page-link">1</a></li>
+                                        }
+                                        if (Model.Salaries.MetaData.CurrentPage < 4)
+                                        {
+                                            if (2 == Model.Salaries.MetaData.CurrentPage)
+                                            {
+                                                <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="2" class="page-link">2</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="2" class="page-link">2</a></li>
+                                            }
+                                            if (3 == Model.Salaries.MetaData.CurrentPage)
+                                            {
+                                                <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="3" class="page-link">3</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="3" class="page-link">3</a></li>
+                                            }
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                                        }
+                                        else if (Model.Salaries.MetaData.CurrentPage >= Model.Salaries.MetaData.TotalPages - 2)
+                                        {
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                                            if (Model.Salaries.MetaData.TotalPages - 2 == Model.Salaries.MetaData.CurrentPage)
+                                            {
+                                                <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.TotalPages -2)" class="page-link">@(Model.Salaries.MetaData.TotalPages -2)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.TotalPages -2)" class="page-link">@(Model.Salaries.MetaData.TotalPages - 2)</a></li>
+                                            }
+                                            if (Model.Salaries.MetaData.TotalPages - 1 == Model.Salaries.MetaData.CurrentPage)
+                                            {
+                                                <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.TotalPages -1)" class="page-link">@(Model.Salaries.MetaData.TotalPages - 1)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.TotalPages -1)" class="page-link">@(Model.Salaries.MetaData.TotalPages -1)</a></li>
+                                            }
+                                        }
+                                        else if (Model.Salaries.MetaData.CurrentPage >= 4 && Model.Salaries.MetaData.CurrentPage < Model.Salaries.MetaData.TotalPages - 2)
+                                        {
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+
+                                            <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@Model.Salaries.MetaData.CurrentPage" class="page-link">@Model.Salaries.MetaData.CurrentPage</a></li>
+
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                                        }
+                                        if (Model.Salaries.MetaData.TotalPages == Model.Salaries.MetaData.CurrentPage)
+                                        {
+                                            <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@Model.Salaries.MetaData.TotalPages" class="page-link">@Model.Salaries.MetaData.TotalPages</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@Model.Salaries.MetaData.TotalPages" class="page-link">@Model.Salaries.MetaData.TotalPages</a></li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int _page = 1; _page <= Model.Salaries.MetaData.TotalPages; _page++)
+                                        {
+
+                                            if (_page == Model.Salaries.MetaData.CurrentPage)
+                                            {
+                                                <li class="page-item active m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@_page" class="page-link">@_page</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@_page" class="page-link">@_page</a></li>
+                                            }
+                                        }
+                                    }
+                                    if (Model.Salaries.MetaData.HasNext)
+                                    {
+                                        <li class="page-item next m-1"><a asp-controller="Salaries" asp-action="GetAllByDateGet" asp-route-start="@Model.StartDate" asp-route-end="@Model.EndDate" asp-route-page="@(Model.Salaries.MetaData.CurrentPage + 1)" class="page-link"><i class="next"></i></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item next disabled m-1"><a href="#" class="page-link"><i class="next"></i></a></li>
+                                    }
+                                }
+                            </ul>
+                        }
+                    }
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</form>

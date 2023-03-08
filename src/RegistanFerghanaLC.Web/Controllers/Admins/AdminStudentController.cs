@@ -44,6 +44,7 @@ public class AdminStudentController : Controller
         }
         else return Register();
     }
+
     [HttpGet]
     public async Task<IActionResult> Index(int page = 1)
     {
@@ -62,6 +63,7 @@ public class AdminStudentController : Controller
         }
         return View();
     }
+
     [HttpPost("delete")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
@@ -70,4 +72,24 @@ public class AdminStudentController : Controller
         return View();
     }
 
+    [HttpGet("update")]
+    public async Task<ViewResult> Update(int id)
+    {
+        var student = await _adminStudentService.GetByIdAsync(id);
+        if (student != null) { return View(student); }
+        else return View();
+    }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateAsync(int id, StudentAllUpdateDto dto)
+    {
+        var student = await _adminStudentService.GetByIdAsync(id);
+        if (student != null) 
+        {
+            var res = await _adminStudentService.UpdateAsync(id, dto);
+            if (res) return RedirectToAction("index", "home", new { area = "" });
+            return View(student);
+        }
+        return View();
+    }
 }

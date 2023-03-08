@@ -5583,7 +5583,7 @@ textarea.form-control-lg {
 .page-link {
     position: relative;
     display: block;
-    color: #5E6278;
+    color: #FF6D0E;
     background-color: transparent;
     border: 0 solid transparent;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5599,14 +5599,14 @@ textarea.form-control-lg {
     z-index: 2;
     color: #FF6D0E;
     text-decoration: none;
-    background-color: #F1FAFF;
+    background-color: #FFF5F1;
     border-color: transparent;
 }
 
 .page-link:focus {
     z-index: 3;
     color: #FF6D0E;
-    background-color: #F1FAFF;
+    background-color: #FFF5F1;
     outline: 0;
     box-shadow: none;
 }
@@ -34563,12 +34563,12 @@ a {
     }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link i, .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link i {
-            color: #5E6278;
+            color: #FF6D0E;
         }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g), .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
             transition: fill 0.3s ease;
-            fill: #5E6278;
+            fill: #FF6D0E;
         }
 
         .page-item.next:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g), .page-item.previous:not(:hover):not(:focus):not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34590,12 +34590,12 @@ a {
         }
 
     .page-item:focus:not(.disabled) .page-link i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .page-item:focus:not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .page-item:focus:not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34617,12 +34617,12 @@ a {
     }
 
     .page-item:hover:not(.disabled) .page-link i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .page-item:hover:not(.disabled) .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .page-item:hover:not(.disabled) .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34671,12 +34671,12 @@ a {
     }
 
     .page-item.disabled .page-link i {
-        color: #B5B5C3;
+        color: #FF6D0E;
     }
 
     .page-item.disabled .page-link .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #B5B5C3;
+        fill: #FF6D0E;
     }
 
     .page-item.disabled .page-link .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37389,23 +37389,23 @@ a {
 .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-hover-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-hover-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-hover-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-hover-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -37415,7 +37415,7 @@ a {
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-hover-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-hover-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-arrow:after,
@@ -37434,20 +37434,20 @@ a {
 
 .menu-show-primary .menu-item.here > .menu-link, .menu-show-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-title, .menu-show-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-icon i, .menu-show-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-show-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-show-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37455,7 +37455,7 @@ a {
     }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-bullet .bullet, .menu-show-primary .menu-item.show > .menu-link .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-show-primary .menu-item.here > .menu-link .menu-arrow:after, .menu-show-primary .menu-item.show > .menu-link .menu-arrow:after {
@@ -37473,20 +37473,20 @@ a {
 
 .menu-active-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-active-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-active-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-active-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-active-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37494,7 +37494,7 @@ a {
     }
 
     .menu-active-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-active-primary .menu-item .menu-link.active .menu-arrow:after {
@@ -37513,23 +37513,23 @@ a {
 .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-state-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-state-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-state-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-state-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -37539,7 +37539,7 @@ a {
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-state-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-arrow:after,
@@ -37562,16 +37562,16 @@ a {
 }
 
     .menu-state-primary .menu-item.here > .menu-link .menu-title, .menu-state-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.here > .menu-link .menu-icon i, .menu-state-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-state-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-state-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37597,20 +37597,20 @@ a {
 
 .menu-state-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37618,7 +37618,7 @@ a {
     }
 
     .menu-state-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-state-primary .menu-item .menu-link.active .menu-arrow:after {
@@ -37637,7 +37637,7 @@ a {
 .menu-hover-bg-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-hover-bg-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37683,7 +37683,7 @@ a {
 
 .menu-show-bg-primary .menu-item.here > .menu-link, .menu-show-bg-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37723,7 +37723,7 @@ a {
 
 .menu-active-bg-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37764,7 +37764,7 @@ a {
 .menu-state-bg-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-state-bg-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37810,7 +37810,7 @@ a {
 
 .menu-state-bg-primary .menu-item.here > .menu-link, .menu-state-bg-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37850,7 +37850,7 @@ a {
 
 .menu-state-bg-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #009EF7;
+    background-color: #FF6D0E;
     color: #FFFFFF;
 }
 
@@ -37891,20 +37891,20 @@ a {
 .menu-show-bg-light-primary .menu-item.here > .menu-link, .menu-show-bg-light-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-title, .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-icon i, .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37912,7 +37912,7 @@ a {
     }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-bullet .bullet, .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-show-bg-light-primary .menu-item.here > .menu-link .menu-arrow:after, .menu-show-bg-light-primary .menu-item.show > .menu-link .menu-arrow:after {
@@ -37932,23 +37932,23 @@ a {
 .menu-hover-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-hover-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-hover-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-hover-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -37958,7 +37958,7 @@ a {
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-hover-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-hover-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-arrow:after,
@@ -37978,20 +37978,20 @@ a {
 .menu-active-bg-light-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -37999,7 +37999,7 @@ a {
     }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-active-bg-light-primary .menu-item .menu-link.active .menu-arrow:after {
@@ -38018,20 +38018,20 @@ a {
 .menu-state-bg-light-primary .menu-item.here > .menu-link, .menu-state-bg-light-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-title, .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-icon i, .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38039,7 +38039,7 @@ a {
     }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-bullet .bullet, .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.here > .menu-link .menu-arrow:after, .menu-state-bg-light-primary .menu-item.show > .menu-link .menu-arrow:after {
@@ -38059,23 +38059,23 @@ a {
 .menu-state-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-state-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-state-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-state-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -38085,7 +38085,7 @@ a {
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-state-bg-light-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-arrow:after,
@@ -38105,20 +38105,20 @@ a {
 .menu-state-bg-light-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
     background-color: #F1FAFF;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38126,7 +38126,7 @@ a {
     }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
     .menu-state-bg-light-primary .menu-item .menu-link.active .menu-arrow:after {
@@ -38145,59 +38145,59 @@ a {
 .menu-hover-title-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-hover-title-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-hover-title-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-hover-title-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-show-title-primary .menu-item.here > .menu-link, .menu-show-title-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-show-title-primary .menu-item.here > .menu-link .menu-title, .menu-show-title-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-active-title-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-active-title-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-state-title-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
 .menu-state-title-primary .menu-item .menu-link:hover:not(.disabled):not(.active) {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-title-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-title,
     .menu-state-title-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-state-title-primary .menu-item.here > .menu-link, .menu-state-title-primary .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-title-primary .menu-item.here > .menu-link .menu-title, .menu-state-title-primary .menu-item.show > .menu-link .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-state-title-primary .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    color: #009EF7;
+    color: #FF6D0E;
 }
 
     .menu-state-title-primary .menu-item .menu-link.active .menu-title {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
 .menu-hover-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
@@ -38207,13 +38207,13 @@ a {
 
     .menu-hover-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-hover-icon-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-hover-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-hover-icon-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-hover-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -38226,12 +38226,12 @@ a {
 }
 
     .menu-show-icon-primary .menu-item.here > .menu-link .menu-icon i, .menu-show-icon-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-show-icon-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-show-icon-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-show-icon-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-show-icon-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38243,12 +38243,12 @@ a {
 }
 
     .menu-active-icon-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-active-icon-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-active-icon-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38262,13 +38262,13 @@ a {
 
     .menu-state-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon i,
     .menu-state-icon-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g),
     .menu-state-icon-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g),
@@ -38281,12 +38281,12 @@ a {
 }
 
     .menu-state-icon-primary .menu-item.here > .menu-link .menu-icon i, .menu-state-icon-primary .menu-item.show > .menu-link .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g), .menu-state-icon-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item.here > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g), .menu-state-icon-primary .menu-item.show > .menu-link .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38298,12 +38298,12 @@ a {
 }
 
     .menu-state-icon-primary .menu-item .menu-link.active .menu-icon i {
-        color: #009EF7;
+        color: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item .menu-link.active .menu-icon .svg-icon svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #009EF7;
+        fill: #FF6D0E;
     }
 
     .menu-state-icon-primary .menu-item .menu-link.active .menu-icon .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -38317,7 +38317,7 @@ a {
 
     .menu-hover-bullet-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-hover-bullet-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-show-bullet-primary .menu-item.here > .menu-link, .menu-show-bullet-primary .menu-item.show > .menu-link {
@@ -38325,7 +38325,7 @@ a {
 }
 
     .menu-show-bullet-primary .menu-item.here > .menu-link .menu-bullet .bullet, .menu-show-bullet-primary .menu-item.show > .menu-link .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-active-bullet-primary .menu-item .menu-link.active {
@@ -38333,7 +38333,7 @@ a {
 }
 
     .menu-active-bullet-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-state-bullet-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
@@ -38343,7 +38343,7 @@ a {
 
     .menu-state-bullet-primary .menu-item.hover > .menu-link:not(.disabled):not(.active) .menu-bullet .bullet,
     .menu-state-bullet-primary .menu-item .menu-link:hover:not(.disabled):not(.active) .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-state-bullet-primary .menu-item.here > .menu-link, .menu-state-bullet-primary .menu-item.show > .menu-link {
@@ -38351,7 +38351,7 @@ a {
 }
 
     .menu-state-bullet-primary .menu-item.here > .menu-link .menu-bullet .bullet, .menu-state-bullet-primary .menu-item.show > .menu-link .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-state-bullet-primary .menu-item .menu-link.active {
@@ -38359,7 +38359,7 @@ a {
 }
 
     .menu-state-bullet-primary .menu-item .menu-link.active .menu-bullet .bullet {
-        background-color: #009EF7;
+        background-color: #FF6D0E;
     }
 
 .menu-hover-arrow-primary .menu-item.hover > .menu-link:not(.disabled):not(.active),
@@ -38496,7 +38496,7 @@ a {
     }
 
         .anchor:hover a:hover {
-            color: #009EF7;
+            color: #FF6D0E;
             transition: all 0.2s ease;
         }
 
@@ -39821,7 +39821,7 @@ a {
         }
 
     .btn-check:checked + .btn.btn-active-light-warning, .btn-check:active + .btn.btn-active-light-warning, .btn.btn-active-light-warning:focus:not(.btn-active), .btn.btn-active-light-warning:hover:not(.btn-active), .btn.btn-active-light-warning:active:not(.btn-active), .btn.btn-active-light-warning.active, .btn.btn-active-light-warning.show, .show > .btn.btn-active-light-warning {
-        color: #FFC700;
+        color: #FF6D0E;
         border-color: #FFF8DD;
         background-color: #FFF8DD !important;
     }

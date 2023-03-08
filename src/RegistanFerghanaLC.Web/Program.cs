@@ -14,7 +14,7 @@ builder.Services.AddService();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v2", new OpenApiInfo { Title = "RegistonAPI.swagger", Version = "v2"});
-});
+
 
 var app = builder.Build();
 
@@ -32,7 +32,12 @@ app.UseSwaggerUI(c =>
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Registon API V1");
+    c.RoutePrefix = "area/swagger";
+});
 app.UseMiddleware<TokenRedirectMiddleware>();
 
 app.UseStatusCodePages(async context =>
