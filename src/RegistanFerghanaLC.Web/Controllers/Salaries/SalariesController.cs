@@ -15,23 +15,24 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         {
             this._salaryService = salaryService;
         }
+        [HttpGet]
         public async Task<ViewResult> Index(int page = 1)
         {
-            var results = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
+            var results = await _salaryService.GetAllAsync(new PaginationParams(page, _pageSize));
             ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
             ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
-            
+
             return View("Index", results);
         }
 
         [HttpGet("GetAllByDate")]
         public async Task<ViewResult> GetAllByDateAsync(int page = 1)
         {
-            var startDate = DateTime.Parse(Request.QueryString.Value![11..21]); 
+            var startDate = DateTime.Parse(Request.QueryString.Value![11..21]);
             var endDate = DateTime.Parse(Request.QueryString.Value[30..40]);
             if (startDate == DateTime.Now && endDate == DateTime.Now || endDate < startDate)
             {
-                var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize)); 
+                var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize));
                 ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
                 ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
                 return View("Index", results);
@@ -39,7 +40,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
             else
             {
                 var results = await _salaryService.GetAllByDateAsync(new PaginationParams(page, _pageSize), startDate, endDate);
-                ViewBag.start = startDate.ToString("yyyy-MM-dd"); 
+                ViewBag.start = startDate.ToString("yyyy-MM-dd");
                 ViewBag.end = endDate.ToString("yyyy-MM-dd");
                 return View("Index", results);
             }
@@ -49,7 +50,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         [HttpGet("{teacherId}")]
         public async Task<ViewResult> GetAllByIdAsync(int teacherId, int page = 1)
         {
-            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize));
+            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page, _pageSize));
             return View("GetAllById", results);
         }
     }
