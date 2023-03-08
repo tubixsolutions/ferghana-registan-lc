@@ -5,7 +5,7 @@ using RegistanFerghanaLC.Service.Interfaces.Admins;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
-    [Route("teachers")]
+    [Route("adminteachers")]
     public class AdminTeacherController : Controller
     {
         private readonly IAdminTeacherService _adminTeacherService;
@@ -45,7 +45,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             else return Register();
         }
 
-        [HttpGet("delete")] 
+        [HttpGet("delete")]
         public async Task<IActionResult> DeleteTeacherAsync(int Id)
         {
             var result = await _adminTeacherService.DeleteAsync(Id);
@@ -60,16 +60,16 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet("Update")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherid)
         {
-            var teacher = await  _adminTeacherService.GetByIdAsync(teacherid);
+            var teacher = await _adminTeacherService.GetByIdAsync(teacherid);
 
             var dto = new TeacherUpdateDto()
             {
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
-                PhoneNumber= teacher.PhoneNumber,
-                Image= teacher.ImagePath,
-                BirthDate= teacher.BirthDate,
-                Subject= teacher.Subject
+                PhoneNumber = teacher.PhoneNumber,
+                Image = teacher.ImagePath,
+                BirthDate = teacher.BirthDate,
+                Subject = teacher.Subject
             };
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";

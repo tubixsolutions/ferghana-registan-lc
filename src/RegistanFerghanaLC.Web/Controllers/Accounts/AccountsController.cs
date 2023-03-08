@@ -7,7 +7,6 @@ using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 
 namespace RegistanFerghanaLC.Web.Controllers.Accounts;
-[Route("accounts")]
 public class AccountsController : Controller
 {
     private readonly IAccountService _service;
@@ -19,7 +18,7 @@ public class AccountsController : Controller
     [HttpGet("register")]
     [Authorize(Roles = "admin")]
     public ViewResult Register() => View("Register");
-    
+
     [HttpPost("register")]
     public async Task<IActionResult> AdminRegisterAsync(AdminRegisterDto adminRegisterDto)
     {

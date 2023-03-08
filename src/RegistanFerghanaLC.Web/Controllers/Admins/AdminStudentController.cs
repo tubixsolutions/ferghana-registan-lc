@@ -57,7 +57,7 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Delete(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        if(student != null)
+        if (student != null)
         {
             return View(student);
         }
@@ -92,5 +92,4 @@ public class AdminStudentController : Controller
         }
         return View();
     }
-    
 }

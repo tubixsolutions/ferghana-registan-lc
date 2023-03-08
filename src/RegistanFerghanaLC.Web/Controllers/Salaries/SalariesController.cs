@@ -16,7 +16,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         {
             this._salaryService = salaryService;
         }
-
+        [HttpGet]
         public async Task<ViewResult> Index(int page = 1)
         {
             var res = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
@@ -54,7 +54,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
             var ess = endDate.AddDays(1);
             if (startDate == DateTime.Now && endDate == DateTime.Now || endDate < startDate || startDate==endDate)
             {
-                var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize)); 
+                var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize));
                 ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
                 ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
                 var res = new SoftDto()
@@ -68,7 +68,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
             else
             {
                 var results = await _salaryService.GetAllByDateAsync(new PaginationParams(page, _pageSize), startDate, endDate);
-                ViewBag.start = startDate.ToString("yyyy-MM-dd"); 
+                ViewBag.start = startDate.ToString("yyyy-MM-dd");
                 ViewBag.end = endDate.ToString("yyyy-MM-dd");
                 var res = new SoftDto()
                 {
