@@ -8,6 +8,7 @@ using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -61,11 +62,31 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<TeacherViewDto> GetByIdAsync(int id)
     {
-        var temp = await _repository.Teachers.FindByIdAsync(@id);
+        var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
             throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher is not Found");
         var res = _mapper.Map<TeacherViewDto>(temp);
         return res;
+    }
+
+    public async Task<string> LoginAsync(AccountLoginDto dto)
+    {
+        var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber== dto.PhoneNumber);
+        if(teacher is null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "teacher is not found");
+        }
+        var passwordhasher = PasswordHasher.Verify(dto.Password, teacher.Salt, teacher.PasswordHash);
+        if (passwordhasher)
+        {
+            string token = _authService.GenerateToken(teacher, "Teacher");
+            return token;
+        }
+        else
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Incorrect Password");
+        }
+
     }
 
     public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)

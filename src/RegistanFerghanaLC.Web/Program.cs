@@ -44,7 +44,7 @@ app.UseStatusCodePages(async context =>
 {
     if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
     {
-        context.HttpContext.Response.Redirect("accounts/login");
+        context.HttpContext.Response.Redirect("login");
     }
 });
 
