@@ -3,7 +3,7 @@
 
 <div class="d-flex justify-content-center" style="margin-top:250px">
     <div class="card px-4 pt-4 pb-4 pe-4">
-        <form asp-action="delete" asp-controller="admin" asp-area="admin" asp-route-Id="@Model.Id" method="post">
+        <form asp-action="delete" asp-controller="adminstudent" asp-area="admins" asp-route-Id="@Model.Id" method="post">
             <div class="card-body">
                 <h3>
                     Are you sure that you want to delete @Model.FirstName @Model.LastName from the list of students.?
