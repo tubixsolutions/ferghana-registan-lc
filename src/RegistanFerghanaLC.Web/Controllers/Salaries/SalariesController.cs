@@ -32,9 +32,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         [HttpPost("GetAllByDate")]
         public async Task<ViewResult> GetAllByDateAsync(SoftDto softDto)
         {
-            var startDate = DateTime.Parse(Request.QueryString.Value![11..21]);
-            var endDate = DateTime.Parse(Request.QueryString.Value[30..40]);
-            if (startDate == DateTime.Now && endDate == DateTime.Now || endDate < startDate)
             if (ModelState.IsValid)
             {
                 var res = await _salaryService.GetAllByDateAsync(new PaginationParams(softDto.ChoosenPage, _pageSize), DateTime.Parse(softDto.StartDate), DateTime.Parse(softDto.EndDate));
