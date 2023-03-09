@@ -52,6 +52,13 @@ public class AdminStudentController : Controller
         ViewBag.HomeTitle = "Students";
         return View("Index", students);
     }
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(string name, int page = 1)
+    {
+        var students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), name);
+        ViewBag.HomeTitle = "Students";
+        return View("Index", students);
+    }
 
     [HttpGet("delete")]
     public async Task<ViewResult> Delete(int id)
