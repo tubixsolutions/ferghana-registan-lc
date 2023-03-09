@@ -106,23 +106,24 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else return await UpdateRedirectAsync(teacherId);
 
-
-        [HttpGet("duplicate")]
-        public async Task<ActionResult> Duplicate()
-        {
-
-            using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
-            {
-                byte[] file = new byte[stream.Length];
-                await stream.ReadAsync(file, 0, file.Length);
-                return new FileContentResult(file,
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                {
-                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                };
-            }
-
-
         }
-    }
+            [HttpGet("duplicate")]
+        
+            public async Task<ActionResult> Duplicate()
+            {
+
+                using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+                {
+                    byte[] file = new byte[stream.Length];
+                    await stream.ReadAsync(file, 0, file.Length);
+                    return new FileContentResult(file,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    {
+                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                    };
+                }
+
+
+           }
+     }
 }
