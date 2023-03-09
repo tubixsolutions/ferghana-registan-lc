@@ -15,8 +15,8 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         this._dbContext = appDbContext;
         this._dbSet = appDbContext.Set<T>();
     }
-    public virtual void Add(T entity)
-        => _dbSet.Add(entity);
+    public virtual T Add(T entity)
+        => _dbSet.Add(entity).Entity;
 
     public virtual void Delete(int id)
     {
