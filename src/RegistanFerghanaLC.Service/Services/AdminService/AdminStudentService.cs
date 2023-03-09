@@ -95,6 +95,7 @@ public class AdminStudentService : IAdminStudentService
         student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
         student.BirthDate = studentAllUpdateDto.BirthDate;
         student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+        student.Image = studentAllUpdateDto.Image.ToString();
         _repository.Students.Update(id, student);
 
         var result = await _repository.SaveChangesAsync();

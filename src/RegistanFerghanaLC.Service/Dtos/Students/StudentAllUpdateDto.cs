@@ -1,5 +1,7 @@
-﻿using RegistanFerghanaLC.Domain.Entities.Students;
+﻿using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Enums;
+using RegistanFerghanaLC.Service.Common.Attributes;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +9,8 @@ using System.ComponentModel.DataAnnotations;
 namespace RegistanFerghanaLC.Service.Dtos.Students;
 public class StudentAllUpdateDto: AccountRegisterDto
 {
+    [ImageFile]
+    public IFormFile Image { get; set; }
     [Required(ErrorMessage = "Please select a subject.")]
     public string Subject { get; set; } = string.Empty;
     public EnglishLevel StudentLevel { get; set; }
@@ -15,6 +19,7 @@ public class StudentAllUpdateDto: AccountRegisterDto
     {
         return new Student()
         {
+           
             FirstName = studentAllUpdateDto.FirstName,
             LastName = studentAllUpdateDto.LastName,
             PhoneNumber = studentAllUpdateDto.PhoneNumber,
@@ -22,6 +27,7 @@ public class StudentAllUpdateDto: AccountRegisterDto
             CreatedAt = TimeHelper.GetCurrentServerTime(),
             LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
             StudentLevel = studentAllUpdateDto.StudentLevel,
+            Image = studentAllUpdateDto.Image.ToString(),
         };
     }
 }
