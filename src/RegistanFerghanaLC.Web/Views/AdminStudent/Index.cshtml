@@ -30,65 +30,74 @@
         </a>
         <!--end::Add product-->
     </div>
-    <!--end::Card toolbar-->
-</div>
-<!--end::Card header-->
-<!--begin::Card body-->
-<div class="card-body pt-0">
-    <!--begin::Table-->
-    <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-        <div class="table-responsive">
-            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
-                <!--begin::Table head-->
-                <thead>
-                    <!--begin::Table row-->
-                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2" style="width: 29.9px;">Id</th>
-                        <th class="text-start min-w-100px" style="width: 25%">First Name</th>
-                        <th class="text-start min-w-100px" style="width: 25%">Last Name</th>
-                        <th class="text-start min-w-70px" style="width: 25%">Phone Number</th>
-                        <th class="text-start min-w-70px">Modify/Delete</th>
-
-                    </tr>
-                    <!--end::Table row-->
-                </thead>
-                <!--end::Table head-->
-                <!--begin::Table body-->
-                <tbody class="fw-semibold text-gray-600">
-                    @foreach (var student in Model)
-                    {
-                        <tr class="tr-shadow text-dark">
-                            <td class="text-start pe-0">
-                                <span class="fw-bold">@student.Id</span>
-                            </td>
-                            <td class="text-start pe-0">
-                                <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
-                            </td>
-                            <td class="text-start pe-0">
-                                <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
-                            </td>
-                            <td class="text-start pe-0">
-                                <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
-                            </td>
-                            <td>
-                                <div class="table-data-feature ">
-                                    <a asp-area="admins" asp-controller="adminstudent" asp-action="update" asp-route-productId="@student.Id" class="btn btn-warning" style="border-radius: 15px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                        </svg>
-                                    </a>
-                                    <a asp-area="admins" asp-controller="adminstudent" asp-action="delete" asp-route-Id="@student.Id" class="btn btn-danger" style="border-radius: 15px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </td>
+    <!--end::Card header-->
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <!--begin::Table-->
+        <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                    <!--begin::Table head-->
+                    <thead>
+                        <!--begin::Table row-->
+                        <tr data-id ="1" class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th class="w-10px pe-2" style="width: 29.9px;">Id</th>
+                            <th class="text-start min-w-100px" style="width: 25%">First Name</th>
+                            <th class="text-start min-w-100px" style="width: 25%">Last Name</th>
+                            <th class="text-start min-w-70px" style="width: 25%">Phone Number</th>
+                            <th class="text-start min-w-70px">Modify/Delete</th>
+                            <th class="text-start min-w-70px">Get</th>
                         </tr>
-                    }
-                </tbody>
-                <!--end::Table body-->
-            </table>
+                        <!--end::Table row-->
+                    </thead>
+                    <!--end::Table head-->
+                    <!--begin::Table body-->
+                    <tbody class="fw-semibold text-gray-600">
+                        @foreach (var student in Model)
+                        {
+                            <tr class="tr-shadow text-dark">
+                                <td class="text-start pe-0">
+                                    <span class="fw-bold">@student.Id</span>
+                                </td>
+                                <td class="text-start pe-0">
+                                    <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
+                                </td>
+                                <td class="text-start pe-0">
+                                    <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
+                                </td>
+                                <td class="text-start pe-0">
+                                    <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <div class="table-data-feature ">
+                                        <a asp-area="admins" asp-controller="adminstudent" asp-action="update" asp-route-productId="@student.Id" class="btn btn-warning" style="border-radius: 15px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                            </svg>
+                                        </a>
+                                        <a asp-area="admins" asp-controller="adminstudent" asp-action="delete" asp-route-Id="@student.Id" class="btn btn-danger" style="border-radius: 15px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a asp-controller="AdminStudent" asp-action="GetById" class="btn btn-secondary fs-10 w-50px">
+                                        <span class="svg-icon svg-icon-muted">
+                                            <svg width="2" height="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.5" x="18" y="13" width="15" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <!--end::Table body-->
+                </table>
+            </div>
         </div>
     </div>
     <!--end::Table-->
