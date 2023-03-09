@@ -1,4 +1,5 @@
-﻿using RegistanFerghanaLC.Service.Common.Utils;
+﻿using Microsoft.Net.Http.Headers;
+using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 
@@ -11,5 +12,6 @@ public interface IAdminTeacherService
     public Task<TeacherViewDto> GetByIdAsync(int id);
     public Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params);
     public Task<string> LoginAsync(AccountLoginDto dto);
+    public Task<PagedList<TeacherViewDto>> SearchAsync(PaginationParams @params, String name);
 
 }
