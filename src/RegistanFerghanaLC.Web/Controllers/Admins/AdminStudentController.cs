@@ -14,7 +14,7 @@ public class AdminStudentController : Controller
 {
 
     private readonly IAdminStudentService _adminStudentService;
-    private readonly int _pageSize = 6;
+    private readonly int _pageSize = 5;
 
     public AdminStudentController(IAdminStudentService adminStudentService)
     {
@@ -64,7 +64,7 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Delete(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        if(student != null)
+        if (student != null)
         {
             return View(student);
         }
@@ -107,4 +107,5 @@ public class AdminStudentController : Controller
         if (student is not null) return View("GetById", student);
         return View();
     }
+
 }
