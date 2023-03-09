@@ -20,7 +20,15 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet]
         public async Task<IActionResult> Index(string search, int page = 1)
         {
-            var teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            PagedList<TeacherViewDto> teachers;
+            if (String.IsNullOrEmpty(search))
+            {
+                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            }
+            else
+            {
+                teachers = await _adminTeacherService.SearchAsync(new PaginationParams(page, _pageSize), search);
+            }
             ViewBag.HomeTitle = "Teacher";
             ViewBag.AdminTeacherSearch = search;
             return View("Index", teachers);
