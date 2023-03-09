@@ -17,9 +17,18 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string search = "")
         {
-            var teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            PagedList<TeacherViewDto> teachers;
+            if (search == "")
+            {
+                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            }
+            else
+            {
+                // write search method
+                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            }
             ViewBag.HomeTitle = "Teacher";
             return View("Index", teachers);
         }
@@ -57,10 +66,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 return RedirectToAction("Index", "Teachers", new { area = "" });
 
         }
-        [HttpGet("Update")]
-        public async Task<IActionResult> UpdateRedirectAsync(int teacherid)
+
+        [HttpGet("updateredirect")]
+        public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
-            var teacher = await _adminTeacherService.GetByIdAsync(teacherid);
+            var teacher = await _adminTeacherService.GetByIdAsync(teacherId);
 
             var dto = new TeacherUpdateDto()
             {
