@@ -28,6 +28,7 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
 
 
         [HttpGet("subject")]
+
         public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1) 
             => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
 

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Services.AdminService;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
@@ -58,19 +59,24 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             else return Register();
         }
 
-        [HttpGet("delete")]
-        public async Task<IActionResult> DeleteTeacherAsync(int Id)
+        [HttpGet("Delete")]
+        public async Task<ViewResult> DeleteAsync(int id)
         {
-            var result = await _adminTeacherService.DeleteAsync(Id);
-            if (result)
+            var teacher = await _adminTeacherService.GetByIdAsync(id);
+            if (teacher != null)
             {
-                return RedirectToAction("Index", "Teachers", new { area = "" });
+                return View("Delete", teacher);
             }
-            else
-                return RedirectToAction("Index", "Teachers", new { area = "" });
-
+            return View("adminteacher");
         }
 
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteTeacherAsync(int Id)
+        {
+            var res = await _adminTeacherService.DeleteAsync(Id);
+            if (res) return RedirectToAction("index", "adminteacher", new { area = "" });
+            return View();
+        }
         [HttpGet("updateredirect")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
@@ -87,24 +93,37 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             };
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";
+            ViewBag.teacherId = teacherId;
             return View("Update", dto);
         }
-
-        [HttpGet("duplicate")]
-        public async Task<ActionResult> Duplicate()
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
         {
-
-            using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+            var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
+            if (res)
             {
-                byte[] file = new byte[stream.Length];
-                await stream.ReadAsync(file, 0, file.Length);
-                return new FileContentResult(file,
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                {
-                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                };
+                return RedirectToAction("Index", "adminteachers", new { area = "" });
             }
+            else return await UpdateRedirectAsync(teacherId);
 
         }
-    }
+            [HttpGet("duplicate")]
+        
+            public async Task<ActionResult> Duplicate()
+            {
+
+                using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+                {
+                    byte[] file = new byte[stream.Length];
+                    await stream.ReadAsync(file, 0, file.Length);
+                    return new FileContentResult(file,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    {
+                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                    };
+                }
+
+
+           }
+     }
 }

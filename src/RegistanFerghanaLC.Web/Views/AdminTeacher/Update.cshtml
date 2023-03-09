@@ -3,7 +3,7 @@
 
 <div class="card w-550px h-630px mt-10 mb-10" style="margin-left:auto; margin-right:auto;">
     <div class="py-10 pe-10 px-10">
-        <form asp-controller="teachers" enctype="multipart/form-data" asp-action="update" asp-route-teacherid="@ViewBag.orderId" method="post">
+        <form asp-controller="adminteachers" enctype="multipart/form-data" asp-action="update" asp-route-teacherId="@ViewBag.teacherId" method="post">
             <label class="form-label fs-2 text-primary" style="">Teacher Update</label>
             <div class="mt-5">
                 <label class="required form-label text-primary">FirstName</label>
@@ -43,23 +43,23 @@
                 <input type="text" asp-for=TeacherLevel class="form-control form-control-solid" />
                 <span asp-validation-for="TeacherLevel" class="text-danger"></span>
             </div>
-            <div class="mt-5">
-                <label class="required form-label text-primary">Subject</label>
-                <input type="text" asp-for=WorkDays class="form-control form-control-solid" />
-                <span asp-validation-for="WorkDays" class="text-danger"></span>
-            </div>
-            <div class="mt-5">
-                <label class="required form-label text-primary">Part of day</label>
-                <input type="text" asp-for=PartOfDay class="form-control form-control-solid" />
-                <span asp-validation-for="PartOfDay" class="text-danger"></span>
-            </div>
+            <label class="required form-label text-dark mt-5">Work days</label>
+            <select class="form-select form-select-solid" asp-for=WorkDays name="Part" id="Part" aria-label="Select example">
+                <option value="true">Odd</option>
+                <option value="false">Even</option>
+            </select>
+            <label class="required form-label text-dark mt-5">Part Day</label>
+            <select class="form-select form-select-solid" asp-for=PartOfDay name="Part" id="Part" aria-label="Select example">
+                <option value="true">Morning</option>
+                <option value="false">Afternoon</option>
+            </select>
 
 
             <div class="mt-8">
                 <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="UPDATE" />
             </div>
             <div class="mt-5 mb-8">
-                <a class="btn btn-secondary" asp-controller="teachers" asp-action="index" style="width:100%">
+                <a class="btn btn-secondary" asp-controller="adminteachers" asp-action="index" style="width:100%">
                     CLOSE
                 </a>
             </div>
