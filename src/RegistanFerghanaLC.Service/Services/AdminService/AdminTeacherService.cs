@@ -106,7 +106,7 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<PagedList<TeacherViewDto>> SearchAsync(PaginationParams @params, string name)
     {
-        var query = _repository.Teachers.GetAll().Where(x => x.FirstName.ToLower() == name.ToLower() || x.LastName.ToLower() == name.ToLower()).OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        var query = _repository.Teachers.GetAll().Where(x => x.FirstName.ToLower().StartsWith(name.ToLower()) || x.LastName.ToLower().StartsWith(name.ToLower())).OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
 
     }

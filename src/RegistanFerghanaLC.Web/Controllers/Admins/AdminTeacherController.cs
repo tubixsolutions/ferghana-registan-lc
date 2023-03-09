@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -17,19 +18,19 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1, string search = "")
+        public async Task<IActionResult> Index(string search, int page = 1)
         {
             PagedList<TeacherViewDto> teachers;
-            if (search == "")
+            if (String.IsNullOrEmpty(search))
             {
                 teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
             }
             else
             {
-                // write search method
-                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+                teachers = await _adminTeacherService.SearchAsync(new PaginationParams(page, _pageSize), search);
             }
             ViewBag.HomeTitle = "Teacher";
+            ViewBag.AdminTeacherSearch = search;
             return View("Index", teachers);
         }
 
