@@ -8,7 +8,7 @@ public interface IRepository<T> where T : BaseEntity
 
     public Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression);
 
-    public void Add(T entity);
+    public T Add(T entity);
 
     public void Update(int id, T entity);
 

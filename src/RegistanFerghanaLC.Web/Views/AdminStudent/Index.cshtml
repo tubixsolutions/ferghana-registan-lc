@@ -2,35 +2,44 @@
 @using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 @model PagedList<StudentBaseViewModel>
 
-
-<!--begin::Card header-->
-<div class="card-header align-items-center py-5 gap-2 gap-md-5">
-    <!--begin::Card title-->
-    <div class="card-title">
-        <!--begin::Search-->
-        <div class="d-flex align-items-center position-relative my-1">
-            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-            <span class="svg-icon svg-icon-1 position-absolute ms-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
-                    <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
-                </svg>
-            </span>
-            <!--end::Svg Icon-->
-            <input type="text" class="form-control form-control-solid w-250px ps-14" placeholder="Search Student">
+<div class="card card-flush">
+    <!--begin::Card header-->
+    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+        <!--begin::Card title-->
+        <div class="card-title">
+            <!--begin::Search-->
+            <form data-kt-search-element="form" class="justify-content-end position-relative mb-5 border border-gray-300" autocomplete="off" style="border-color:#fff;border-radius:7px;">
+                <input type="hidden" />
+                <!--end::Hidden input-->
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute ms-4 top-50  translate-middle-y">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="#7239EA"></rect>
+                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="#7239EA"></path>
+                    </svg>
+                </span>
+                <!--end::Icon-->
+                <!--begin::Input-->
+                <input type="text" class="form-control form-control-lg form-control-solid px-15"
+                    name="search"
+                    value="@ViewBag.AdminTeacherSearch"
+                    placeholder="Search ..."
+                    data-kt-search-element="input" />
+                </form>
+            <!--end::Search-->
         </div>
-        <!--end::Search-->
-    </div>
-    <!--end::Card title-->
-    <!--begin::Card toolbar-->
-    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-        <!--begin::Add product-->
-        <a asp-controller="AdminStudent" asp-action="RegisterStudent" class="btn btn-registan">
-            Add Student
-        </a>
-        <!--end::Add product-->
-    </div>
+        <!--end::Card title-->
+        <!--begin::Card toolbar-->
+        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+            <!--begin::Add product-->
+            <a asp-controller="AdminStudent" asp-action="RegisterStudent" class="btn btn-registan">
+                Add Student
+            </a>
+            <!--end::Add product-->
+        </div>
+     </div>
     <!--end::Card header-->
+
     <!--begin::Card body-->
     <div class="card-body pt-0">
         <!--begin::Table-->
@@ -53,55 +62,59 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody class="fw-semibold text-gray-600">
-                        @foreach (var student in Model)
+                        @if (Model != null)
                         {
-                            <tr class="tr-shadow text-dark">
-                                <td class="text-start pe-0">
-                                    <span class="fw-bold">@student.Id</span>
-                                </td>
-                                <td class="text-start pe-0">
-                                    <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
-                                </td>
-                                <td class="text-start pe-0">
-                                    <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
-                                </td>
-                                <td class="text-start pe-0">
-                                    <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
-                                </td>
-                                <td>
-                                    <div class="table-data-feature ">
-                                        <a asp-area="admins" asp-controller="adminstudent" asp-action="update" asp-route-productId="@student.Id" class="btn btn-warning" style="border-radius: 15px">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                            </svg>
+                            foreach (var student in Model)
+                            {
+                                <tr class="tr-shadow text-dark">
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold">@student.Id</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
+                                    </td>
+                                    <td>
+                                        <div class="table-data-feature ">
+                                            <a  asp-controller="AdminStudent" asp-action="update"  asp-route-productId="@student.Id" class="btn btn-warning" style="border-radius: 15px">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                </svg>
+                                            </a>
+                                            <a  asp-controller="AdminStudent" asp-action="delete" asp-route-Id="@student.Id" class="btn btn-danger" style="border-radius: 15px">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="AdminStudent" asp-action="GetById" class="btn btn-secondary fs-10 w-50px">
+                                            <span class="svg-icon svg-icon-muted">
+                                                <svg width="2" height="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.5" x="18" y="13" width="15" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                                    <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
+                                                </svg>
+                                            </span>
                                         </a>
-                                        <a asp-area="admins" asp-controller="adminstudent" asp-action="delete" asp-route-Id="@student.Id" class="btn btn-danger" style="border-radius: 15px">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a asp-controller="AdminStudent" asp-action="GetById" class="btn btn-secondary fs-10 w-50px">
-                                        <span class="svg-icon svg-icon-muted">
-                                            <svg width="2" height="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.5" x="18" y="13" width="15" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
-                                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                     <!--end::Table body-->
                 </table>
             </div>
         </div>
-    </div>
     <!--end::Table-->
-    <div class="row">
+    </div>
+    <!--end::Card body-->
+    <div class="row mb-5 mx-5">
         <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
         </div>
         <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
@@ -155,7 +168,7 @@
                                     }
                                     else if (Model.MetaData.CurrentPage >= Model.MetaData.TotalPages - 2)
                                     {
-                                        <li class="page-item disabled m-1"><a class="page-link">...</a></li>
+                                        <li class="page-item disabled"><a class="page-link">...</a></li>
                                         if (Model.MetaData.TotalPages - 2 == Model.MetaData.CurrentPage)
                                         {
                                             <li class="page-item active m-1"><a asp-controller="AdminStudent" asp-action="Index" asp-route-page="@(Model.MetaData.TotalPages -2)" class="page-link">@(Model.MetaData.TotalPages - 2)</a></li>
@@ -175,7 +188,7 @@
                                     }
                                     else if (Model.MetaData.CurrentPage >= 4 && Model.MetaData.CurrentPage < Model.MetaData.TotalPages - 2)
                                     {
-                                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                                        <li class="page-item disabled m-1"><a class="page-link">...</a></li>
 
                                         <li class="page-item active m-1"><a asp-controller="AdminStudent" asp-action="Index" asp-route-page="@Model.MetaData.CurrentPage" class="page-link">@Model.MetaData.CurrentPage</a></li>
 
@@ -221,4 +234,3 @@
         </div>
     </div>
 </div>
-<!--end::Card body-->
