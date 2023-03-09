@@ -92,5 +92,12 @@ public class AdminStudentController : Controller
         }
         return View();
     }
-    
+
+    [HttpGet("getbyid")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var student = await _adminStudentService.GetByIdAsync(id);
+        if (student is not null) return View("GetById", student);
+        return View();
+    }
 }
