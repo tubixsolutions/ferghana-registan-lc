@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Students;
 
 namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
 {
@@ -9,20 +10,21 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
     public class HomeController : BaseController
     {
         private readonly int _pageSize = 1;
-        private readonly IAdminStudentService _studentService;
-
-        public HomeController(IAdminStudentService studentService)
+        private readonly IAdminStudentService _adminstudentService;
+        private readonly IStudentService _studentService;
+        public HomeController(IAdminStudentService adminStudentService, IStudentService studentService)
         {
+            this._adminstudentService = adminStudentService;
             this._studentService = studentService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1) 
-            => Ok(await _studentService.GetAllAsync(new PaginationParams(page, _pageSize)));
+            => Ok(await _adminstudentService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id) 
-            => Ok(await _studentService.DeleteAsync(id));
+        [HttpGet("subject")]
+        public async Task<IActionResult> DeleteAsync(string subject, int page = 1) 
+            => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
     }
 }
