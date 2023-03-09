@@ -32,7 +32,7 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var student =  _repository.Students.FirstOrDefault(x => x.Id == id);
+        var student =  _repository.Students.FindByIdAsync(id);
         if (student is null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found.");
@@ -52,7 +52,7 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
     {
-        var student = await _repository.Students.FindByIdAsync(id);
+        var student = await _repository.Students.FindByIdAsync(@id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
 
