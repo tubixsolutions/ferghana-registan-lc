@@ -8,18 +8,18 @@
     <div class="py-10 pe-10 px-10">
         <form asp-controller="accounts" asp-action="Login" method="post" >
             <div class="text-center mb-11">
-                <h1 class="text-dark fw-bolder mb-3">
+                <h1 class="text-registan fw-bolder mb-3">
                     Sign In
                 </h1>
             </div>
             <div class="form__inputBox mt-5">
-                <label class="required form-label">Phone Number</label>
-                <input type="text" asp-for=PhoneNumber class="form-control form-control-solid"/>
+                <label class="required form-label text-registan">Phone Number</label>
+                <input type="text" asp-for=PhoneNumber placeholder="+998991112233" class="form-control form-control-solid"/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form__inputBox mt-5 ">
-                <label class="required form-label">Password</label>
-                <input type="password" asp-for=Password class="form-control form-control-solid"/>
+                <label class="required form-label text-registan">Password</label>
+                <input type="password" asp-for=Password placeholder="Password" class="form-control form-control-solid"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mt-20 mb-10">
