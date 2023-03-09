@@ -44,7 +44,7 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params)
     {
-        var query = _repository.Teachers.GetAll().Select(x => _mapper.Map<TeacherViewDto>(x));
+        var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
         //new TeacherViewDto
         //{
         //    id= x.Id,
@@ -102,6 +102,13 @@ public class AdminTeacherService : IAdminTeacherService
         _repository.Teachers.Add(newTeacher);
         var dbResult = await _repository.SaveChangesAsync();
         return dbResult > 0;
+    }
+
+    public async Task<PagedList<TeacherViewDto>> SearchAsync(PaginationParams @params, string name)
+    {
+        var query = _repository.Teachers.GetAll().Where(x => x.FirstName.ToLower() == name.ToLower() || x.LastName.ToLower() == name.ToLower()).OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
+
     }
 
     public async Task<bool> UpdateAsync(TeacherUpdateDto dto, int id)
