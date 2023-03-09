@@ -1,62 +1,69 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Students;
-@model StudentAllUpdateDto
+@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
+@model StudentViewModel;
 
-<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right: auto; box-shadow: 0px 0px 15px gray;">
-    <!--begin::Form-->
-    <form asp-controller="adminstudent" asp-action="update" method="post">
-        <!--begin::Heading-->
-        <div class="text-center mb-11">
-            <h1 class="text-dark fw-bolder mb-3">
-                Update a student info.
-            </h1>
-        </div>
-        <!--begin::Heading-->
-        <!--begin::Input group--->
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for=FirstName placeholder="First Name" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="FirstName" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="LastName" placeholder="Last Name" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="date" asp-for=BirthDate placeholder="Birth Date" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="BirthDate" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="Subject" placeholder="Subject" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="Subject" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="tel" asp-for="PhoneNumber" placeholder="+998yyxxxzzzz" autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-        <!--begin::Input group-->
-        <div class="fv-row mb-8 fv-plugins-icon-container" data-kt-password-meter="true">
-            <!--begin::Wrapper-->
-            <div class="mb-1">
-                <!--begin::Input wrapper-->
-                <div class="position-relative mb-3">
-                    <input class="form-control bg-transparent" asp-for=Password type="password" placeholder="Password" autocomplete="off">
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                        <i class="bi bi-eye-slash fs-2"></i>
-                        <i class="bi bi-eye fs-2 d-none"></i>
-                    </span>
-                </div>
-                <!--end::Input wrapper-->
+<div class="card w-550px h-630px mt-10 mb-10" style="margin-left:auto; margin-right:auto;">
+    <div class="py-10 pe-10 px-10">
+        <form asp-controller="AdminStudent" asp-action="update" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <label class="form-label fs-2 text-primary" style="">Student Update</label>
+            <div class="mt-5">
+                <label class="required form-label text-primary">FirstName</label>
+                <input type="text" asp-for=FirstName class="form-control bg-transparent" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <!--end::Wrapper-->
-        </div>
-        <!--end::Input group--->
-        <div class="d-grid mb-10">
-            <button type="submit" id="kt_sign_up_submit" class="btn btn-registan">
-                <span class="indicator-label">
-                    Add
-                </span>
-            </button>
-        </div>
-    </form>
-    <!--end::Form-->
+            <div class="mt-5">
+                <label class="required form-label text-primary">LastName</label>
+                <input type="text" asp-for=LastName class="form-control form-control-solid" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mt-5">
+                <label class="required form-label text-primary">Image</label>
+                <input type="file" asp-for=Image class="form-control form-control-solid" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="mt-5">
+                <label class="required form-label text-primary">Birth Date</label>
+                <input type="text" asp-for=BirthDate class="form-control form-control-solid" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="mt-5">
+                <label class="required form-label text-primary">Phone number</label>
+                <input type="text" asp-for=PhoneNumber class="form-control form-control-solid" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mt-5">
+                <label class="required form-label text-primary">Subject</label>
+                <input type="text" asp-for=Subject class="form-control form-control-solid" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            @*<div class="mt-5">
+                <label class="required form-label text-primary">Level</label>
+                <input type="text" asp-for=TeacherLevel class="form-control form-control-solid" />
+                <span asp-validation-for="TeacherLevel" class="text-danger"></span>
+            </div>
+            <label class="required form-label text-dark mt-5">Work days</label>
+            <select class="form-select form-select-solid" asp-for=WorkDays name="Part" id="Part" aria-label="Select example">
+                <option value="true">Odd</option>
+                <option value="false">Even</option>
+            </select>
+            <label class="required form-label text-dark mt-5">Part Day</label>
+            <select class="form-select form-select-solid" asp-for=PartOfDay name="Part" id="Part" aria-label="Select example">
+                <option value="true">Morning</option>
+                <option value="false">Afternoon</option>
+            </select>*@
+
+            <div class="mt-8">
+                <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="UPDATE" />
+            </div>
+            <div class="mt-5 mb-8">
+                <a class="btn btn-secondary" asp-controller="AdminStudent" asp-action="index" style="width:100%">
+                    CLOSE
+                </a>
+            </div>
+        </form>
+    </div>
 </div>

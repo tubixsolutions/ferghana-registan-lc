@@ -2,11 +2,12 @@
 using RegistanFerghanaLC.Domain.Enums;
 
 namespace RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
-public class StudentViewModel: StudentBaseViewModel
+public class StudentViewModel : StudentBaseViewModel
 {
-    public List<Subject>? Subjects { get; set; }
+    public Subject Subject { get; set; }
     public byte WeeklyLimit { get; set; }
     public EnglishLevel StudentLevel { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime BirthDate { get; set; }
 
 }
