@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
@@ -66,17 +67,16 @@ public class AdminStudentController : Controller
         var student = await _adminStudentService.GetByIdAsync(id);
         if (student != null)
         {
-            return View(student);
+            return View("Delete", student);
         }
         return View();
     }
 
     [HttpPost("delete")]
-    public async Task<IActionResult> DeleteAsync(int id)
+    public async Task<IActionResult> DeleteAsync(int Id)
     {
-        var res = await _adminStudentService.DeleteAsync(id);
-        if (res) return RedirectToAction("index", "home", new { area = "" });
-        return View();
+        var res = await _adminStudentService.DeleteAsync(Id);
+        return RedirectToAction("Index");
     }
 
     [HttpGet("update")]
