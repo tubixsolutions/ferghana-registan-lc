@@ -33,7 +33,7 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var temp = _repository.Teachers.FindByIdAsync(id);
+        var temp = await _repository.Teachers.FindByIdAsync(id);
         if(temp is null)
             throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher not found");
         _repository.Teachers.Delete(id);
@@ -115,7 +115,7 @@ public class AdminTeacherService : IAdminTeacherService
     {
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Teachers is not found");
         _repository.Teachers.TrackingDeteched(temp);
         temp.FirstName = dto.FirstName;
         temp.LastName =  dto.LastName;

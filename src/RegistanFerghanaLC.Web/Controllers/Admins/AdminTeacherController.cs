@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Services.AdminService;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
@@ -55,19 +56,24 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             else return Register();
         }
 
-        [HttpGet("delete")]
-        public async Task<IActionResult> DeleteTeacherAsync(int Id)
+        [HttpGet("Delete")]
+        public async Task<ViewResult> DeleteAsync(int id)
         {
-            var result = await _adminTeacherService.DeleteAsync(Id);
-            if (result)
+            var teacher = await _adminTeacherService.GetByIdAsync(id);
+            if (teacher != null)
             {
-                return RedirectToAction("Index", "Teachers", new { area = "" });
+                return View("Delete", teacher);
             }
-            else
-                return RedirectToAction("Index", "Teachers", new { area = "" });
-
+            return View("adminteacher");
         }
 
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteTeacherAsync(int Id)
+        {
+            var res = await _adminTeacherService.DeleteAsync(Id);
+            if (res) return RedirectToAction("index", "adminteacher", new { area = "" });
+            return View();
+        }
         [HttpGet("updateredirect")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
@@ -84,7 +90,18 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             };
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";
+            ViewBag.teacherId = teacherId;
             return View("Update", dto);
+        }
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
+        {
+            var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
+            if (res)
+            {
+                return RedirectToAction("Index", "adminteachers", new { area = "" });
+            }
+            else return await UpdateRedirectAsync(teacherId);
         }
     }
 }

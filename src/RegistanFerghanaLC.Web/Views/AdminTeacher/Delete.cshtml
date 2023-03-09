@@ -1,0 +1,20 @@
+﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
+@model TeacherViewDto
+
+<div class="d-flex justify-content-center" style="margin-top:250px">
+    <div class="card px-4 pt-4 pb-4 pe-4">
+        <form asp-action="delete" asp-controller="adminteacher" asp-route-Id="@Model.Id" method="post">
+            <div class="card-body">
+                <h3>
+                    Are you sure that you want to delete @Model.FirstName @Model.LastName from the list of students.?
+                </h3>
+                <div class="mt-4 mb-2 d-flex justify-content-end">
+                    <input type="submit" class="btn btn-danger me-2" value="Delete" style="border-radius: 20px;">
+                    <a asp-area="" asp-controller="adminteacher" asp-action="index" class="btn btn-secondary" style="border-radius:20px;">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
