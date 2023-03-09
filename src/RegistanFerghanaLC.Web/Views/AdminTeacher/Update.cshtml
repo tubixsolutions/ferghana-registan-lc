@@ -37,7 +37,23 @@
                 <label class="required form-label text-primary">Subject</label>
                 <input type="text" asp-for=Subject class="form-control form-control-solid" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
-            </div>           
+            </div>  
+            <div class="mt-5">
+                <label class="required form-label text-primary">Level</label>
+                <input type="text" asp-for=TeacherLevel class="form-control form-control-solid" />
+                <span asp-validation-for="TeacherLevel" class="text-danger"></span>
+            </div>
+            <div class="mt-5">
+                <label class="required form-label text-primary">Subject</label>
+                <input type="text" asp-for=WorkDays class="form-control form-control-solid" />
+                <span asp-validation-for="WorkDays" class="text-danger"></span>
+            </div>
+            <div class="mt-5">
+                <label class="required form-label text-primary">Part of day</label>
+                <input type="text" asp-for=PartOfDay class="form-control form-control-solid" />
+                <span asp-validation-for="PartOfDay" class="text-danger"></span>
+            </div>
+
 
             <div class="mt-8">
                 <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="UPDATE" />
