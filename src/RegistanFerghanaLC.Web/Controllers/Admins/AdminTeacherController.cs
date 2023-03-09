@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
@@ -10,10 +11,12 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
     public class AdminTeacherController : Controller
     {
         private readonly IAdminTeacherService _adminTeacherService;
+        private readonly string _rootPath;
         private readonly int _pageSize = 5;
 
-        public AdminTeacherController(IAdminTeacherService adminTeacherService)
+        public AdminTeacherController(IAdminTeacherService adminTeacherService, IWebHostEnvironment webHostEnvironment)
         {
+            this._rootPath = webHostEnvironment.WebRootPath;
             _adminTeacherService = adminTeacherService;
         }
 
@@ -85,6 +88,23 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";
             return View("Update", dto);
+        }
+
+        [HttpGet("duplicate")]
+        public async Task<ActionResult> Duplicate()
+        {
+
+            using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+            {
+                byte[] file = new byte[stream.Length];
+                await stream.ReadAsync(file, 0, file.Length);
+                return new FileContentResult(file,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                };
+            }
+
         }
     }
 }
