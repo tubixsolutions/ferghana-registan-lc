@@ -1,4 +1,5 @@
 ﻿using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 
 namespace RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -8,7 +9,7 @@ public interface IAdminTeacherService
     public Task<bool> DeleteAsync(int id);
     public Task<bool> UpdateAsync(TeacherUpdateDto teacherRegisterDto, int id);
     public Task<TeacherViewDto> GetByIdAsync(int id);
-
     public Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params);
+    public Task<string> LoginAsync(AccountLoginDto dto);
 
 }

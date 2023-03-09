@@ -3,11 +3,15 @@ using RegistanFerghanaLC.DataAccess.Repositories.Common;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.Salaries;
+using RegistanFerghanaLC.Service.Interfaces.Students;
 using RegistanFerghanaLC.Service.Services.AccountService;
 using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.Services.Common;
+using RegistanFerghanaLC.Service.Services.ExtraLessonService;
 using RegistanFerghanaLC.Service.Services.SalaryService;
+using RegistanFerghanaLC.Service.Services.StudentService;
 
 namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
 {
@@ -23,6 +27,8 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ISalaryService, SalaryService>();
             services.AddScoped<IAdminTeacherService, AdminTeacherService>();
+            services.AddScoped<IExtraLessonService, ExtraLessonService>();
+            services.AddScoped<IStudentService, StudentService>();
 
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
