@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -17,10 +18,19 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string search, int page = 1)
         {
-            var teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            PagedList<TeacherViewDto> teachers;
+            if (String.IsNullOrEmpty(search))
+            {
+                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            }
+            else
+            {
+                teachers = await _adminTeacherService.SearchAsync(new PaginationParams(page, _pageSize), search);
+            }
             ViewBag.HomeTitle = "Teacher";
+            ViewBag.AdminTeacherSearch = search;
             return View("Index", teachers);
         }
 
@@ -57,10 +67,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 return RedirectToAction("Index", "Teachers", new { area = "" });
 
         }
-        [HttpGet("Update")]
-        public async Task<IActionResult> UpdateRedirectAsync(int teacherid)
+
+        [HttpGet("updateredirect")]
+        public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
-            var teacher = await _adminTeacherService.GetByIdAsync(teacherid);
+            var teacher = await _adminTeacherService.GetByIdAsync(teacherId);
 
             var dto = new TeacherUpdateDto()
             {
