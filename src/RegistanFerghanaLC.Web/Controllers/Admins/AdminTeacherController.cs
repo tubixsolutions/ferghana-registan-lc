@@ -33,6 +33,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.HomeTitle = "Teacher";
             ViewBag.AdminTeacherSearch = search;
             return View("Index", teachers);
+            //return View("Index", (teachers, filemodeldto ));
         }
 
         [HttpGet("register")]

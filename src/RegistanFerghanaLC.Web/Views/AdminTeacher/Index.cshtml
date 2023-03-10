@@ -25,9 +25,22 @@
                 Add teacher
             </a>
 
-            <a class="btn btn-registan" asp-area="" asp-controller="adminTeachers" asp-action="duplicate">
-                Download a copy
-            </a>
+            <div class="d-flex align-items-center" id="kt_header_user_menu_toggle">
+                <!--begin::Menu wrapper-->
+                <div class="cursor-pointer symbol symbol-30px symbol-md-40px" role="button" id="dropdownExcelFile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img alt="Pic" src="~/media/avatars/150-26.jpg" />
+                </div>
+                <!--begin::Menu-->
+                <div class="dropdown-menu" aria-labelledby="dropdownExcelFile">
+                    <div class="menu-item px-3">
+                        <div class="menu-content d-flex align-items-center px-3">
+                            <div class="d-flex flex-column">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_cart" role="dialog">Заказать</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body pt-0">

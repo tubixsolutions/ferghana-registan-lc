@@ -87,7 +87,13 @@ public class AccountService : IAccountService
             var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, admin.Salt, admin.PasswordHash);
             if (hasherResult)
             {
-                string token = _authService.GenerateToken(admin, "admin");
+                string token = "";
+                if(admin.PhoneNumber != null)
+                {
+                    token = _authService.GenerateToken(admin, "admin");
+                    return token;
+                }
+                token = _authService.GenerateToken(admin, "admin");
                 return token;
             }
             else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");

@@ -2,9 +2,9 @@
 using RegistanFerghanaLC.Service.Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace RegistanFerghanaLC.Web.Models
+namespace RegistanFerghanaLC.Service.Dtos.FileViewModels
 {
-    public class FileViewModels
+    public class FileModeldto
     {
         [AllowedFiles(new string[] { ".xlsx" })]
         [Required]
