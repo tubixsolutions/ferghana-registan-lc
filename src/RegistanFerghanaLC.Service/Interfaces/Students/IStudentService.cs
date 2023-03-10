@@ -7,4 +7,5 @@ namespace RegistanFerghanaLC.Service.Interfaces.Students;
 public interface IStudentService
 {
     public Task<PagedList<TeacherBySubjectViewModel>> GetAllTeacherBySubjectAsync(string subject, PaginationParams @params);
+    public Task<int> GetLimitStudentAsync(int id);
 }

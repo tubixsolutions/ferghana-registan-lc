@@ -17,7 +17,7 @@ namespace RegistanFerghanaLC.Web.Areas.ExtraLessons.Controllers
             this._repository = service;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int teacherId, int page =1 )
+        public async Task<IActionResult> GetAllExtraLessonAsync(int teacherId, int page =1 )
         {
             return Ok(await _repository.GetAllByDateAsync(teacherId, new PaginationParams(page, _pageSize)));
         }
