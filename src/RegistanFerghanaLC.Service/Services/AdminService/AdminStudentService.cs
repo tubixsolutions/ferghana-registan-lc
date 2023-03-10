@@ -22,12 +22,14 @@ public class AdminStudentService : IAdminStudentService
     private readonly IUnitOfWork _repository;
     private readonly IAuthService _authService;
     private readonly IMapper _mapper;
+    private readonly IImageService _imageService;
 
-    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper)
+    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IImageService imageService)
     {
         this._repository = unitOfWork;
         this._authService = authService;
         this._mapper = mapper;
+        this._imageService = imageService;
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -36,6 +38,10 @@ public class AdminStudentService : IAdminStudentService
         if (student is null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found.");
+        }
+        if(!String.IsNullOrEmpty(student.Image))
+        {
+            var imageRes = await _imageService.DeleteImageAsync(student.Image);
         }
         _repository.Students.Delete(id);
         var res = await _repository.SaveChangesAsync();
@@ -95,7 +101,7 @@ public class AdminStudentService : IAdminStudentService
         student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
         student.BirthDate = studentAllUpdateDto.BirthDate;
         student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-        student.Image = studentAllUpdateDto.Image.ToString();
+        student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
         _repository.Students.Update(id, student);
 
         var result = await _repository.SaveChangesAsync();
