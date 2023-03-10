@@ -35,5 +35,9 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         [HttpPost("extraLesson")]
         public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
             => Ok(await _extraLessonService.CreateAsync(createDto));
+
+        [HttpGet("limit")]
+        public async Task<IActionResult> GetLimitStudentAsync(int id) 
+            => Ok(await _studentService.GetLimitStudentAsync(id));
     }
 }
