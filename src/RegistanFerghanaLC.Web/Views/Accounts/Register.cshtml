@@ -42,17 +42,12 @@
                 </label>
                 <div class="position-relative mb-3">
                     <input type="password" asp-for="Password" class="form-control form-control-lg form-control-solid" name="password" autocomplete="off">
-
-                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                        <i class="bi bi-eye-slash fs-2"></i>
-                        <i class="bi bi-eye fs-2 d-none"></i>
-                    </span>
                 </div>
             </div>
             <div class="text-muted">
                 Use 8 or more characters with a mix of letters, numbers &amp; symbols.
             </div>
-            <div class="fv-plugins-message-container invalid-feedback"></div>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="text-center">
             <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-registan">

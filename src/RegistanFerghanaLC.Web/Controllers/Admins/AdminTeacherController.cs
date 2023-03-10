@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
-using RegistanFerghanaLC.Service.Services.AdminService;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
@@ -77,6 +74,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             if (res) return RedirectToAction("index", "adminteacher", new { area = "" });
             return View();
         }
+
         [HttpGet("updateredirect")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
@@ -96,6 +94,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.teacherId = teacherId;
             return View("Update", dto);
         }
+        
         [HttpPost("update")]
         public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
         {
@@ -107,23 +106,21 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             else return await UpdateRedirectAsync(teacherId);
 
         }
-            [HttpGet("duplicate")]
-        
-            public async Task<ActionResult> Duplicate()
+
+        [HttpGet("duplicate")]
+        public async Task<ActionResult> Duplicate()
+        {
+
+            using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
             {
-
-                using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+                byte[] file = new byte[stream.Length];
+                await stream.ReadAsync(file, 0, file.Length);
+                return new FileContentResult(file,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
-                    byte[] file = new byte[stream.Length];
-                    await stream.ReadAsync(file, 0, file.Length);
-                    return new FileContentResult(file,
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                    {
-                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                    };
-                }
-
-
-           }
+                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                };
+            }
+        }
      }
 }
