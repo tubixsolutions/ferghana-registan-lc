@@ -60,9 +60,9 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
             return await PagedList<SalaryBaseViewModel>.ToPagedListAsync(query, @params);
         }
 
-        public async Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params, DateTime startDate, DateTime endDate)
+        public async Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params)
         {
-            var query = (from extra in _unitOfWork.ExtraLessons.GetAll().Where(x => x.TeacherId == id && x.StartTime > startDate && x.EndTime < endDate)
+            var query = (from extra in _unitOfWork.ExtraLessons.GetAll().Where(x => x.TeacherId == id)
                          join extraDetails in _unitOfWork.ExtraLessonDetails.GetAll()
                          on extra.Id equals extraDetails.ExtraLessonId
                          join student in _unitOfWork.Students.GetAll()
@@ -76,7 +76,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                              Comment = extraDetails.Comment,
                              StartTime = extra.StartTime,
                              EndTime = extra.EndTime,
-                         });
+                         }).OrderByDescending(x => x.StartTime);
             return await PagedList<SalaryViewModel>.ToPagedListAsync(query, @params);
         }
     }

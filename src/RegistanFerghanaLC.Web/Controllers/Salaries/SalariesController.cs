@@ -81,14 +81,10 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         }
 
         [HttpGet("{teacherId}")]
-        public async Task<ViewResult> GetAllByIdAsync(int teacherId,string start, string end, string teacherName, int page = 1)
+        public async Task<ViewResult> GetAllByIdAsync(int teacherId, string teacherName, int page = 1)
         {
-            var startDate = DateTime.Parse(start);
-            var endDate = DateTime.Parse(end);
-            ViewBag.start = startDate; 
-            ViewBag.end = endDate;
             ViewBag.teacherName = teacherName;
-            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize), startDate, endDate);
+            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize));
             return View("GetAllById", results);
         }
     }

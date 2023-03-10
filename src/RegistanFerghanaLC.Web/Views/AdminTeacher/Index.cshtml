@@ -51,7 +51,6 @@
                                 <td class="text-start px-sm-0">
                                     <span class="fw-bold">@teacher.Id</span>
                                 </td>
-
                                 <td class="text-start px-sm-0 d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                         <a>
@@ -77,11 +76,9 @@
                                     </div>
                                     <span class="fw-bold text-hover-info text-gray-800 ms-3">@teacher.FirstName @teacher.LastName</span>
                                 </td>
-
                                 <td class="text-start">
                                     <span class="fw-bold px-sm-0 text-gray-500">@teacher.PhoneNumber</span>
                                 </td>
-
                                 <td class="text-start">
                                     @if (@teacher.PartOfDay.ToString().StartsWith("First"))
                                     {
@@ -92,11 +89,9 @@
                                         <div class="badge badge-light-warning">Afternoon</div>
                                     }
                                 </td>
-
                                 <td class="text-start">
                                     <span class="fw-bold text-gray-500">@teacher.Subject</span>
                                 </td>
-
                                 <td class="text-start">
                                     <a class="btn btn-icon btn-warning"  asp-controller="adminteachers" asp-action="updateredirect" asp-route-teacherId="@teacher.Id">
                                         <span class="svg-icon svg-icon-1">
@@ -109,7 +104,6 @@
                                             </svg>
                                         </span>
                                     </a>
-
                                     <a class="btn btn-icon btn-danger" asp-controller="adminteacher" asp-action="Delete" asp-route-id="@teacher.Id">
                                         <span class="svg-icon svg-icon-1">
                                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +114,6 @@
                                             </svg>
                                         </span>
                                     </a>
-
                                     <a class="btn btn-icon btn-info" asp-controller="adminteachers" asp-action="">
                                         <span class="svg-icon svg-icon-1 svg-icon-info">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
