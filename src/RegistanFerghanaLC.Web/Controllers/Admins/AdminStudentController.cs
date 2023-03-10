@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Utils;
@@ -47,17 +48,19 @@ public class AdminStudentController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(int page = 1)
+    public async Task<IActionResult> Index(string search, int page = 1)
     {
-        var students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+        PagedList<StudentBaseViewModel> students;
+        if(String.IsNullOrEmpty(search))
+        {
+            students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+        }
+        else
+        {
+            students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search);
+        }
         ViewBag.HomeTitle = "Students";
-        return View("Index", students);
-    }
-    [HttpGet("search")]
-    public async Task<IActionResult> Search(string name, int page = 1)
-    {
-        var students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), name);
-        ViewBag.HomeTitle = "Students";
+        ViewBag.AdminStudentSearch = search;
         return View("Index", students);
     }
 
@@ -83,21 +86,17 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Update(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        if (student != null) { return View(student); }
-        else return View();
+        if (student != null) { return View("Update", student); }
+        else return View("Index");
     }
 
     [HttpPost("update")]
     public async Task<IActionResult> UpdateAsync(int id, StudentAllUpdateDto dto)
     {
-        var student = await _adminStudentService.GetByIdAsync(id);
-        if (student != null) 
-        {
-            var res = await _adminStudentService.UpdateAsync(id, dto);
-            if (res) return RedirectToAction("index", "home", new { area = "" });
-            return View(student);
-        }
-        return View();
+        var res = await _adminStudentService.UpdateAsync(id, dto);
+        if (res) return RedirectToAction("Index");
+        return View("Error");
+       
     }
 
     [HttpGet("getbyid")]
@@ -105,7 +104,7 @@ public class AdminStudentController : Controller
     {
         var student = await _adminStudentService.GetByIdAsync(id);
         if (student is not null) return View("GetById", student);
-        return View();
+        return View("Index");
     }
 
 }

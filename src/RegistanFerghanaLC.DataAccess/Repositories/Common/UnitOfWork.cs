@@ -1,4 +1,6 @@
-﻿using RegistanFerghanaLC.DataAccess.DbContexts;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
+using RegistanFerghanaLC.DataAccess.DbContexts;
 using RegistanFerghanaLC.DataAccess.Interfaces;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 
@@ -21,19 +23,24 @@ namespace RegistanFerghanaLC.DataAccess.Repositories.Common
         {
             this.dbContext = appDbContext;
 
-            Admins = new AdminRepository(appDbContext);
+            Admins = new AdminRepository(dbContext);
 
-            ExtraLessonDetails = new ExtraLessonDetailsRepository(appDbContext);
-            ExtraLessons = new ExtraLessonRepository(appDbContext);
+            ExtraLessonDetails = new ExtraLessonDetailsRepository(dbContext);
+            ExtraLessons = new ExtraLessonRepository(dbContext);
 
-            Students = new StudentRepository(appDbContext);
-            StudentSubjects = new StudentSubjectRepository(appDbContext);
+            Students = new StudentRepository(dbContext);
 
-            Subjects = new SubjectRepository(appDbContext);
+            StudentSubjects = new StudentSubjectRepository(dbContext);
 
-            Teachers = new TeacherRepository(appDbContext);
+            Subjects = new SubjectRepository(dbContext);
+
+            Teachers = new TeacherRepository(dbContext);
         }
-        
+
+        public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return dbContext.Entry(entity);
+        }
         public async Task<int> SaveChangesAsync()
         {
             return await dbContext.SaveChangesAsync();
