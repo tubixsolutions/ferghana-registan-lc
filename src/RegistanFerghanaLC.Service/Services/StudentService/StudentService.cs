@@ -52,19 +52,19 @@ public class StudentService : IStudentService
         _repository.Students.Update(id, student);
         int res = await _repository.SaveChangesAsync();
         return res > 0;
+}
 
-    }
-        public Task<int> GetLimitStudentAsync(int id)
-        {
-            DateTime date;
-            var day = DateTime.Now.DayOfWeek;
-            if (day == DayOfWeek.Friday) date = DateTime.Now.Date.AddDays(-4);
-            else if (day == DayOfWeek.Monday) date = DateTime.Now.Date;
-            else if (day == DayOfWeek.Tuesday) date = DateTime.Now.Date.AddDays(-1);
-            else if (day == DayOfWeek.Wednesday) date = DateTime.Now.Date.AddDays(-2);
-            else if (day == DayOfWeek.Thursday) date = DateTime.Now.Date.AddDays(-3);
-            else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
-            else date = DateTime.Now.Date.AddDays(-6);
+    public Task<int> GetLimitStudentAsync(int id)
+    {
+        DateTime date;
+        var day = DateTime.Now.DayOfWeek;
+        if (day == DayOfWeek.Friday) date = DateTime.Now.Date.AddDays(-4);
+        else if (day == DayOfWeek.Monday) date = DateTime.Now.Date;
+        else if (day == DayOfWeek.Tuesday) date = DateTime.Now.Date.AddDays(-1);
+        else if (day == DayOfWeek.Wednesday) date = DateTime.Now.Date.AddDays(-2);
+        else if (day == DayOfWeek.Thursday) date = DateTime.Now.Date.AddDays(-3);
+        else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
+        else date = DateTime.Now.Date.AddDays(-6);
 
             var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
 
