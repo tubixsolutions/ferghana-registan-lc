@@ -46,5 +46,9 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         {
             return Ok(await _studentService.ImageUpdateAsync(id, file));
         }
+
+        [HttpGet("limit")]
+        public async Task<IActionResult> GetLimitStudentAsync(int id) 
+            => Ok(await _studentService.GetLimitStudentAsync(id));
     }
 }

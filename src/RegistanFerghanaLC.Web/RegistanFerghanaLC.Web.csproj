@@ -42,4 +42,8 @@
     <ProjectReference Include="..\RegistanFerghanaLC.Service\RegistanFerghanaLC.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\AdminTeacher\Components\" />
+  </ItemGroup>
+
 </Project>

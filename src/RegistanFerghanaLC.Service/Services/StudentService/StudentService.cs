@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Security;
@@ -24,7 +25,7 @@ public class StudentService : IStudentService
 
     public Task<PagedList<TeacherBySubjectViewModel>> GetAllTeacherBySubjectAsync(string subject, PaginationParams @params)
     {
-        var query = from teacher in _repository.Teachers.GetAll().Where(x => x.Subject == subject)
+        var query = from teacher in _repository.Teachers.GetAll().Where(x => x.Subject.ToLower() == subject.ToLower())
                     select new TeacherBySubjectViewModel()
                     {
                         Id = teacher.Id,
@@ -51,5 +52,21 @@ public class StudentService : IStudentService
         int res = await _repository.SaveChangesAsync();
         return res > 0;
 
+
+    public Task<int> GetLimitStudentAsync(int id)
+    {
+        DateTime date;
+        var day = DateTime.Now.DayOfWeek;
+        if (day == DayOfWeek.Friday) date = DateTime.Now.Date.AddDays(-4);
+        else if (day == DayOfWeek.Monday) date = DateTime.Now.Date;
+        else if (day == DayOfWeek.Tuesday) date = DateTime.Now.Date.AddDays(-1);
+        else if (day == DayOfWeek.Wednesday) date = DateTime.Now.Date.AddDays(-2);
+        else if (day == DayOfWeek.Thursday) date = DateTime.Now.Date.AddDays(-3);
+        else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
+        else date = DateTime.Now.Date.AddDays(-6);
+
+        var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
+
+        return limit;
     }
 }

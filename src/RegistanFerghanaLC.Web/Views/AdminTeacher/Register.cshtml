@@ -1,85 +1,80 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
 @model TeacherRegisterDto
 
-<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right: auto; box-shadow: 0px 0px 15px gray;">
-    <!--begin::Form-->
-    <form asp-controller="adminTeachers" asp-action="register" method="post">
-        <!--begin::Heading-->
-        <div class="text-center mb-11">
-            <h1 class="text-dark fw-bolder mb-3">
-                Sign Up
+<div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+    <form asp-controller="adminTeachers" asp-action="register" method="post" novalidate="novalidate" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" id="kt_sign_up_form">
+        <div class="mb-10 text-center">
+            <h1 class="text-registan mb-3">
+                Create Teacher
             </h1>
         </div>
-        <!--begin::Heading-->
-        <!--begin::Input group--->
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <label class="required form-label text-dark">Firstname</label>
-            <input type="text" asp-for=FirstName  autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+        <div class="row fv-row mb-7 fv-plugins-icon-container">
+            <div class="col-xl-6">
+                <label class="form-label fw-bold text-dark fs-6">First Name</label>
+                <input type="text" asp-for="FirstName" class="form-control form-control-lg form-control-solid">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-xl-6">
+                <label class="form-label fw-bold text-dark fs-6">Last Name</label>
+                <input type="text" asp-for="LastName" class="form-control form-control-lg form-control-solid">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
         </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-             <label class="required form-label text-dark">Lastname</label>
-            <input type="text" asp-for="LastName"  autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <label class="required form-label text-dark">Birth date</label>
-            <input type="date" asp-for=BirthDate placeholder="Birth Date" autocomplete="off" class="form-control bg-transparent">
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="form-label fw-bold text-dark fs-6">Birth Date</label>
+            <input type="date" asp-for="BirthDate" class="form-control form-control-lg form-control-solid">
             <span asp-validation-for="BirthDate" class="text-danger"></span>
         </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <label class="required form-label text-dark">Subject</label>
-            <input type="text" asp-for=Subject  autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="Subject" class="text-danger"></span>
+        <div class="row fv-row mb-7 fv-plugins-icon-container">
+            <div class="col-xl-6">
+                <label class="form-label fw-bold text-dark fs-6">Subject</label>
+                <input type="text" asp-for="Subject" class="form-control form-control-lg form-control-solid">
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="col-xl-6">
+                <label class="form-label fw-bold text-dark fs-6">Level</label>
+                <input type="text" asp-for="TeacherLevel" class="form-control form-control-lg form-control-solid">
+                <span asp-validation-for="TeacherLevel" class="text-danger"></span>
+            </div>
         </div>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <label class="required form-label text-dark">Level</label>
-            <input type="text" asp-for="TeacherLevel"  autocomplete="off" class="form-control bg-transparent">
-            <span asp-validation-for="TeacherLevel" class="text-danger"></span>
-        </div>
-        <label class="required form-label text-dark mt-5">Part Day</label>
-        <select class="form-select form-select-solid" asp-for=PartOfDay name="Part" id="Part" aria-label="Select example">
-            <option value="true">Morning</option>
+
+        <label class="form-label fw-bold text-dark fs-6">Part Of Day</label>
+        <select asp-for=PartOfDay class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
+            <option value="ture">Morning</option>
             <option value="false">Afternoon</option>
         </select>
-        <label class="required form-label text-dark mt-5">Work days</label>
-        <select class="form-select form-select-solid" asp-for=WorkDays name="Part" id="Part" aria-label="Select example">
-            <option value="true">Odd</option>
+
+        <label class="form-label fw-bold text-dark fs-6">Work Days</label>
+        <select asp-for=PartOfDay class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
+            <option value="ture">Odd</option>
             <option value="false">Even</option>
         </select>
-        
-        <label class="required form-label text-dark">Phone number</label>
-        <div class="fv-row mb-8 fv-plugins-icon-container">
-            <input type="text" asp-for="PhoneNumber" placeholder=" " autocomplete="off" class="form-control bg-transparent">
+
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="form-label fw-bold text-dark fs-6">Phone Number</label>
+            <input type="text" asp-for="PhoneNumber" class="form-control form-control-lg form-control-solid">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
-        <!--begin::Input group-->
-        <div class="fv-row mb-8 fv-plugins-icon-container" data-kt-password-meter="true">
-            <!--begin::Wrapper-->
+        <div class="mb-10 fv-row fv-plugins-icon-container" data-kt-password-meter="true">
             <div class="mb-1">
-                <!--begin::Input wrapper-->
+                <label class="form-label fw-bold text-dark fs-6">
+                    Password
+                </label>
                 <div class="position-relative mb-3">
-                    <label class="required form-label text-dark">Password</label>
-                    <input class="form-control bg-transparent" asp-for=Password type="password" placeholder="Password" autocomplete="off">
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                        <i class="bi bi-eye-slash fs-2"></i>
-                        <i class="bi bi-eye fs-2 d-none"></i>
-                    </span>
+                    <input type="password" asp-for="Password" class="form-control form-control-lg form-control-solid" name="password" autocomplete="off">
                 </div>
-                <!--end::Input wrapper-->
             </div>
-            <!--end::Wrapper-->
+            <div class="text-muted">
+                Use 8 or more characters with a mix of letters, numbers &amp; symbols.
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-        <!--end::Input group--->
-        <div class="d-grid mb-10">
-            <button type="submit" id="kt_sign_up_submit" class="btn btn-registan">
+        <div class="text-center">
+            <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-registan">
                 <span class="indicator-label">
-                    Sign Up
+                    Submit
                 </span>
             </button>
         </div>
-        <!--end::Form-->
     </form>
-
 </div>
