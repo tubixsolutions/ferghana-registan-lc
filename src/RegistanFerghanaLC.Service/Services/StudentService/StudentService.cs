@@ -38,10 +38,7 @@ public class StudentService : IStudentService
         return PagedList<TeacherBySubjectViewModel>.ToPagedListAsync(query, @params);
     }
 
-    public Task<int> GetLimitStudentAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+
 
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
@@ -58,22 +55,22 @@ public class StudentService : IStudentService
         int res = await _repository.SaveChangesAsync();
         return res > 0;
 
-
-    public Task<int> GetLimitStudentAsync(int id)
-    {
-        DateTime date;
-        var day = DateTime.Now.DayOfWeek;
-        if (day == DayOfWeek.Friday) date = DateTime.Now.Date.AddDays(-4);
-        else if (day == DayOfWeek.Monday) date = DateTime.Now.Date;
-        else if (day == DayOfWeek.Tuesday) date = DateTime.Now.Date.AddDays(-1);
-        else if (day == DayOfWeek.Wednesday) date = DateTime.Now.Date.AddDays(-2);
-        else if (day == DayOfWeek.Thursday) date = DateTime.Now.Date.AddDays(-3);
-        else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
-        else date = DateTime.Now.Date.AddDays(-6);
-
-        var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
-
-        return limit;
     }
-}
-}
+        public Task<int> GetLimitStudentAsync(int id)
+        {
+            DateTime date;
+            var day = DateTime.Now.DayOfWeek;
+            if (day == DayOfWeek.Friday) date = DateTime.Now.Date.AddDays(-4);
+            else if (day == DayOfWeek.Monday) date = DateTime.Now.Date;
+            else if (day == DayOfWeek.Tuesday) date = DateTime.Now.Date.AddDays(-1);
+            else if (day == DayOfWeek.Wednesday) date = DateTime.Now.Date.AddDays(-2);
+            else if (day == DayOfWeek.Thursday) date = DateTime.Now.Date.AddDays(-3);
+            else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
+            else date = DateTime.Now.Date.AddDays(-6);
+
+            var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
+
+            return limit;
+        }
+
+    }
