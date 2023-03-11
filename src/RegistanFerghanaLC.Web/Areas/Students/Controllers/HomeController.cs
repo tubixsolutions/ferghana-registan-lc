@@ -46,5 +46,6 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         {
             return Ok(await _studentService.ImageUpdateAsync(id, file));
         }
+
     }
 }
