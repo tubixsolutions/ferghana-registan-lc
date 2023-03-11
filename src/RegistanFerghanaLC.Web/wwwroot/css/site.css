@@ -48219,6 +48219,11 @@ code:not([class*=language-]) {
         transition: fill 0.3s ease;
     }
 
+    .svg-icon.svg-icon-registan svg [fill]:not(.permanent):not(g) {
+        transition: fill 0.3s ease;
+        fill: #FF6D0E;
+    }
+
     .svg-icon.svg-icon-dark svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
         fill: #181C32;
