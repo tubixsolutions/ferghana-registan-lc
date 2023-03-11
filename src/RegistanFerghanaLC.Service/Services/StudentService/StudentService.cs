@@ -38,8 +38,6 @@ public class StudentService : IStudentService
         return PagedList<TeacherBySubjectViewModel>.ToPagedListAsync(query, @params);
     }
 
-
-
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
         var student = await _repository.Students.FindByIdAsync(id);
