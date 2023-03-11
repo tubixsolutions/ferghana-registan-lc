@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
+using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.Students;
@@ -33,8 +34,19 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
             => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
 
         [HttpPost("extraLesson")]
+
         public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
             => Ok(await _extraLessonService.CreateAsync(createDto));
+        [HttpPut("student/update")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto)
+        {
+            return Ok(await _adminstudentService.UpdateAsync(id, dto));
+        }
+        [HttpPatch("student/imageupdate")]
+        public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
+        {
+            return Ok(await _studentService.ImageUpdateAsync(id, file));
+        }
 
         [HttpGet("limit")]
         public async Task<IActionResult> GetLimitStudentAsync(int id) 
