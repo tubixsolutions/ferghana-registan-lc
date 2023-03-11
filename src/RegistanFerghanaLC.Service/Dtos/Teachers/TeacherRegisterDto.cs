@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers;
 
-public class TeacherRegisterDto: AccountRegisterDto
+public class TeacherRegisterDto : AccountRegisterDto
 {
     [Required(ErrorMessage = "Please select the subject of the teacher!")]
     public string Subject { get; set; } = String.Empty;

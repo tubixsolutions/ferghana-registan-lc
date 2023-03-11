@@ -4,6 +4,7 @@ using RegistanFerghanaLC.Service.Interfaces.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
+using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.Interfaces.Salaries;
 using RegistanFerghanaLC.Service.Interfaces.Students;
 using RegistanFerghanaLC.Service.Interfaces.Teachers;
@@ -11,6 +12,7 @@ using RegistanFerghanaLC.Service.Services.AccountService;
 using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.Services.ExtraLessonService;
+using RegistanFerghanaLC.Service.Services.Files;
 using RegistanFerghanaLC.Service.Services.SalaryService;
 using RegistanFerghanaLC.Service.Services.StudentService;
 using RegistanFerghanaLC.Service.Services.TeacherService;
@@ -32,6 +34,8 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IExtraLessonService, ExtraLessonService>();
             services.AddScoped<IExtraLessonDetailsService, ExtraLessonDetailsService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IExcelService, ExcelService>();
             services.AddScoped<IAdminSubjectService , AdminSubjectService>();
             services.AddScoped<ITeacherService, TeacherService>();
 

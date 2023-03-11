@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Interfaces.Files;
-using RegistanFerghanaLC.Web.Models;
 
 namespace RegistanFerghanaLC.Service.Services.Files
 {
@@ -11,7 +11,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
         {
             this._rootPath = webHostEnvironment.WebRootPath;
         }
-        public async Task<string> CreateFile(FileViewModels filemodel)
+        public async Task<string> CreateFile(FileModeldto filemodel)
         {
             string path = Path.Combine("files", Guid.NewGuid().ToString() + ".xlsx");
             string fullPath = Path.Combine(_rootPath, path);

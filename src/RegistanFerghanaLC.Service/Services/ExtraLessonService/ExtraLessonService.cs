@@ -27,7 +27,7 @@ namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
 
         public async Task<bool> CreateAsync(ExtraLessonCreateDto extraLesson)
         {
-            var lesson = await _repository.ExtraLessons.FirstOrDefault(x => x.StartTime == DateTime.Parse(extraLesson.StartTime));
+            var lesson = await _repository.ExtraLessons.FirstOrDefault(x => x.StartTime == DateTime.Parse(extraLesson.StartTime) && x.TeacherId == extraLesson.TeacherId);
             if (lesson == null)
             {
                 var entity = new ExtraLesson()

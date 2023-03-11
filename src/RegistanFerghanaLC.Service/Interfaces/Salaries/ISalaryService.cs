@@ -12,6 +12,6 @@ namespace RegistanFerghanaLC.Service.Interfaces.Salaries
     {
         public Task<PagedList<SalaryBaseViewModel>> GetAllAsync(PaginationParams @params);
         public Task<PagedList<SalaryBaseViewModel>> GetAllByDateAsync(PaginationParams @params, DateTime startDate, DateTime endDate);
-        public Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params, DateTime startDate, DateTime endDate);
+        public Task<PagedList<SalaryViewModel>> GetAllByIdAsync(int id, PaginationParams @params);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using ClosedXML.Excel;
 using RegistanFerghanaLC.Domain.Enums;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Files;
-using RegistanFerghanaLC.Web.Models;
 
 namespace RegistanFerghanaLC.Service.Services.Files
 {
@@ -14,7 +14,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
         {
             _fileService = fileService;
         }
-        public async Task<List<TeacherRegisterDto>> ReadExcelFileAsync(FileViewModels filemodel)
+        public async Task<List<TeacherRegisterDto>> ReadExcelFileAsync(FileModeldto filemodel)
         {
             string fullPath = await _fileService.CreateFile(filemodel);
 
