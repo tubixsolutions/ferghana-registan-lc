@@ -1,4 +1,5 @@
-﻿using RegistanFerghanaLC.Service.Dtos.FileViewModels;
+﻿using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 
 namespace RegistanFerghanaLC.Service.Interfaces.Files
 {
@@ -6,5 +7,8 @@ namespace RegistanFerghanaLC.Service.Interfaces.Files
     {
         public Task<string> CreateFile(FileModeldto filemodel);
         public Task<bool> DeleteFileAsync(string path);
+
+        public Task<string> UploadImageAsync(IFormFile image);
+        public Task<bool> DeleteImageAsync(string imagePartPath);
     }
 }

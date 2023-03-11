@@ -8,6 +8,6 @@ namespace RegistanFerghanaLC.Service.Dtos.FileViewModels
     {
         [AllowedFiles(new string[] { ".xlsx" })]
         [Required]
-        public IFormFile File { get; set; }
+        public IFormFile? File { get; set; }
     }
 }
