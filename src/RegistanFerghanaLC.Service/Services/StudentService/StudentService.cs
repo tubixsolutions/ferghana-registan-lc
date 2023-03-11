@@ -37,6 +37,12 @@ public class StudentService : IStudentService
                     };
         return PagedList<TeacherBySubjectViewModel>.ToPagedListAsync(query, @params);
     }
+
+    public Task<int> GetLimitStudentAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
         var student = await _repository.Students.FindByIdAsync(id);
@@ -69,4 +75,5 @@ public class StudentService : IStudentService
 
         return limit;
     }
+}
 }
