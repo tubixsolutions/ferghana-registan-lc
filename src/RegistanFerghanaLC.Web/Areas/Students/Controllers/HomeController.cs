@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
+using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.Students;
@@ -35,5 +36,10 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         [HttpPost("extraLesson")]
         public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
             => Ok(await _extraLessonService.CreateAsync(createDto));
+        [HttpPut("student/update")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto)
+        {
+            return Ok(await _adminstudentService.UpdateAsync(id, dto));
+        }
     }
 }
