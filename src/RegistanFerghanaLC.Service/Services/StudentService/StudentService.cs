@@ -37,6 +37,7 @@ public class StudentService : IStudentService
                     };
         return PagedList<TeacherBySubjectViewModel>.ToPagedListAsync(query, @params);
     }
+
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
         var student = await _repository.Students.FindByIdAsync(id);
@@ -65,8 +66,9 @@ public class StudentService : IStudentService
         else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
         else date = DateTime.Now.Date.AddDays(-6);
 
-        var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
+            var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
 
-        return limit;
+            return limit;
+        }
+
     }
-}
