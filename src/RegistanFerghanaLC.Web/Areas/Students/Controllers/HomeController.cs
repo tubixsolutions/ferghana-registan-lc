@@ -41,5 +41,10 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         {
             return Ok(await _adminstudentService.UpdateAsync(id, dto));
         }
+        [HttpPatch("student/imageupdate")]
+        public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
+        {
+            return Ok(await _studentService.ImageUpdateAsync(id, file));
+        }
     }
 }

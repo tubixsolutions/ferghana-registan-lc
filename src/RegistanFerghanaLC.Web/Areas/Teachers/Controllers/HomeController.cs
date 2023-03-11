@@ -4,6 +4,7 @@ using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Teachers;
 
 namespace RegistanFerghanaLC.Web.Areas.Teachers.Controllers;
 
@@ -11,11 +12,13 @@ namespace RegistanFerghanaLC.Web.Areas.Teachers.Controllers;
 public class HomeController : BaseController
 {
     private readonly IAdminTeacherService _teacherService;
+    private readonly ITeacherService _service;
     private readonly int _pageSize = 5;
 
-    public HomeController(IAdminTeacherService teacherService)
+    public HomeController(IAdminTeacherService teacherService, ITeacherService service)
     {
         this._teacherService = teacherService;
+        this._service = service;
     }
 
     [HttpGet("teacher/GetAll")]
@@ -40,5 +43,10 @@ public class HomeController : BaseController
     public async Task<IActionResult> LoginAsync([FromForm] AccountLoginDto dto)
     {
         return Ok(await _teacherService.LoginAsync(dto));
+    }
+    [HttpPatch("teacher/imageupdate")]
+    public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
+    {
+        return Ok(await _service.ImageUpdateAsync(id, file));
     }
 }
