@@ -51,7 +51,7 @@ public class StudentService : IStudentService
         _repository.Students.Update(id, student);
         int res = await _repository.SaveChangesAsync();
         return res > 0;
-
+}
 
     public Task<int> GetLimitStudentAsync(int id)
     {
