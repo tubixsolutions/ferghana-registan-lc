@@ -19,7 +19,7 @@ namespace RegistanFerghanaLC.Web.ViewComponents
                 PhoneNumber = _identityService.PhoneNumber,
                 FirstName = _identityService.FirstName,
                 LastName = _identityService.LastName,
-                Image = _identityService.ImagePath
+                ImagePath = _identityService.ImagePath
             };
             return View(accountBaseViewModel);
         }
