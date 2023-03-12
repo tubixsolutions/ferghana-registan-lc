@@ -71,4 +71,14 @@ public class StudentService : IStudentService
             return limit;
         }
 
+    public async Task<bool> DeleteImageAsync(int id)
+    {
+        var student = await _repository.Students.FindByIdAsync(id);
+        await _imageService.DeleteImageAsync(student.Image);
+        student.Image = "";
+        _repository.Students.Update(id, student);
+        var result = await _repository.SaveChangesAsync();
+        return result > 0;
+
     }
+}

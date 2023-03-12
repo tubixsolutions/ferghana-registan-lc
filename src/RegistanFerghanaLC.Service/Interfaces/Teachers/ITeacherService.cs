@@ -6,4 +6,5 @@ namespace RegistanFerghanaLC.Service.Interfaces.Teachers;
 public interface ITeacherService
 {
     public  Task<bool> ImageUpdateAsync(int id, IFormFile file);
+    public Task<bool> ImageDeleteAsync(int id);
 }
