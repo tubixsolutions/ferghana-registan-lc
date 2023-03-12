@@ -16,7 +16,8 @@ public class HomeController : BaseController
     private readonly IAdminStudentService _adminstudentService;
     private readonly IStudentService _studentService;
     private readonly IExtraLessonService _extraLessonService;
-    public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService)
+    private readonly ITeacherService _teacherSerivice;
+    public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService, ITeacherService _teacherSerivice)
     {
             this._adminstudentService = adminStudentService;
             this._studentService = studentService;
