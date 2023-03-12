@@ -6,6 +6,7 @@ using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
@@ -15,10 +16,10 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
     public class AdminService : IAdminService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IdentityService _identityService;
+        private readonly IIdentityService _identityService;
         private readonly IFileService _fileService;
 
-        public AdminService(IUnitOfWork unitOfWork, IdentityService identityService, IFileService fileService)
+        public AdminService(IUnitOfWork unitOfWork, IIdentityService identityService, IFileService fileService)
         {
             this._unitOfWork = unitOfWork;
             this._identityService = identityService;
