@@ -59,7 +59,7 @@ public class AdminStudentController : Controller
         {
             students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search);
         }
-        ViewBag.HomeTitle = "Students";
+        ViewBag.HomeTitle = "Student";
         ViewBag.AdminStudentSearch = search;
         return View("Index", students);
     }
