@@ -63,7 +63,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet("update")]
         public async Task<ViewResult> UpdateAsync()
         {
-            var adminId = (int) _identityService.Id!.Value;
+            var adminId = (int)_identityService.Id!.Value;
             var admin = await _adminService.GetByIdAsync(adminId);
             ViewBag.adminId = adminId;
             var adminUpdate = new AdminUpdateDto()
@@ -107,5 +107,21 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             return await UpdateAsync();
         }
         #endregion
+        [HttpGet("updatePassword")]
+        public async Task<ViewResult> UpdatePasswordAsync()
+            => View("UpdatePassword");
+
+        [HttpPost("passwordUpdate")]
+        public async Task<IActionResult> PasswordUpdateAsync (int id, PasswordUpdateDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _adminService.UpdatePasswordAsync(id, dto);
+                if (result) return RedirectToAction("update", "admins");
+                else return await UpdatePasswordAsync();
+            }
+            else return await UpdatePasswordAsync();
+        }
+
     }
 }
