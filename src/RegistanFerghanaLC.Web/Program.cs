@@ -61,4 +61,9 @@ app.MapAreaControllerRoute(
     areaName: "Teachers",
     pattern: "teachers/{controller=Home}/{action=Index}/{id?}");
 
+app.MapAreaControllerRoute(
+    name: "students",
+    areaName: "Students",
+    pattern: "students/{controller=Home}/{action=Index}/{id?}");
+
 app.Run();
