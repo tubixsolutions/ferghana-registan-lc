@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="collapse show">
-                        <form asp-controller="users" asp-action="update" method="post" asp-route-userId="@ViewBag.userId" enctype="multipart/form-data" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                        <form asp-controller="admins" asp-action="update" method="post" asp-route-userId="@ViewBag.adminId" enctype="multipart/form-data" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                             <div class="card-body border-top p-9">
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
@@ -72,7 +72,7 @@
                                                             <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="currentColor" />
                                                         </svg>
                                                     </span>
-                                                    <a asp-controller="users" asp-action="updateImage" asp-route-formFile="@Model.Image">
+                                                    <a asp-controller="admins" asp-action="updateImage" asp-route-formFile="@Model.Image">
                                                     </a>
                                                 </label>
                                                 <span asp-validation-for="Image" class="text-danger"></span>
@@ -107,20 +107,30 @@
                                 </div>
 
                                 <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Birth Date</label>
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input type="date" asp-for="BirthDate" placeholder="BirthDate" class="form-control form-control-lg form-control-solid">
+                                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                        <span class="required">Address</span>
+                                    </label>
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input type="tel" asp-for="Address" class="form-control form-control-lg form-control-solid">
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                         <span class="required">Phone Number</span>
                                     </label>
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                         <input type="tel" asp-for="PhoneNumber" class="form-control form-control-lg form-control-solid" placeholder="+998yyxxxzzzz">
                                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Birth Date</label>
-                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                        <input type="date" asp-for="BirthDate" placeholder="BirthDate" class="form-control form-control-lg form-control-solid">
-                                        <span asp-validation-for="BirthDate" class="text-danger"></span>
                                     </div>
                                 </div>
 

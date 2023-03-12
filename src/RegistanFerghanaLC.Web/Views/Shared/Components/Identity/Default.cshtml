@@ -35,7 +35,7 @@
             <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Profile</a>
         </div>
         <div class="menu-item px-5 my-1">
-            <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Settings</a>
+            <a asp-controller="admins" asp-action="update" asp-route-userId="@ViewBag.userId" class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Settings</a>
         </div>
         <div class="menu-item px-5">
             <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7" asp-controller="accounts" asp-action="logout">Log Out</a>
