@@ -20,7 +20,18 @@ public class TeacherService : ITeacherService
         this._authService = authService;
         this._imageService = imageService;
     }
-    
+
+    public async Task<bool> ImageDeleteAsync(int id)
+    {
+        var teacher = await _repository.Teachers.FindByIdAsync(id);
+        _repository.Teachers.TrackingDeteched(teacher);
+        await _imageService.DeleteImageAsync(teacher.Image);
+        teacher.Image = "";
+        _repository.Teachers.Update(id, teacher);
+        var res = await _repository.SaveChangesAsync();
+        return res > 0;
+    }
+
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
         var teacher = await _repository.Teachers.FindByIdAsync(id);

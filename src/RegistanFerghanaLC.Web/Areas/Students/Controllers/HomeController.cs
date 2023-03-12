@@ -51,5 +51,8 @@ namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
         [HttpGet("limit")]
         public async Task<IActionResult> GetLimitStudentAsync(int id) 
             => Ok(await _studentService.GetLimitStudentAsync(id));
+        [HttpPatch("student/imagedelete")]
+        public async Task<IActionResult> DeleteImageAsync(int id)
+            => Ok(await _studentService.DeleteImageAsync(id));
     }
 }

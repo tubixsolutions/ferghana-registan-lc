@@ -11,4 +11,5 @@ public interface IStudentService
     public Task<bool> ImageUpdateAsync(int id, IFormFile file);
 
     public Task<int> GetLimitStudentAsync(int id);
+    public Task<bool> DeleteImageAsync(int id);
 }
