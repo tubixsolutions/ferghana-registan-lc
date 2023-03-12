@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admins\**" />
+    <Compile Remove="Views\AdminTeacher\Components\**" />
     <Content Remove="Areas\Admins\**" />
+    <Content Remove="Views\AdminTeacher\Components\**" />
     <EmbeddedResource Remove="Areas\Admins\**" />
+    <EmbeddedResource Remove="Views\AdminTeacher\Components\**" />
     <None Remove="Areas\Admins\**" />
+    <None Remove="Views\AdminTeacher\Components\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,10 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RegistanFerghanaLC.Service\RegistanFerghanaLC.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\AdminTeacher\Components\" />
   </ItemGroup>
 
 </Project>

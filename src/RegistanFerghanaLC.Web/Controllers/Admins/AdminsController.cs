@@ -19,6 +19,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         #region GetAll
+        [HttpGet]
         public async Task<IActionResult> Index(string search)
         {
             List<AdminViewModel> admins;
