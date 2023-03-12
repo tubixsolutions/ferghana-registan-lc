@@ -112,7 +112,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             => View("UpdatePassword");
 
         [HttpPost("passwordUpdate")]
-        public async Task<IActionResult> PasswordUpdateAsync (int id, PasswordUpdateDto dto)
+        public async Task<IActionResult> PasswordUpdateAsync(int id, PasswordUpdateDto dto)
         {
             if (ModelState.IsValid)
             {
