@@ -78,14 +78,33 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             return View("../Admins/Update", adminUpdate);
         }
 
-        //[HttpPost("update")]
-        //public async Task<IActionResult> UpdateAsync([FromForm] AdminUpdateDto adminUpdateDto, int adminId)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var admin = _adminService.UpdateAsync(adminId, adminUpdateDto);
-        //    }
-        //}
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateAsync([FromForm] AdminUpdateDto adminUpdateDto, int adminId)
+        {
+            if (ModelState.IsValid)
+            {
+                var admin = await _adminService.UpdateAsync(adminId, adminUpdateDto);
+                if (admin) return RedirectToAction("Update", "admins");
+                else return RedirectToAction("Update", "admins");
+            }
+            else return RedirectToAction("Update", "admins");
+        }
+
+        [HttpPost("updateImage")]
+        public async Task<IActionResult> UpdateImageAsync([FromForm] IFormFile formFile)
+        {
+            var updateImage = await _adminService.UpdateImageAsync((int)_identityService.Id!, formFile);
+            return await UpdateAsync();
+        }
+        #endregion
+
+        #region DeleteImage
+        [HttpPost("deleteImage")]
+        public async Task<IActionResult> DeleteImageAsync()
+        {
+            var image = await _adminService.DeleteImageAsync((int)_identityService.Id!);
+            return await UpdateAsync();
+        }
         #endregion
     }
 }
