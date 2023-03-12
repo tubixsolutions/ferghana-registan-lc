@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
+using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Files;
@@ -120,6 +121,32 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
             };
             var result = await UpdateAsync(id, adminUpdatedDto);
             return result;
+        }
+
+        public async Task<bool> UpdatePasswordAsync(int id, PasswordUpdateDto dto)
+        {
+            var admin = await _unitOfWork.Admins.FindByIdAsync(id);
+            if (admin is null)
+                throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Admin is not found");
+            _unitOfWork.Admins.TrackingDeteched(admin);
+            var res = PasswordHasher.Verify(dto.OldPassword, admin.Salt, admin.PasswordHash);
+            if (res)
+            {
+                if (dto.NewPassword == dto.VerifyPassword)
+                {
+                    var hash = PasswordHasher.Hash(dto.NewPassword);
+                    admin.PasswordHash = hash.Hash;
+                    admin.Salt = hash.Salt;
+                    _unitOfWork.Admins.Update(id, admin);
+                    var result = await _unitOfWork.SaveChangesAsync();
+                    return result > 0;
+                }
+                else
+                    throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "new password and verify" +
+                        " password must be match!");
+            }
+            else
+                throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "Invalid Password");
         }
     }
 }
