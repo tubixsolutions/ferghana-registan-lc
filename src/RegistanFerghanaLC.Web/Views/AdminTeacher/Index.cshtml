@@ -26,11 +26,13 @@
             </a>
 
             <div class="d-flex align-items-center" id="kt_header_user_menu_toggle">
-                <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-30px symbol-md-40px" role="button" id="dropdownExcelFile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn btn-success" id="dropdownExcelFile" asp-area="" asp-controller="adminTeachers" asp-action="register">
+                    Excel
+                </a>
+                @*<div class="cursor-pointer symbol symbol-30px symbol-md-40px" role="button" id="dropdownExcelFile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img alt="Pic" src="~/media/avatars/150-26.jpg" />
-                </div>
-                <!--begin::Menu-->
+                </div>*@
+
                 <div class="dropdown-menu" aria-labelledby="dropdownExcelFile">
                     <div class="menu-item px-3">
                         <div class="menu-content d-flex align-items-center px-3">
@@ -41,6 +43,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="card-body pt-0">
@@ -76,7 +79,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <img src="~/media/avatars/150-2.jpg" alt="Emma Smith" class="w-100"/>
+                                                        <img src="~/media/avatars/150-2.jpg" alt="Emma Smith" class="w-100" />
                                                     }
                                                 }
                                                 else
@@ -106,7 +109,7 @@
                                     <span class="fw-bold text-gray-500">@teacher.Subject</span>
                                 </td>
                                 <td class="text-start">
-                                    <a class="btn btn-icon btn-warning"  asp-controller="adminteachers" asp-action="updateredirect" asp-route-teacherId="@teacher.Id">
+                                    <a class="btn btn-icon btn-warning" asp-controller="adminteachers" asp-action="updateredirect" asp-route-teacherId="@teacher.Id">
                                         <span class="svg-icon svg-icon-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
