@@ -6,6 +6,7 @@ using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.Students;
+using RegistanFerghanaLC.Service.Interfaces.Teachers;
 
 namespace RegistanFerghanaLC.Web.Areas.Students.Controllers;
 
@@ -17,10 +18,12 @@ public class HomeController : BaseController
     private readonly IExtraLessonService _extraLessonService;
     public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService)
     {
-        this._adminstudentService = adminStudentService;
-        this._studentService = studentService;
-        this._extraLessonService = extraLessonService;
-    }
+            this._adminstudentService = adminStudentService;
+            this._studentService = studentService;
+            this._extraLessonService = extraLessonService;
+            this._teacherSerivice = _teacherSerivice;
+     }
+
 
     [HttpGet("student/GetAll")]
     public async Task<IActionResult> Index(int page = 1) 
@@ -55,4 +58,9 @@ public class HomeController : BaseController
     [HttpPatch("student/delete-image")]
     public async Task<IActionResult> DeleteImageAsync(int id)
         => Ok(await _studentService.DeleteImageAsync(id));
+        
+        
+    [HttpGet("get-free-time")]
+    public async Task<IActionResult> GetFreeTimeAsync(int id, string time)
+        => Ok(await _teacherSerivice.GetFreeTimeAsync(id, time));
 }

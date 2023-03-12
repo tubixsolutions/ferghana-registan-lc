@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Security;
@@ -19,6 +20,15 @@ public class TeacherService : ITeacherService
         this._repository = unitOfWork;
         this._authService = authService;
         this._imageService = imageService;
+    }
+
+    public Task<List<string>>? GetFreeTimeAsync(int id, string time)
+    {
+        var query = _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == id && x.StartTime >=
+                    DateTime.Parse(time) 
+                    && x.EndTime < DateTime.Parse(time).AddDays(1)).Select(x => x.StartTime.
+                    ToString("dd-MM-yyyy HH:mm")).ToListAsync();
+        return query;
     }
 
     public async Task<bool> ImageDeleteAsync(int id)
