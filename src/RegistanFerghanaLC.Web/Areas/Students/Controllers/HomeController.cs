@@ -8,58 +8,60 @@ using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.Students;
 using RegistanFerghanaLC.Service.Interfaces.Teachers;
 
-namespace RegistanFerghanaLC.Web.Areas.Students.Controllers
-{
-    [Route("students")]
-    public class HomeController : BaseController
-    {
-        private readonly int _pageSize = 1;
-        private readonly IAdminStudentService _adminstudentService;
-        private readonly IStudentService _studentService;
-        private readonly IExtraLessonService _extraLessonService;
-        private readonly ITeacherService _teacherSerivice;
+namespace RegistanFerghanaLC.Web.Areas.Students.Controllers;
 
-        public HomeController(IAdminStudentService adminStudentService,ITeacherService _teacherSerivice, IStudentService studentService, IExtraLessonService extraLessonService)
-        {
+public class HomeController : BaseController
+{
+    private readonly int _pageSize = 5;
+    private readonly IAdminStudentService _adminstudentService;
+    private readonly IStudentService _studentService;
+    private readonly IExtraLessonService _extraLessonService;
+    private readonly ITeacherService _teacherSerivice;
+    public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService, ITeacherService _teacherSerivice)
+    {
             this._adminstudentService = adminStudentService;
             this._studentService = studentService;
             this._extraLessonService = extraLessonService;
             this._teacherSerivice = _teacherSerivice;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Index(int page = 1) 
-            => Ok(await _adminstudentService.GetAllAsync(new PaginationParams(page, _pageSize)));
+     }
 
 
-        [HttpGet("subject")]
+    [HttpGet("student/GetAll")]
+    public async Task<IActionResult> Index(int page = 1) 
+        => Ok(await _adminstudentService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
-        public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1) 
-            => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
 
-        [HttpPost("extraLesson")]
+    [HttpGet("student/subject")]
+    public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1) 
+        => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
 
-        public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
-            => Ok(await _extraLessonService.CreateAsync(createDto));
-        [HttpPut("student/update")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto)
-        {
-            return Ok(await _adminstudentService.UpdateAsync(id, dto));
-        }
-        [HttpPatch("student/imageupdate")]
-        public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
-        {
-            return Ok(await _studentService.ImageUpdateAsync(id, file));
-        }
+    
+    [HttpPost("student/extra-lesson")]
+    public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
+        => Ok(await _extraLessonService.CreateAsync(createDto));
 
-        [HttpGet("limit")]
-        public async Task<IActionResult> GetLimitStudentAsync(int id) 
-            => Ok(await _studentService.GetLimitStudentAsync(id));
-        [HttpPatch("student/imagedelete")]
-        public async Task<IActionResult> DeleteImageAsync(int id)
-            => Ok(await _studentService.DeleteImageAsync(id));
-        [HttpGet("get-free-time")]
-        public async Task<IActionResult> GetFreeTimeAsync(int id, string time)
-            => Ok(await _teacherSerivice.GetFreeTimeAsync(id, time));
-    }
+
+    [HttpPut("student/update")]
+    public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto) 
+        => Ok(await _adminstudentService.UpdateAsync(id, dto));
+
+
+    [HttpPatch("student/update-image")]
+    public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file) 
+        => Ok(await _studentService.ImageUpdateAsync(id, file));
+
+
+    [HttpGet("student/limit")]
+    public async Task<IActionResult> GetLimitStudentAsync(int id) 
+        => Ok(await _studentService.GetLimitStudentAsync(id));
+
+
+    [HttpPatch("student/delete-image")]
+    public async Task<IActionResult> DeleteImageAsync(int id)
+        => Ok(await _studentService.DeleteImageAsync(id));
+        
+        
+    [HttpGet("get-free-time")]
+    public async Task<IActionResult> GetFreeTimeAsync(int id, string time)
+        => Ok(await _teacherSerivice.GetFreeTimeAsync(id, time));
 }

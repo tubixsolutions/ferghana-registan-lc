@@ -7,6 +7,5 @@ namespace RegistanFerghanaLC.Web.Areas.Teachers.Controllers
     [Area("teachers")]
     public class BaseController : ControllerBase
     {
-
     }
 }
