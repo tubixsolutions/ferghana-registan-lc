@@ -39,9 +39,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region Get
         [HttpGet("get")]
-        public async Task<IActionResult> GetAsync(int adminId)
+        public async Task<IActionResult> GetAsync(string phoneNumber)
         {
-            var admin = await _adminService.GetByIdAsync(adminId);
+            var admin = await _adminService.GetByPhoneNumberAsync(phoneNumber);
             ViewBag.HomeTitle = "Profile";
             var adminView = new AdminViewModel()
             {
@@ -82,12 +82,8 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpPost("update")]
         public async Task<IActionResult> UpdateAsync([FromForm] AdminUpdateDto adminUpdateDto, int adminId)
         {
-            if (ModelState.IsValid)
-            {
-                var admin = await _adminService.UpdateAsync(adminId, adminUpdateDto);
-                if (admin) return RedirectToAction("Update", "admins");
-                else return RedirectToAction("Update", "admins");
-            }
+            var admin = await _adminService.UpdateAsync(adminId, adminUpdateDto);
+            if (admin) return RedirectToAction("Update", "admins");
             else return RedirectToAction("Update", "admins");
         }
 
@@ -96,6 +92,18 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         {
             var updateImage = await _adminService.UpdateImageAsync((int)_identityService.Id!, formFile);
             return await UpdateAsync();
+        }
+
+        [HttpPost("passwordUpdate")]
+        public async Task<IActionResult> PasswordUpdateAsync(int id, PasswordUpdateDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _adminService.UpdatePasswordAsync(id, dto);
+                if (result) return await UpdateAsync();
+                else return await UpdateAsync();
+            }
+            else return await UpdateAsync();
         }
         #endregion
 
@@ -107,21 +115,5 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             return await UpdateAsync();
         }
         #endregion
-        [HttpGet("updatePassword")]
-        public async Task<ViewResult> UpdatePasswordAsync()
-            => View("UpdatePassword");
-
-        [HttpPost("passwordUpdate")]
-        public async Task<IActionResult> PasswordUpdateAsync(int id, PasswordUpdateDto dto)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _adminService.UpdatePasswordAsync(id, dto);
-                if (result) return RedirectToAction("update", "admins");
-                else return await UpdatePasswordAsync();
-            }
-            else return await UpdatePasswordAsync();
-        }
-
     }
 }
