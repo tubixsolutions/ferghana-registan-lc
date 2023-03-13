@@ -17,50 +17,57 @@ public class HomeController : BaseController
     private readonly IStudentService _studentService;
     private readonly IExtraLessonService _extraLessonService;
     private readonly ITeacherService _teacherSerivice;
-    public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService, ITeacherService _teacherSerivice)
+    private readonly IExtraLessonDetailsService _extraLessonDetails;
+    public HomeController(IAdminStudentService adminStudentService, IStudentService studentService, IExtraLessonService extraLessonService, ITeacherService _teacherSerivice, IExtraLessonDetailsService extraLessonDetails)
     {
-            this._adminstudentService = adminStudentService;
-            this._studentService = studentService;
-            this._extraLessonService = extraLessonService;
-            this._teacherSerivice = _teacherSerivice;
-     }
+        this._adminstudentService = adminStudentService;
+        this._studentService = studentService;
+        this._extraLessonService = extraLessonService;
+        this._teacherSerivice = _teacherSerivice;
+        this._extraLessonDetails = extraLessonDetails;
+    }
 
 
     [HttpGet("student/GetAll")]
-    public async Task<IActionResult> Index(int page = 1) 
+    public async Task<IActionResult> Index(int page = 1)
         => Ok(await _adminstudentService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
 
     [HttpGet("student/subject")]
-    public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1) 
+    public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1)
         => Ok(await _studentService.GetAllTeacherBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
 
-    
+
     [HttpPost("student/extra-lesson")]
     public async Task<IActionResult> CreateExtraLessonAsync([FromForm] ExtraLessonCreateDto createDto)
         => Ok(await _extraLessonService.CreateAsync(createDto));
 
 
+    [HttpPut("student/extra-lesson-details-update")]
+    public async Task<IActionResult> UpdateExtraLessonAsync(int id, ExtraLessonDetailsUpdateDto updateDto)
+        => Ok(await _extraLessonDetails.UpdateAsync(id, updateDto));
+
+
     [HttpPut("student/update")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto) 
+    public async Task<IActionResult> UpdateAsync(int id, [FromForm] StudentAllUpdateDto dto)
         => Ok(await _adminstudentService.UpdateAsync(id, dto));
 
 
     [HttpPatch("student/update-image")]
-    public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file) 
+    public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
         => Ok(await _studentService.ImageUpdateAsync(id, file));
 
 
     [HttpGet("student/limit")]
-    public async Task<IActionResult> GetLimitStudentAsync(int id) 
+    public async Task<IActionResult> GetLimitStudentAsync(int id)
         => Ok(await _studentService.GetLimitStudentAsync(id));
 
 
     [HttpPatch("student/delete-image")]
     public async Task<IActionResult> DeleteImageAsync(int id)
         => Ok(await _studentService.DeleteImageAsync(id));
-        
-        
+
+
     [HttpGet("get-free-time")]
     public async Task<IActionResult> GetFreeTimeAsync(int id, string time)
         => Ok(await _teacherSerivice.GetFreeTimeAsync(id, time));

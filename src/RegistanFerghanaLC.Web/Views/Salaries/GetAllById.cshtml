@@ -19,9 +19,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Start Date</th>
-                <th>Comment</th>
                 <th>Rank</th>
-                <th>Get</th>
             </tr>
         </thead>
         @{
@@ -34,7 +32,6 @@
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.StartTime.ToString("dd-MM-yyyyㅤHH:mm")</td>
-                        <td>@item.Comment</td>
                         @{
                             if (item.Rank == 0)
                             {
