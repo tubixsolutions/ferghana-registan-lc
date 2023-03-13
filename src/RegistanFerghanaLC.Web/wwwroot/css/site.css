@@ -11674,6 +11674,10 @@ textarea.form-control-lg {
     min-width: 200px !important;
 }
 
+.max-w-200px {
+    max-width: 200px !important;
+}
+
 .min-w-225px {
     min-width: 225px !important;
 }

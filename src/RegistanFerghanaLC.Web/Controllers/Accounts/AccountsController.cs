@@ -15,6 +15,7 @@ public class AccountsController : Controller
     {
         _service = accountService;
     }
+    
     [HttpGet("register")]
     [Authorize(Roles = "admin")]
     public ViewResult Register() => View("Register");
