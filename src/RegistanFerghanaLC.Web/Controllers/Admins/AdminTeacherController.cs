@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Files;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
@@ -11,11 +15,13 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         private readonly IAdminTeacherService _adminTeacherService;
         private readonly string _rootPath;
         private readonly int _pageSize = 5;
+        private readonly IExcelService _excelService;
 
-        public AdminTeacherController(IAdminTeacherService adminTeacherService, IWebHostEnvironment webHostEnvironment)
+        public AdminTeacherController(IAdminTeacherService adminTeacherService, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
         {
             this._rootPath = webHostEnvironment.WebRootPath;
             _adminTeacherService = adminTeacherService;
+            _excelService = excelService;
         }
 
         [HttpGet]
@@ -95,7 +101,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.teacherId = teacherId;
             return View("Update", dto);
         }
-        
+
         [HttpPost("update")]
         public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
         {
@@ -123,5 +129,77 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 };
             }
         }
-     }
+
+        [HttpPost("import")]
+        public async Task<ActionResult> ImportAsync(FileModeldto filemodel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
+                    return View(dtos);
+                }
+                catch (InvalidExcel ex)
+                {
+                    return BadRequest(ex.Mes);
+                }
+            }
+            else
+            {
+                return UploadAsync();
+            }
+        }
+
+        [HttpGet("Upload")]
+        public ActionResult UploadAsync()
+        {
+            return View();
+        }
+        [HttpGet("export")]
+        public async Task<ActionResult> Export(int page = 1)
+        {
+            PagedList<TeacherViewDto> teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+
+            using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+            {
+                var worksheet = workbook.Worksheets.Add("Brands");
+
+                worksheet.Cell("A1").Value = "Full Name";
+                worksheet.Cell("B1").Value = "Birth Data";
+                worksheet.Cell("C1").Value = "Phone Number";
+                worksheet.Cell("D1").Value = "Subject";
+                worksheet.Cell("E1").Value = "Teacher Level";
+                worksheet.Cell("F1").Value = "Part of Day";
+                worksheet.Cell("G1").Value = "Work Days";
+                worksheet.Row(1).Style.Font.Bold = true;
+
+                //нумерация строк/столбцов начинается с индекса 1 (не 0)
+                for (int i = 1; i <= teachers.Count; i++)
+                {
+                    var teach = teachers[i - 1];
+                    worksheet.Cell(i + 1, 1).Value = teach.FirstName + " " + teach.LastName;
+                    worksheet.Cell(i + 1, 2).Value = teach.BirthDate;
+                    worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
+                    worksheet.Cell(i + 1, 4).Value = teach.Subject;
+                    worksheet.Cell(i + 1, 5).Value = teach.TeacherLevel;
+                    worksheet.Cell(i + 1, 6).Value = teach.PartOfDay;
+                    if (teach.WorkDays == true) worksheet.Cell(i + 1, 7).Value = "Daytime";
+                    else worksheet.Cell(i + 1, 7).Value = "Night";
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Flush();
+
+                    return new FileContentResult(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    {
+                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                    };
+                }
+            }
+        }
+    }
 }

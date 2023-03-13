@@ -33,7 +33,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
 
         public async Task<bool> DeleteFileAsync(string path)
         {
-            System.IO.File.Delete(path);
+            File.Delete(path);
             return 1 > 0;
         }
 
