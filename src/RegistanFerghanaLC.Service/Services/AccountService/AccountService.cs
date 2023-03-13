@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
+using RegistanFerghanaLC.Domain.Constants;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Entities.Users;
@@ -40,6 +41,7 @@ public class AccountService : IAccountService
 
         var hashresult = PasswordHasher.Hash(adminRegisterDto.Password);
         var admin = _mapper.Map<Admin>(adminRegisterDto);
+        admin.AdminRole = Role.Admin;
         admin.PasswordHash = hashresult.Hash;
         admin.Salt = hashresult.Salt;
         admin.CreatedAt = TimeHelper.GetCurrentServerTime();

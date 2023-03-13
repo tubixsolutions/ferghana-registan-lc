@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-            <a class="btn btn-registan" asp-area="" asp-controller="adminTeachers" asp-action="register">
+            <a class="btn btn-registan" asp-area="" asp-controller="accounts" asp-action="register">
                 Add Admin
             </a>
         </div>
@@ -35,6 +35,7 @@
                             <th class="text-start min-w-200px">ADMIN (F.L)</th>
                             <th class="text-start min-w-100px">PHONE NUMBER</th>
                             <th class="text-start min-w-100px">BIRTH DATE</th>
+                            <th class="text-start min-w-100px max-w-200px">ADDRESS</th>
                             <th class="text-start min-w-100px">CREATED AT</th>
                             <th class="text-start min-w-100px">ACTIONS</th>
                         </tr>
@@ -76,7 +77,10 @@
                                     <span class="fw-bold text-gray-500">@admin.BirthDate.ToString("dd.MM.yyyy")</span>
                                 </td>
                                 <td class="text-start">
-                                    <span class="fw-bold text-gray-500">@admin.CreatedAt</span>
+                                    <span class="fw-bold px-sm-0 text-gray-500">@admin.Address</span>
+                                </td>
+                                <td class="text-start">
+                                    <span class="fw-bold text-gray-500">@admin.CreatedAt.ToString("dd.MM.yyyy | hh:mm")</span>
                                 </td>
                                 <td class="text-start">
 
