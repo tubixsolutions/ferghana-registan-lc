@@ -1,21 +1,14 @@
 ﻿using AutoMapper;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Constants;
-using RegistanFerghanaLC.Domain.Entities.Students;
-using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Entities.Users;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Admins;
-using RegistanFerghanaLC.Service.Dtos.Students;
-using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Common;
-using RegistanFerghanaLC.Service.Services.Common;
-using System.Globalization;
-using System.Net;
 
 namespace RegistanFerghanaLC.Service.Services.AccountService;
 public class AccountService : IAccountService
