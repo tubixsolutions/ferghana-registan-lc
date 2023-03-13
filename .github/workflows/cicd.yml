@@ -18,7 +18,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Relase
+      run: dotnet build --configuration Relase --no-restore
 
   test:
     needs: build
