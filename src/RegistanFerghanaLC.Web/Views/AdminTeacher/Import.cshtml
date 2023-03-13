@@ -1,0 +1,13 @@
+﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
+@model List<TeacherRegisterDto>
+
+
+<div>
+    <div>
+        @foreach (TeacherRegisterDto student in Model)
+        {
+                <h1>@student.FirstName @student.LastName @student.PhoneNumber, @student.BirthDate, @student.Password, 
+                @student.TeacherLevel, @student.Subject</h1>
+        }
+    </div>
+</div>

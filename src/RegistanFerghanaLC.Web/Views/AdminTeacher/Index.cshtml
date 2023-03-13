@@ -26,19 +26,19 @@
 
             <div class="d-flex align-items-center" id="kt_header_user_menu_toggle">
                 <a class="btn btn-success" id="dropdownExcelFile" asp-area="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Excel
+                    Import
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownExcelFile">
                     <div class="separator my-2"></div>
                     <div class="menu-item px-5">
-                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Upload</a>
+                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7" asp-area="" asp-controller="adminTeachers" asp-action="Upload">Upload</a>
                     </div>
                     <div class="menu-item px-5 my-1">
-                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Save</a>
+                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7" asp-area="" asp-controller="adminTeachers" asp-action="export">Save</a>
                     </div>
                     <div class="menu-item px-5">
-                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Get</a>
+                        <a class="menu-link px-5 fw-bold text-dark text-hover-info fs-7" asp-area="" asp-controller="adminTeachers" asp-action="duplicate">Get a duplicate</a>
                     </div>
                 </div>
             </div>
