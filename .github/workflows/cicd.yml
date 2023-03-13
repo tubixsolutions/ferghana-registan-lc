@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: action/checkout@v2
+      uses: actions/checkout@v2
     - name: Setup .NET 6
-      uses: action/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
     - name: Restore dependencies
@@ -25,12 +25,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: action/checkout@v2
+      uses: actions/checkout@v2
     - name: Setup .NET 6
-      uses: action/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
     - name: Restore dependencies
       run: dotnet restore
     - name: Test
       run: dotnet build --configuration Relase
+
+  dockerize:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build Docker image
+      run: docker build -t $DOCKER_USERNAME/registan -f src/Dockerfile .
+    - name: Push Docker image
+      run: |
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        docker push $DOCKER_USERNAME/registan
