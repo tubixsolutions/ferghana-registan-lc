@@ -39,9 +39,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region Get
         [HttpGet("get")]
-        public async Task<IActionResult> GetAsync(string phoneNumber)
+        public async Task<IActionResult> GetAsync(int someId)
         {
-            var admin = await _adminService.GetByPhoneNumberAsync(phoneNumber);
+            var admin = await _adminService.GetByIdAsync(someId);
             ViewBag.HomeTitle = "Profile";
             var adminView = new AdminViewModel()
             {
