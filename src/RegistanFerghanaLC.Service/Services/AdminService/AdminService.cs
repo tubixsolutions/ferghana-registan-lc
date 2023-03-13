@@ -149,5 +149,6 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
             else
                 throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "Invalid Password");
         }
+
     }
 }

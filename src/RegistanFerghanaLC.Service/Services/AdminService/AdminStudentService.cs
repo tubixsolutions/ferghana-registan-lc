@@ -1,7 +1,10 @@
 ﻿
 using AutoMapper;
+using DocumentFormat.OpenXml.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
+using RegistanFerghanaLC.Domain.Entities;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
@@ -23,13 +26,15 @@ public class AdminStudentService : IAdminStudentService
     private readonly IAuthService _authService;
     private readonly IMapper _mapper;
     private readonly IImageService _imageService;
+    private readonly IStudentSubjectService _studentSubjectService;
 
-    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IImageService imageService)
+    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IImageService imageService, IStudentSubjectService studentSubjectService)
     {
         this._repository = unitOfWork;
         this._authService = authService;
         this._mapper = mapper;
         this._imageService = imageService;
+        this._studentSubjectService = studentSubjectService;
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -43,6 +48,7 @@ public class AdminStudentService : IAdminStudentService
         {
             var imageRes = await _imageService.DeleteImageAsync(student.Image);
         }
+        _repository.StudentSubjects.Delete(id);
         _repository.Students.Delete(id);
         var res = await _repository.SaveChangesAsync();
         return res > 0;
@@ -50,19 +56,62 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
-        var query = _repository.Students.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<StudentBaseViewModel>(x));
-        var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
-        if (students.Count != 0) return students;
-        else throw new StatusCodeException(HttpStatusCode.NotFound, "No student in the database.");
+        /* var query = _repository.Students.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<StudentBaseViewModel>(x));
+         var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
+         if (students.Count != 0) return students;
+         else throw new StatusCodeException(HttpStatusCode.NotFound, "No student in the database.");
+    */
+        var query = (from student in _repository.Students.GetAll()
+                     let studentSubjects = _repository.StudentSubjects.GetAll()
+                     .Where(ss => ss.StudentId == student.Id).ToList()
+                     let subjects = (from ss in studentSubjects 
+                                     join s in _repository.Subjects.GetAll()
+                                     on ss.SubjectId equals s.Id
+                                     select s.Name).ToList()
+                                    
+                     select new StudentBaseViewModel()
+                     {
+                         Id = student.Id,
+                         FirstName = student.FirstName,
+                         LastName = student.LastName,
+                         PhoneNumber = student.PhoneNumber,
+                         WeeklyLimit = student.WeeklyLimit,
+                         Image = student.Image,
+                         Subjects = subjects
+                     }
+                     );
+        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
+
+             
     }
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
     {
-        var student = await _repository.Students.FindByIdAsync(@id);
-        if (student is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+        var query = (from student in _repository.Students.GetAll()
+                       let studentSubjects = _repository.StudentSubjects.GetAll()
+                       .Where(ss => ss.StudentId == student.Id).ToList()
+                       let subjects = (from ss in studentSubjects
+                                       join s in _repository.Subjects.GetAll()
+                                       on ss.SubjectId equals s.Id
+                                       select s.Name).ToList()
 
-        var res = _mapper.Map<StudentViewModel>(student);
+                       select new StudentViewModel()
+                       {
+                           Id = student.Id,
+                           FirstName = student.FirstName,
+                           LastName = student.LastName,
+                           PhoneNumber = student.PhoneNumber,
+                           WeeklyLimit = student.WeeklyLimit,
+                           Image = student.Image,
+                           Subjects = subjects,
+                           StudentLevel = student.StudentLevel,
+                           CreatedAt = student.CreatedAt,
+                           BirthDate= student.BirthDate,
+                       }
+                     ).FirstOrDefault();
+        if (query is null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+        var res = _mapper.Map<StudentViewModel>(query);
         return res;
     }
 
@@ -84,9 +133,11 @@ public class AdminStudentService : IAdminStudentService
         var newStudent = (Student)studentRegisterDto;
         newStudent.PasswordHash = hasherResult.Hash;
         newStudent.Salt = hasherResult.Salt;
-
+        
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
+        string subject = studentRegisterDto.Subject;
+        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(newStudent.Id, subject);
         return dbResult > 0;
     }
 

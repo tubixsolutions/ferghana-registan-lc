@@ -1,5 +1,5 @@
 ﻿@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
-@model StudentViewModel
+@model StudentViewModel;
 
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value="@Model.PhoneNumber"></div>
-                    <div class="col-md-12"><label class="labels">Subject</label><input type="text" class="form-control" placeholder="enter subject" value="@Model.Subject"></div>
+                    <div class="col-md-12"><label class="labels">Subject</label><input type="text" class="form-control" placeholder="enter subject" value="@{string.Join(", ", Model.Subjects);}"></div>
                     <div class="col-md-12"><label class="labels">Birth Date</label><input type="text" class="form-control" placeholder="enter birth date" value="@Model.BirthDate"></div>
                     <div class="col-md-12"><label class="labels">Created at</label><input type="text" class="form-control" placeholder="creation date" value="@Model.CreatedAt"></div>
                     <div class="col-md-12"><label class="labels">Weekly limit</label><input type="text" class="form-control" placeholder="weekly limit" value="@Model.WeeklyLimit"></div>
@@ -31,12 +31,12 @@
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
             </div>
         </div>
-        <div class="col-md-4">
+        @*<div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
                 <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
