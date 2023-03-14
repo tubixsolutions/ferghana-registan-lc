@@ -3,13 +3,7 @@ version: '3'
 services:
   registan:
     image: qahhor/registan
-    container_name: "registan"
+    container_name: "registanf"
     restart: always
     ports:
       - "80:5000"
-    networks:
-      - web
-
-networks:
-  web:
-    external: true
