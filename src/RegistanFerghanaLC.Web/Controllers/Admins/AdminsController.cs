@@ -8,7 +8,7 @@ using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
     [Route("admins")]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     public class AdminsController : Controller
     {
         private readonly IAdminService _adminService;
