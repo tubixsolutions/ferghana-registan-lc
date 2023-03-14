@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Enums;
+using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Files;
+using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
@@ -17,10 +22,14 @@ public class AdminStudentController : Controller
 
     private readonly IAdminStudentService _adminStudentService;
     private readonly int _pageSize = 5;
+    private readonly string _rootPath;
+    private readonly IExcelService _excelService;
 
-    public AdminStudentController(IAdminStudentService adminStudentService)
+    public AdminStudentController(IAdminStudentService adminStudentService, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {
+        this._rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
+        _excelService = excelService;
     }
 
     [HttpGet("register")]
@@ -50,18 +59,26 @@ public class AdminStudentController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(string search, int page = 1)
     {
-        PagedList<StudentBaseViewModel> students;
-        if(String.IsNullOrEmpty(search))
+        if (String.IsNullOrEmpty(search))
         {
-            students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+            FileModeldto students = new FileModeldto()
+            {
+                Students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize)),
+            };
+            ViewBag.HomeTitle = "Students";
+            ViewBag.AdminStudentSearch = search;
+            return View("Index", students);
         }
         else
         {
-            students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search);
+            FileModeldto students = new FileModeldto()
+            {
+                Students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search)
+            };
+            ViewBag.HomeTitle = "Students";
+            ViewBag.AdminStudentSearch = search;
+            return View("Index", students);
         }
-        ViewBag.HomeTitle = "Student";
-        ViewBag.AdminStudentSearch = search;
-        return View("Index", students);
     }
 
     [HttpGet("delete")]
@@ -106,5 +123,79 @@ public class AdminStudentController : Controller
         if (student is not null) return View("GetById", student);
         return View("Index");
     }
+    [HttpGet("duplicate")]
+    public async Task<IActionResult> Duplicate()
+    {
 
+        using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+        {
+            byte[] file = new byte[stream.Length];
+            await stream.ReadAsync(file, 0, file.Length);
+            return new FileContentResult(file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+            };
+        }
+    }
+
+    [HttpPost("import")]
+    public async Task<IActionResult> ImportAsync(FileModeldto filemodel)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
+                return RedirectToAction("Index", "adminteachers", new { area = "" });
+            }
+            catch (InvalidExcel ex)
+            {
+                return BadRequest(ex.Mes);
+            }
+        }
+        else
+        {
+            return RedirectToAction("Index", "adminteachers", new { area = "" });
+        }
+    }
+
+    [HttpGet("export")]
+    public async Task<IActionResult> Export(int page = 1)
+    {
+        PagedList<StudentBaseViewModel> students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+
+        using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+        {
+            var worksheet = workbook.Worksheets.Add("Brands");
+
+            worksheet.Cell("A1").Value = "Full Name";
+            worksheet.Cell("B1").Value = "Birth Data";
+            worksheet.Cell("C1").Value = "Phone Number";
+            worksheet.Cell("D1").Value = "Subject";
+            worksheet.Row(1).Style.Font.Bold = true;
+
+            //нумерация строк/столбцов начинается с индекса 1 (не 0)
+            for (int i = 1; i <= students.Count; i++)
+            {
+                var teach = students[i - 1];
+                //worksheet.Cell(i + 1, 1).Value = teach.FirstName + " " + teach.LastName;
+                //worksheet.Cell(i + 1, 2).Value = teach.;
+                //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
+                //worksheet.Cell(i + 1, 4).Value = teach.Subject;
+            }
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                stream.Flush();
+
+                return new FileContentResult(stream.ToArray(),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+                };
+            }
+        }
+    }
 }

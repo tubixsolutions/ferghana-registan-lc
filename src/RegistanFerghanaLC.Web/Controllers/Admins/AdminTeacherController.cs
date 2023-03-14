@@ -27,18 +27,26 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet]
         public async Task<IActionResult> Index(string search, int page = 1)
         {
-            PagedList<TeacherViewDto> teachers;
             if (String.IsNullOrEmpty(search))
             {
-                teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+                FileModeldto teachers = new FileModeldto()
+                {
+                    Teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize)),
+                };
+                ViewBag.HomeTitle = "Teacher";
+                ViewBag.AdminTeacherSearch = search;
+                return View("Index", teachers);
             }
             else
             {
-                teachers = await _adminTeacherService.SearchAsync(new PaginationParams(page, _pageSize), search);
+                FileModeldto teachers = new FileModeldto()
+                {
+                    Teachers = await _adminTeacherService.SearchAsync(new PaginationParams(page, _pageSize), search)
+                };
+                ViewBag.HomeTitle = "Teacher";
+                ViewBag.AdminTeacherSearch = search;
+                return View("Index", teachers);
             }
-            ViewBag.HomeTitle = "Teacher";
-            ViewBag.AdminTeacherSearch = search;
-            return View("Index", teachers);
             //return View("Index", (teachers, filemodeldto ));
         }
 
@@ -115,7 +123,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet("duplicate")]
-        public async Task<ActionResult> Duplicate()
+        public async Task<IActionResult> Duplicate()
         {
 
             using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
@@ -131,14 +139,14 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpPost("import")]
-        public async Task<ActionResult> ImportAsync(FileModeldto filemodel)
+        public async Task<IActionResult> ImportAsync(FileModeldto filemodel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
-                    return View(dtos);
+                    return RedirectToAction("Index", "adminteachers", new { area = "" });
                 }
                 catch (InvalidExcel ex)
                 {
@@ -147,17 +155,12 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else
             {
-                return UploadAsync();
+                return RedirectToAction("Index", "adminteachers", new { area = "" });
             }
         }
 
-        [HttpGet("Upload")]
-        public ActionResult UploadAsync()
-        {
-            return View();
-        }
         [HttpGet("export")]
-        public async Task<ActionResult> Export(int page = 1)
+        public async Task<IActionResult> Export(int page = 1)
         {
             PagedList<TeacherViewDto> teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
 

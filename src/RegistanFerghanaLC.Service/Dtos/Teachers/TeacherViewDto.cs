@@ -1,5 +1,6 @@
 ﻿using RegistanFerghanaLC.Domain.Common;
 using RegistanFerghanaLC.Domain.Enums;
+using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
@@ -21,5 +22,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         public string TeacherLevel { get; set; } = String.Empty;
 
         public string Subject { get; set; } = String.Empty;
+
+        public FileModeldto FileModel { get; set; }
     }
 }
