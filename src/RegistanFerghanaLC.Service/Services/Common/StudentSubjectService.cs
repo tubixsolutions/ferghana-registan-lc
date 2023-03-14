@@ -44,16 +44,16 @@ public class StudentSubjectService : IStudentSubjectService
 
     }
 
-    public async Task<bool> SaveStudentSubjectAsync(int studentId, int subjectId)
+    public async Task<bool> SaveStudentSubjectAsync(int studentId, string subjectName)
     {
-        var subject = await _repository.Subjects.FindByIdAsync(subjectId);
+        var subject = await _repository.Subjects.FirstOrDefault(x=>x.Name.ToLower() == subjectName.ToLower());
         var student = await _repository.Students.FindByIdAsync(studentId);
         if (subject !=null && student != null)
         {
             StudentSubject studentSubject = new StudentSubject()
             {
                 StudentId = studentId,
-                SubjectId = subjectId,
+                SubjectId = subject.Id,
                 CreatedAt = TimeHelper.GetCurrentServerTime(),
                 LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
             };

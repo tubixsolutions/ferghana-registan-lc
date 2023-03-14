@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
@@ -7,6 +8,7 @@ using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
     [Route("admins")]
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminsController : Controller
     {
         private readonly IAdminService _adminService;
@@ -39,9 +41,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region Get
         [HttpGet("get")]
-        public async Task<IActionResult> GetAsync(string phoneNumber)
+        public async Task<IActionResult> GetAsync(int someId)
         {
-            var admin = await _adminService.GetByPhoneNumberAsync(phoneNumber);
+            var admin = await _adminService.GetByIdAsync(someId);
             ViewBag.HomeTitle = "Profile";
             var adminView = new AdminViewModel()
             {

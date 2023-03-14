@@ -39,6 +39,7 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IExcelService, ExcelService>();
             services.AddScoped<IAdminSubjectService , AdminSubjectService>();
             services.AddScoped<ITeacherService, TeacherService>();
+            services.AddScoped<IStudentSubjectService, StudentSubjectService>();
 
             services.AddMemoryCache();
             services.AddHttpContextAccessor();

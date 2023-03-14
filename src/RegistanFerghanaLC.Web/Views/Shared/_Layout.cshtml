@@ -99,7 +99,23 @@
                                             </a>
                                         </div>
                                         <div class="menu-item mb-1">
-                                            <a asp-controller="Salaries" asp-action="Index" class="menu-link @(ViewBag.Tab == 4 ? "active":"")">
+                                            <a asp-controller="admins" asp-action="index" class="menu-link @(ViewBag.Tab == 4 ? "active":"")">
+                                                <span class="menu-icon">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                    <span class="svg-icon svg-icon-2 svg-icon-registan">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M2 16C2 16.6 2.4 17 3 17H21C21.6 17 22 16.6 22 16V15H2V16Z" fill="currentColor" />
+                                                            <path opacity="0.3" d="M21 3H3C2.4 3 2 3.4 2 4V15H22V4C22 3.4 21.6 3 21 3Z" fill="currentColor" />
+                                                            <path opacity="0.3" d="M15 17H9V20H15V17Z" fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                                <span class="menu-title">Admins</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item mb-1">
+                                            <a asp-controller="Salaries" asp-action="Index" class="menu-link @(ViewBag.Tab == 5 ? "active":"")">
                                                 <span class="menu-icon">
                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                                     <span class="svg-icon svg-icon-2 svg-icon-registan">
@@ -160,7 +176,7 @@
                                         <!--end::Menu wrapper-->
                                     </div>
                                     <div class="wrap-link">
-                                        <a asp-controller="" asp-action="" class="linkOne text-gray-700 text-hover-white" data-bs-trigger="hover" data-bs-toggle="tooltip" title="Student" data-bs-dismiss="click" data-bs-placement="bottom">
+                                        <a asp-controller="AdminSubject" asp-action="register" class="linkOne text-gray-700 text-hover-white" data-bs-trigger="hover" data-bs-toggle="tooltip" title="Student" data-bs-dismiss="click" data-bs-placement="bottom">
                                             <span class="svg-icon svg-icon-2 me-1">
                                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/ceres/html/releases/2023-01-23-171327/core/html/src/media/icons/duotune/general/gen049.svg-->
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

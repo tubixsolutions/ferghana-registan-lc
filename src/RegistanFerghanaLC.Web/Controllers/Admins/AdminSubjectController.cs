@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Service.Dtos.Subjects;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
@@ -19,12 +20,13 @@ public class AdminSubjectController : Controller
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> RegisterSubjectAsync(string subject)
+    public async Task<IActionResult> RegisterSubjectAsync(SubjectCreateDto subject)
     {
-        var result = await _service.SubjectCreateAsync(subject);
+        var result = await _service.SubjectCreateAsync(subject.Name);
         if (result)
             return RedirectToAction("index", "home", new { area = "" });
         else
             return Register();
     }
+    
 }
