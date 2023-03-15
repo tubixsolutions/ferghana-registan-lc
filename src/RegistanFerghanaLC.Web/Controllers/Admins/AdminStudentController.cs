@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RegistanFerghanaLC.Domain.Entities.Students;
+using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
@@ -16,16 +18,21 @@ public class AdminStudentController : Controller
 {
 
     private readonly IAdminStudentService _adminStudentService;
+    private readonly IAdminSubjectService _subjectService;
+    private readonly IMapper _mapper;
     private readonly int _pageSize = 5;
 
-    public AdminStudentController(IAdminStudentService adminStudentService)
+    public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper)
     {
         _adminStudentService = adminStudentService;
+        _subjectService = subjectService;
+        _mapper = mapper;
     }
 
     [HttpGet("register")]
     public ViewResult Register()
     {
+        ViewBag.Subjects = _subjectService.GetAllAsync();
         return View("Register");
     }
 
@@ -86,7 +93,20 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Update(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        if (student != null) { return View("Update", student); }
+        var dto = new StudentAllUpdateDto()
+        {
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            PhoneNumber= student.PhoneNumber,
+            BirthDate = student.BirthDate,
+            StudentLevel = student.StudentLevel,
+
+        };
+        if (student != null) 
+        {
+            ViewBag.studentId = id;
+            return View("Update", dto); 
+        }
         else return View("Index");
     }
 
@@ -94,9 +114,13 @@ public class AdminStudentController : Controller
     public async Task<IActionResult> UpdateAsync(int id, StudentAllUpdateDto dto)
     {
         var res = await _adminStudentService.UpdateAsync(id, dto);
-        if (res) return RedirectToAction("Index");
-        return View("Error");
-       
+        if (res)
+        {
+            return RedirectToAction("Index", "adminstudent", new { area = "" });
+        }
+        else return await Update(id);
+
+
     }
 
     [HttpGet("getbyid")]
