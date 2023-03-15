@@ -2,7 +2,7 @@ name: Build, Test and Deploy
 on:
   push:
     branches:
-      - Qahhor
+      - main
 
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Relase
+      run: dotnet build --configuration RelEase --no-restore
 
   test:
     needs: build
@@ -33,7 +33,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Test
-      run: dotnet build --configuration Relase
+      run: dotnet build --configuration Release
 
   dockerize:
     needs: test
@@ -50,3 +50,18 @@ jobs:
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         docker push $DOCKER_USERNAME/registan
+
+  deploy:
+    name: Deploy .NET app on Aws Lightsail server
+    needs: dockerize
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy .NET app on Aws Lightsail server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.HOST_IP }}
+          key: ${{ secrets.HOST_KEY }}
+          username: ${{ secrets.HOST_USERNAME }}
+          script: |
+            cd ~/app
+            docker-compose up -d --no-deps --build registan
