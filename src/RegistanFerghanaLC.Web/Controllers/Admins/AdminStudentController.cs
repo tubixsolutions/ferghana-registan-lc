@@ -24,6 +24,7 @@ public class AdminStudentController : Controller
     private readonly IAdminStudentService _adminStudentService;
     private readonly IAdminSubjectService _subjectService;
     private readonly IMapper _mapper;
+    private readonly string _rootPath;
     private readonly int _pageSize = 5;
     private readonly string _rootPath;
     private readonly IExcelService _excelService;
@@ -32,6 +33,9 @@ public class AdminStudentController : Controller
     {
         this._rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
+        _subjectService = subjectService;
+        _mapper = mapper;
+        this._rootPath = webHostEnvironment.WebRootPath;
         _excelService = excelService;
     }
 
