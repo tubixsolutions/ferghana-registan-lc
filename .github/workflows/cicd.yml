@@ -64,4 +64,5 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           script: |
             cd ~/app
+            docker-compose down --rmi all
             docker-compose up -d --no-deps --build registan
