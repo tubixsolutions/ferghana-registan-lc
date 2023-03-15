@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,7 @@ using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Files;
+using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
@@ -26,14 +27,13 @@ public class AdminStudentController : Controller
     private readonly IMapper _mapper;
     private readonly string _rootPath;
     private readonly int _pageSize = 5;
-    private readonly IExcelService _excelService;
 
     public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {
+        this._rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
         _subjectService = subjectService;
         _mapper = mapper;
-        this._rootPath = webHostEnvironment.WebRootPath;
         _excelService = excelService;
     }
 
@@ -65,18 +65,26 @@ public class AdminStudentController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(string search, int page = 1)
     {
-        PagedList<StudentBaseViewModel> students;
-        if(String.IsNullOrEmpty(search))
+        if (String.IsNullOrEmpty(search))
         {
-            students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+            FileModeldto students = new FileModeldto()
+            {
+                Students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize)),
+            };
+            ViewBag.HomeTitle = "Students";
+            ViewBag.AdminStudentSearch = search;
+            return View("Index", students);
         }
         else
         {
-            students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search);
+            FileModeldto students = new FileModeldto()
+            {
+                Students = await _adminStudentService.GetByNameAsync(new PaginationParams(page, _pageSize), search)
+            };
+            ViewBag.HomeTitle = "Students";
+            ViewBag.AdminStudentSearch = search;
+            return View("Index", students);
         }
-        ViewBag.HomeTitle = "Student";
-        ViewBag.AdminStudentSearch = search;
-        return View("Index", students);
     }
 
     [HttpGet("delete")]
@@ -190,6 +198,7 @@ public class AdminStudentController : Controller
             worksheet.Cell("D1").Value = "Subject";
             worksheet.Row(1).Style.Font.Bold = true;
 
+
             //нумерация строк/столбцов начинается с индекса 1 (не 0)
             for (int i = 1; i <= students.Count; i++)
             {
@@ -199,6 +208,7 @@ public class AdminStudentController : Controller
                 //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
                 //worksheet.Cell(i + 1, 4).Value = teach.Subject;
             }
+
 
             using (var stream = new MemoryStream())
             {
