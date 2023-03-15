@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+using AutoMapper;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -27,9 +28,9 @@ public class AdminStudentController : Controller
     private readonly string _rootPath;
     private readonly int _pageSize = 5;
     private readonly string _rootPath;
-    private readonly IExcelService _excelService;
+    private readonly int _pageSize = 5;
 
-    public AdminStudentController(IAdminStudentService adminStudentService, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
+    public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {
         this._rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
@@ -200,6 +201,7 @@ public class AdminStudentController : Controller
             worksheet.Cell("D1").Value = "Subject";
             worksheet.Row(1).Style.Font.Bold = true;
 
+
             //нумерация строк/столбцов начинается с индекса 1 (не 0)
             for (int i = 1; i <= students.Count; i++)
             {
@@ -209,6 +211,7 @@ public class AdminStudentController : Controller
                 //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
                 //worksheet.Cell(i + 1, 4).Value = teach.Subject;
             }
+
 
             using (var stream = new MemoryStream())
             {
