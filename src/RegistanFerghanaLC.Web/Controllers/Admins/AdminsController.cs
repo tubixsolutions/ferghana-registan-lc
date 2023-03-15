@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.DataAccess.Migrations;
+using RegistanFerghanaLC.Domain.Constants;
+using RegistanFerghanaLC.Domain.Entities.Users;
+using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
@@ -27,7 +31,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             List<AdminViewModel> admins;
             if (!String.IsNullOrEmpty(search))
             {
-                ViewBag.Search = search;
+                ViewBag.AdminSearch = search;
                 admins = await _adminService.GetAllAsync(search);
             }
             else
