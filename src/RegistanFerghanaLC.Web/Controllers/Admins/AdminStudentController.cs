@@ -12,6 +12,7 @@ using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
@@ -24,6 +25,7 @@ public class AdminStudentController : Controller
     private readonly IAdminSubjectService _subjectService;
     private readonly IMapper _mapper;
     private readonly int _pageSize = 5;
+    private readonly IExcelService _excelService;
 
     public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper)
     {
