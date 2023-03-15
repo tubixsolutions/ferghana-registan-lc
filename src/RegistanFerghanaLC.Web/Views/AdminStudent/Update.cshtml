@@ -1,11 +1,11 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Students;
 @using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
-@model StudentViewModel;
+@model StudentAllUpdateDto;
 
 <div class="card w-550px h-630px mt-10 mb-10" style="margin-left:auto; margin-right:auto;">
     <div class="py-10 pe-10 px-10">
-        <form asp-controller="AdminStudent" asp-action="update" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="@Model.Id" />
+        <form asp-controller="AdminStudent" asp-action="update" asp-route-id="@ViewBag.studentId" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="@ViewBag.studentId" />
             <label class="form-label fs-2 text-primary" style="">Student Update</label>
             <div class="mt-5">
                 <label class="required form-label text-primary">FirstName</label>
@@ -40,21 +40,16 @@
                 <input type="text" asp-for=Subject class="form-control form-control-solid" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
-            @*<div class="mt-5">
-                <label class="required form-label text-primary">Level</label>
-                <input type="text" asp-for=TeacherLevel class="form-control form-control-solid" />
-                <span asp-validation-for="TeacherLevel" class="text-danger"></span>
-            </div>
-            <label class="required form-label text-dark mt-5">Work days</label>
-            <select class="form-select form-select-solid" asp-for=WorkDays name="Part" id="Part" aria-label="Select example">
-                <option value="true">Odd</option>
-                <option value="false">Even</option>
-            </select>
-            <label class="required form-label text-dark mt-5">Part Day</label>
-            <select class="form-select form-select-solid" asp-for=PartOfDay name="Part" id="Part" aria-label="Select example">
-                <option value="true">Morning</option>
-                <option value="false">Afternoon</option>
+            @*<select asp-for=Subject class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
+                @{
+                    var subjects = ViewBag.Subjects;
+                    foreach (var subject in subjects)
+                    {
+                        <option value="ture">@subject.ToString()</option>
+                    }
+                }
             </select>*@
+            
 
             <div class="mt-8">
                 <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="UPDATE" />
