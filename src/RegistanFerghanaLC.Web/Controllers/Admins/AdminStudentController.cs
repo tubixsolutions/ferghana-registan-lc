@@ -25,18 +25,16 @@ public class AdminStudentController : Controller
     private readonly IAdminStudentService _adminStudentService;
     private readonly IAdminSubjectService _subjectService;
     private readonly IMapper _mapper;
-    private readonly string _rootPath;
-    private readonly int _pageSize = 5;
+    private readonly IExcelService _excelService;
     private readonly string _rootPath;
     private readonly int _pageSize = 5;
 
     public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {
-        this._rootPath = webHostEnvironment.WebRootPath;
+        _rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
         _subjectService = subjectService;
         _mapper = mapper;
-        this._rootPath = webHostEnvironment.WebRootPath;
         _excelService = excelService;
     }
 
@@ -226,42 +224,5 @@ public class AdminStudentController : Controller
             }
         }
     }
-    [HttpGet("export")]
-    public async Task<IActionResult> Export(int page = 1)
-    {
-        PagedList<StudentBaseViewModel> students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
-
-        using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
-        {
-            var worksheet = workbook.Worksheets.Add("Brands");
-
-            worksheet.Cell("A1").Value = "Full Name";
-            worksheet.Cell("B1").Value = "Birth Data";
-            worksheet.Cell("C1").Value = "Phone Number";
-            worksheet.Cell("D1").Value = "Subject";
-            worksheet.Row(1).Style.Font.Bold = true;
-
-            //нумерация строк/столбцов начинается с индекса 1 (не 0)
-            for (int i = 1; i <= students.Count; i++)
-            {
-                var teach = students[i - 1];
-                //worksheet.Cell(i + 1, 1).Value = teach.FirstName + " " + teach.LastName;
-                //worksheet.Cell(i + 1, 2).Value = teach.;
-                //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
-                //worksheet.Cell(i + 1, 4).Value = teach.Subject;
-            }
-
-            using (var stream = new MemoryStream())
-            {
-                workbook.SaveAs(stream);
-                stream.Flush();
-
-                return new FileContentResult(stream.ToArray(),
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                {
-                    FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                };
-            }
-        }
-    }
+    
 }
