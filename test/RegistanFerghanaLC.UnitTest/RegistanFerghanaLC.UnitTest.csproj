@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RegistanFerghanaLC.Service\RegistanFerghanaLC.Service.csproj" />
+  </ItemGroup>
+
 </Project>
