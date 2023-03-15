@@ -11,4 +11,5 @@ public interface IAdminStudentService
     public Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params);
     public Task<StudentViewModel> GetByIdAsync(int id);
     public Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name);
+    public Task<List<StudentViewModel>> GetFileAllAsync();
 }

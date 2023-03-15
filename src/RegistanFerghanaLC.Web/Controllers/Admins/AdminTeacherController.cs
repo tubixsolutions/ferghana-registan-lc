@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.FileViewModels;
@@ -146,6 +147,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 try
                 {
                     List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
+                    
+                    if (dtos.Count > 0) return View(dtos);
+
                     return RedirectToAction("Index", "adminteachers", new { area = "" });
                 }
                 catch (InvalidExcel ex)
@@ -162,33 +166,35 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpGet("export")]
         public async Task<IActionResult> Export(int page = 1)
         {
-            PagedList<TeacherViewDto> teachers = await _adminTeacherService.GetAllAsync(new PaginationParams(page, _pageSize));
+            List<TeacherViewDto> teachers = await _adminTeacherService.GetFileAllAsync();
 
             using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
             {
                 var worksheet = workbook.Worksheets.Add("Brands");
-
-                worksheet.Cell("A1").Value = "Full Name";
-                worksheet.Cell("B1").Value = "Birth Data";
-                worksheet.Cell("C1").Value = "Phone Number";
-                worksheet.Cell("D1").Value = "Subject";
-                worksheet.Cell("E1").Value = "Teacher Level";
-                worksheet.Cell("F1").Value = "Part of Day";
-                worksheet.Cell("G1").Value = "Work Days";
+                
+                worksheet.Cell("A1").Value = "Id";
+                worksheet.Cell("B1").Value = "Full Name";
+                worksheet.Cell("C1").Value = "Birth Data";
+                worksheet.Cell("D1").Value = "Phone Number";
+                worksheet.Cell("E1").Value = "Subject";
+                worksheet.Cell("F1").Value = "Teacher Level";
+                worksheet.Cell("G1").Value = "Part of Day";
+                worksheet.Cell("H1").Value = "Work Days";
                 worksheet.Row(1).Style.Font.Bold = true;
 
                 //нумерация строк/столбцов начинается с индекса 1 (не 0)
                 for (int i = 1; i <= teachers.Count; i++)
                 {
                     var teach = teachers[i - 1];
-                    worksheet.Cell(i + 1, 1).Value = teach.FirstName + " " + teach.LastName;
-                    worksheet.Cell(i + 1, 2).Value = teach.BirthDate;
-                    worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
-                    worksheet.Cell(i + 1, 4).Value = teach.Subject;
-                    worksheet.Cell(i + 1, 5).Value = teach.TeacherLevel;
-                    worksheet.Cell(i + 1, 6).Value = teach.PartOfDay;
-                    if (teach.WorkDays == true) worksheet.Cell(i + 1, 7).Value = "Daytime";
-                    else worksheet.Cell(i + 1, 7).Value = "Night";
+                    worksheet.Cell(i + 1, 1).Value = teach.Id;
+                    worksheet.Cell(i + 1, 2).Value = teach.FirstName + " " + teach.LastName;
+                    worksheet.Cell(i + 1, 3).Value = teach.BirthDate;
+                    worksheet.Cell(i + 1, 4).Value = teach.PhoneNumber;
+                    worksheet.Cell(i + 1, 5).Value = teach.Subject;
+                    worksheet.Cell(i + 1, 6).Value = teach.TeacherLevel;
+                    worksheet.Cell(i + 1, 7).Value = teach.PartOfDay;
+                    if (teach.WorkDays == true) worksheet.Cell(i + 1, 8).Value = "Daytime";
+                    else worksheet.Cell(i + 1, 8).Value = "Night";
                 }
 
                 using (var stream = new MemoryStream())
