@@ -7,6 +7,7 @@ namespace RegistanFerghanaLC.Service.ViewModels.AdminViewModels
     public class AdminViewModel
     {
         public int Id { get; set; }
+
         public string FirstName { get; set; } = String.Empty;
 
         public string LastName { get; set; } = String.Empty;
@@ -27,6 +28,7 @@ namespace RegistanFerghanaLC.Service.ViewModels.AdminViewModels
         {
             return new AdminViewModel()
             {
+                Id = model.Id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 ImagePath = model.Image!,

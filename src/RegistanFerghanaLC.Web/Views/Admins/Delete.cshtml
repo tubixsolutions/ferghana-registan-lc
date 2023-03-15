@@ -9,7 +9,7 @@
     </div>
 
     <div id="kt_account_settings_deactivate" class="collapse show">
-        <form asp-controller="admins" asp-action="delete" asp-route-Id="@Model.Id" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+        <form asp-controller="admins" asp-action="delete" asp-route-adminId="@Model.Id" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
             <div class="card-body border-top p-9">
                 <div class="fs-6 fw-bold mb-1">@Model.FirstName @Model.LastName</div>
                 <div class="fw-semibold text-gray-600">@Model.PhoneNumber</div>

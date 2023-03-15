@@ -116,17 +116,17 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region DeleteImage
         [HttpGet("delete")]
-        public async Task<ViewResult> DeleteAsync(int Id)
+        public async Task<ViewResult> DeleteAsync(int adminId)
         {
-            var admin = await _adminService.GetByIdAsync(Id);
+            var admin = await _adminService.GetByIdAsync(adminId);
             if (admin != null) return View("Delete", admin);
             else return View("admins");
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteAdminAsync(int Id)
+        public async Task<IActionResult> DeleteAdminAsync(int adminId)
         {
-            var admin = await _adminService.DeleteAsync(Id);
+            var admin = await _adminService.DeleteAsync(adminId);
             if (admin) return RedirectToAction("index", "admins", new { area = "" });
             else return View();
         }
