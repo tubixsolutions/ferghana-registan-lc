@@ -2,11 +2,7 @@ name: Build, Test and Deploy
 on:
   push:
     branches:
-<<<<<<< HEAD
       - deploy
-=======
-      - Qahhor
->>>>>>> f7052db (www)
 
 
 jobs:
@@ -68,9 +64,5 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           script: |
             cd ~/app
-<<<<<<< HEAD
+            docker-compose down --rmi all
             docker-compose up -d --no-deps --build registan
-=======
-            docker-compose down
-            docker-compose up -d --no-deps --build registan
->>>>>>> f7052db (www)
