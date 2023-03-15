@@ -1,8 +1,10 @@
-﻿using ClosedXML.Excel;
+using AutoMapper;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RegistanFerghanaLC.Domain.Entities.Students;
+using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
@@ -21,20 +23,25 @@ public class AdminStudentController : Controller
 {
 
     private readonly IAdminStudentService _adminStudentService;
-    private readonly int _pageSize = 5;
-    private readonly string _rootPath;
+    private readonly IAdminSubjectService _subjectService;
+    private readonly IMapper _mapper;
     private readonly IExcelService _excelService;
+    private readonly string _rootPath;
+    private readonly int _pageSize = 5;
 
-    public AdminStudentController(IAdminStudentService adminStudentService, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
+    public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {
-        this._rootPath = webHostEnvironment.WebRootPath;
+        _rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
+        _subjectService = subjectService;
+        _mapper = mapper;
         _excelService = excelService;
     }
 
     [HttpGet("register")]
     public ViewResult Register()
     {
+        ViewBag.Subjects = _subjectService.GetAllAsync();
         return View("Register");
     }
 
@@ -103,7 +110,20 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Update(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        if (student != null) { return View("Update", student); }
+        var dto = new StudentAllUpdateDto()
+        {
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            PhoneNumber= student.PhoneNumber,
+            BirthDate = student.BirthDate,
+            StudentLevel = student.StudentLevel,
+
+        };
+        if (student != null) 
+        {
+            ViewBag.studentId = id;
+            return View("Update", dto); 
+        }
         else return View("Index");
     }
 
@@ -111,9 +131,13 @@ public class AdminStudentController : Controller
     public async Task<IActionResult> UpdateAsync(int id, StudentAllUpdateDto dto)
     {
         var res = await _adminStudentService.UpdateAsync(id, dto);
-        if (res) return RedirectToAction("Index");
-        return View("Error");
-       
+        if (res)
+        {
+            return RedirectToAction("Index", "adminstudent", new { area = "" });
+        }
+        else return await Update(id);
+
+
     }
 
     [HttpGet("getbyid")]
@@ -175,6 +199,7 @@ public class AdminStudentController : Controller
             worksheet.Cell("D1").Value = "Subject";
             worksheet.Row(1).Style.Font.Bold = true;
 
+
             //нумерация строк/столбцов начинается с индекса 1 (не 0)
             for (int i = 1; i <= students.Count; i++)
             {
@@ -184,6 +209,7 @@ public class AdminStudentController : Controller
                 //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
                 //worksheet.Cell(i + 1, 4).Value = teach.Subject;
             }
+
 
             using (var stream = new MemoryStream())
             {
@@ -198,4 +224,5 @@ public class AdminStudentController : Controller
             }
         }
     }
+    
 }

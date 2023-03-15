@@ -1,20 +1,41 @@
 ﻿@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 @model StudentBaseViewModel
 
-<div class="d-flex justify-content-center" style="margin-top:250px; background-color: transparent;">
-    <div class="card px-4 pt-4 pb-4 pe-4">
-        <form asp-action="delete" asp-controller="adminstudent"  asp-route-Id="@Model.Id" method="post">
-            <div class="card-body">
-                <h3>
-                    Are you sure that you want to delete @Model.FirstName @Model.LastName from the list of students.?
-                </h3>
-                <div class="mt-4 mb-2 d-flex justify-content-end">
-                    <input asp-controller="AdminStudent" asp-action="delete" asp-route-Id="@Model.Id" type="submit" class="btn btn-danger me-2" value="Delete" style="border-radius: 20px;">
-                    <a asp-controller="AdminStudent" asp-action="index" class="btn btn-secondary" style="border-radius:20px;">Cancel</a>
-                </div>
-            </div>
-        </form>
-
+<div class="card">
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_deactivate" aria-expanded="true" >
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">Deactivate Account</h3>
+        </div>
     </div>
 
+    <div id="kt_account_settings_deactivate" class="collapse show">
+        <form asp-action="delete" asp-controller="adminstudent" asp-route-Id="@Model.Id" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+            <div class="card-body border-top p-9">
+                <div class="fs-6 fw-bold mb-1">@Model.FirstName @Model.LastName</div>
+                <div class="fw-semibold text-gray-600">@Model.PhoneNumber</div>
+              
+                <div class="mt-5 notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+                    <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
+                            <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect>
+                            <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-stack flex-grow-1 ">
+                        <div class=" fw-semibold">
+                            <h4 class="text-gray-900 fw-bold">You Are Deactivating "@Model.FirstName @Model.LastName" Account</h4>
+
+                            <div class="fs-6 text-gray-700 ">This account will not be deleted, it will be deactivate.<br></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <a asp-area="" asp-controller="adminstudent" asp-action="index" class="btn btn-secondary fw-semibold me-3">Cancel</a>
+                <button id="kt_account_deactivate_account_submit" type="submit" class="btn btn-danger fw-semibold">Deactivate Account</button>
+            </div>
+            <input type="hidden">
+        </form>
+    </div>
 </div>
