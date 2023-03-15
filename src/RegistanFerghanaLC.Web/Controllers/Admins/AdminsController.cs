@@ -7,6 +7,7 @@ using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
@@ -114,6 +115,22 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         #endregion
 
         #region DeleteImage
+        [HttpGet("delete")]
+        public async Task<ViewResult> DeleteAsync(int Id)
+        {
+            var admin = await _adminService.GetByIdAsync(Id);
+            if (admin != null) return View("Delete", admin);
+            else return View("admins");
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteAdminAsync(int Id)
+        {
+            var admin = await _adminService.DeleteAsync(Id);
+            if (admin) return RedirectToAction("index", "admins", new { area = "" });
+            else return View();
+        }
+
         [HttpPost("deleteImage")]
         public async Task<IActionResult> DeleteImageAsync()
         {

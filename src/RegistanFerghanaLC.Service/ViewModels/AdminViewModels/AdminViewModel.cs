@@ -1,10 +1,12 @@
 ﻿using RegistanFerghanaLC.Domain.Common;
+using RegistanFerghanaLC.Domain.Constants;
 using RegistanFerghanaLC.Domain.Entities.Users;
 
 namespace RegistanFerghanaLC.Service.ViewModels.AdminViewModels
 {
-    public class AdminViewModel : BaseEntity
+    public class AdminViewModel
     {
+        public int Id { get; set; }
         public string FirstName { get; set; } = String.Empty;
 
         public string LastName { get; set; } = String.Empty;
@@ -16,6 +18,8 @@ namespace RegistanFerghanaLC.Service.ViewModels.AdminViewModels
         public DateTime BirthDate { get; set; } = default!;
 
         public string Address { get; set; } = String.Empty;
+
+        public Role Role { get; set; }
 
         public DateTime CreatedAt { get; set; } = default!;
 
