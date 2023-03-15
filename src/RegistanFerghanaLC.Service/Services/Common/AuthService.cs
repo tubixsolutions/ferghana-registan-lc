@@ -23,7 +23,7 @@ public class AuthService : IAuthService
                 new Claim("Id", user.Id.ToString()),
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
-                new Claim("ImagePath", (user.Image is null)?"":user.Image),
+                new Claim("ImagePath", (user.Image is null) ?"" : user.Image),
                 new Claim("PhoneNumber", user.PhoneNumber),
                 new Claim(ClaimTypes.Role, $"{role}")
             };

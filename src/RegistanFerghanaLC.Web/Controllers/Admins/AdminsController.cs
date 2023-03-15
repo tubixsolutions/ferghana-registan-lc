@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.DataAccess.Migrations;
+using RegistanFerghanaLC.Domain.Constants;
+using RegistanFerghanaLC.Domain.Entities.Users;
+using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins
 {
     [Route("admins")]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     public class AdminsController : Controller
     {
         private readonly IAdminService _adminService;
@@ -27,7 +32,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             List<AdminViewModel> admins;
             if (!String.IsNullOrEmpty(search))
             {
-                ViewBag.Search = search;
+                ViewBag.AdminSearch = search;
                 admins = await _adminService.GetAllAsync(search);
             }
             else
@@ -110,6 +115,22 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         #endregion
 
         #region DeleteImage
+        [HttpGet("delete")]
+        public async Task<ViewResult> DeleteAsync(int adminId)
+        {
+            var admin = await _adminService.GetByIdAsync(adminId);
+            if (admin != null) return View("Delete", admin);
+            else return View("admins");
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteAdminAsync(int adminId)
+        {
+            var admin = await _adminService.DeleteAsync(adminId);
+            if (admin) return RedirectToAction("index", "admins", new { area = "" });
+            else return View();
+        }
+
         [HttpPost("deleteImage")]
         public async Task<IActionResult> DeleteImageAsync()
         {
