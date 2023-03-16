@@ -34,8 +34,8 @@ public class TeacherService : ITeacherService
     public async Task<bool> ImageDeleteAsync(int id)
     {
         var teacher = await _repository.Teachers.FindByIdAsync(id);
-        _repository.Teachers.TrackingDeteched(teacher);
-        await _imageService.DeleteImageAsync(teacher.Image);
+        _repository.Teachers.TrackingDeteched(teacher!);
+        await _imageService.DeleteImageAsync(teacher!.Image!);
         teacher.Image = "";
         _repository.Teachers.Update(id, teacher);
         var res = await _repository.SaveChangesAsync();
@@ -56,6 +56,5 @@ public class TeacherService : ITeacherService
         _repository.Teachers.Update(id, teacher);
         int res = await _repository.SaveChangesAsync();
         return res > 0;
-
     }
 }

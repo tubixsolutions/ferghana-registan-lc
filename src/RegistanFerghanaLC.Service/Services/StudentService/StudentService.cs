@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
@@ -8,7 +9,9 @@ using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Students;
 using RegistanFerghanaLC.Service.Services.Common;
+using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
+using System.Net;
 
 namespace RegistanFerghanaLC.Service.Services.StudentService;
 public class StudentService : IStudentService
@@ -16,11 +19,14 @@ public class StudentService : IStudentService
     private readonly IUnitOfWork _repository;
     private readonly IAuthService _authService;
     private readonly IImageService _imageService;
-    public StudentService(IUnitOfWork unitOfWork, IAuthService authService, IImageService imageService)
+    private readonly IMapper _mapper;
+
+    public StudentService(IUnitOfWork unitOfWork, IAuthService authService, IImageService imageService, IMapper mapper)
     {
         this._repository = unitOfWork;
         this._authService = authService;
-        _imageService = imageService;
+        this._imageService = imageService;
+        this._mapper = mapper;
     }
 
     public Task<PagedList<TeacherBySubjectViewModel>> GetAllTeacherBySubjectAsync(string subject, PaginationParams @params)
@@ -52,7 +58,7 @@ public class StudentService : IStudentService
         _repository.Students.Update(id, student);
         int res = await _repository.SaveChangesAsync();
         return res > 0;
-}
+    }
 
     public Task<int> GetLimitStudentAsync(int id)
     {
@@ -66,10 +72,10 @@ public class StudentService : IStudentService
         else if (day == DayOfWeek.Saturday) date = DateTime.Now.Date.AddDays(-5);
         else date = DateTime.Now.Date.AddDays(-6);
 
-            var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
+        var limit = _repository.ExtraLessons.GetAll().Where(x => x.CreatedAt > date).CountAsync();
 
-            return limit;
-        }
+        return limit;
+    }
 
     public async Task<bool> DeleteImageAsync(int id)
     {
@@ -79,6 +85,30 @@ public class StudentService : IStudentService
         _repository.Students.Update(id, student);
         var result = await _repository.SaveChangesAsync();
         return result > 0;
+    }
 
+    public async Task<string> LoginAsync(AccountLoginDto accountLoginDto)
+    {
+        var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
+        if(student is null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+        else
+        {
+            var passwordHasher = PasswordHasher.Verify(accountLoginDto.Password, student.Salt, student.PasswordHash);
+            if (passwordHasher)
+            {
+                string token = _authService.GenerateToken(student, "Student");
+                return token;
+            }
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Incorrect Password");
+        }
+    }
+
+    public async Task<StudentViewModel> GetByIdAsync(int id)
+    {
+        var student = await _repository.Students.FindByIdAsync(id);
+        if(student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
+        var res = _mapper.Map<StudentViewModel>(student);
+        return res;
     }
 }
