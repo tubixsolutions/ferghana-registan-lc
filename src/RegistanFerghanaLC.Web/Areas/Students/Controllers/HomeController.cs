@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
+using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -27,6 +28,13 @@ public class HomeController : BaseController
         this._extraLessonDetails = extraLessonDetails;
     }
 
+    [HttpPost("student/login")]
+    public async Task<IActionResult> LoginAsync([FromForm] AccountLoginDto accountLoginDto)
+        => Ok(await _studentService.LoginAsync(accountLoginDto));
+
+    [HttpGet("student/get-by-id")]
+    public async Task<IActionResult> GetByIdAsync(int id)
+        => Ok(await _studentService.GetByIdAsync(id));
 
     [HttpGet("student/GetAll")]
     public async Task<IActionResult> Index(int page = 1)

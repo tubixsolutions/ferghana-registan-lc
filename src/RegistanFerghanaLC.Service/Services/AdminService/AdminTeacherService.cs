@@ -65,7 +65,7 @@ public class AdminTeacherService : IAdminTeacherService
     {
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
-            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher is not Found");
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher is not Found");
         var res = _mapper.Map<TeacherViewDto>(temp);
         return res;
     }
@@ -78,7 +78,7 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<string> LoginAsync(AccountLoginDto dto)
     {
-        var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber== dto.PhoneNumber);
+        var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == dto.PhoneNumber);
         if(teacher is null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "teacher is not found");
@@ -93,7 +93,6 @@ public class AdminTeacherService : IAdminTeacherService
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "Incorrect Password");
         }
-
     }
 
     public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
