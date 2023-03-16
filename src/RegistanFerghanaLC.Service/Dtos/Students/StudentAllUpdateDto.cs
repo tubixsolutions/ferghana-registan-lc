@@ -12,7 +12,6 @@ public class StudentAllUpdateDto: AccountRegisterDto
     [ImageFile]
     public IFormFile Image { get; set; }
     [Required(ErrorMessage = "Please select a subject.")]
-    public string Subject { get; set; } = string.Empty;
     public EnglishLevel StudentLevel { get; set; }
 
     public static implicit operator Student(StudentAllUpdateDto studentAllUpdateDto)

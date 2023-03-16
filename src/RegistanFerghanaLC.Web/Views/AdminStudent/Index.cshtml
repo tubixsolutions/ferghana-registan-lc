@@ -74,36 +74,71 @@
             <div class="table-responsive">
                 <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
                     <thead>
-                        <tr data-id ="1" class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2" style="width: 29.9px;">Id</th>
-                            <th class="text-start min-w-100px" style="width: 25%">First Name</th>
-                            <th class="text-start min-w-100px" style="width: 25%">Last Name</th>
-                            <th class="text-start min-w-70px" style="width: 25%">Phone Number</th>
+                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th class="text-start min-w-50px">ID</th>
+                            <th class="text-start min-w-200px">STUDENT (F.L)</th>
+                            <th class="text-start min-w-100px">PHONE NUMBER</th>
+                            <th class="text-start min-w-100px">WEEKLY LIMIT</th>
+                            <th class="text-start min-w-100px">SUBJECT</th>
                             <th class="text-start min-w-100px">Actions</th>
-
                         </tr>
                     </thead>
-                    <tbody class="fw-semibold text-gray-600">
-                        @if (Model != null)
+                    <tbody class="fw-semibold text-gray-800">
+                        @if(Model != null)
                         {
-                            foreach (var student in Model.Students)
+                            @foreach (var student in Model.Students)
                             {
                                 <tr class="tr-shadow text-dark">
-                                    <td class="text-start pe-0">
+                                    <td class="text-start px-sm-0">
                                         <span class="fw-bold">@student.Id</span>
                                     </td>
-                                    <td class="text-start pe-0">
-                                        <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
+                                    <td class="text-start px-sm-0 d-flex align-items-center">
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a>
+                                                <div class="symbol-label">
+                                                    @if (String.IsNullOrEmpty(@student.Image))
+                                                    {
+                                                        @if (student.LastName.EndsWith("a"))
+                                                        {
+                                                            <img src="~/media/avatars/150-7.jpg" alt="Emma Smith" class="w-100">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/media/avatars/150-2.jpg" alt="Emma Smith" class="w-100" />
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/@student.Image" alt="Emma Smith" class="w-100">
+                                                    }
+                                                    <img src="~" alt="Emma Smith" class="w-100">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <span class="fw-bold text-hover-info text-gray-800 ms-3">@student.FirstName @student.LastName</span>
                                     </td>
-                                    <td class="text-start pe-0">
-                                        <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
-                                    </td>
-                                    <td class="text-start pe-0">
-                                        <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
-                                    </td>
-                                    
                                     <td class="text-start">
-                                        <a class="btn btn-icon btn-warning" asp-controller="AdminStudent" asp-action="update" asp-route-teacherId="@student.Id">
+                                        <span class="fw-bold px-sm-0 text-gray-500">@student.PhoneNumber</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span class="fw-bold px-sm-0 text-gray-500">@student.WeeklyLimit</span>
+                                    </td>
+                                    <td class="text-start">
+                                        @if(student.Subjects?.Count() !=0)
+                                        {
+                                            <span class="fw-bold text-gray-500">
+                                                @student.Subjects?.First()
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="fw-bold text-gray-500">
+                                                No subject yet!
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="text-start">
+                                        <a class="btn btn-icon btn-warning" asp-controller="AdminStudent" asp-action="update" asp-route-id="@student.Id">
                                             <span class="svg-icon svg-icon-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -124,7 +159,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <a class="btn btn-icon btn-info" asp-controller="AdminStudent" asp-action="GetById">
+                                        <a class="btn btn-icon btn-info" asp-controller="AdminStudent" asp-action="getbyid" asp-route-id="@student.Id">
                                             <span class="svg-icon svg-icon-1 svg-icon-info">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="4" fill="currentColor" />
@@ -135,10 +170,10 @@
                                             </span>
                                         </a>
                                     </td>
-                                    
                                 </tr>
                             }
                         }
+
                     </tbody>
                 </table>
             </div>

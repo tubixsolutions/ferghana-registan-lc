@@ -104,10 +104,10 @@ public class AdminStudentService : IAdminStudentService
                            CreatedAt = student.CreatedAt,
                            BirthDate= student.BirthDate,
                        }
-                     ).FirstOrDefault();
-        if (query is null)
+                     ).Where(x=>x.Id==id);
+        if (query.Count() ==0)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
-        var res = _mapper.Map<StudentViewModel>(query);
+        var res = _mapper.Map<StudentViewModel>(query.First());
         return res;
     }
 

@@ -117,10 +117,10 @@ public class AdminStudentController : Controller
             PhoneNumber= student.PhoneNumber,
             BirthDate = student.BirthDate,
             StudentLevel = student.StudentLevel,
-
         };
         if (student != null) 
         {
+            //ViewBag.Subjects = _subjectService.GetAllAsync();
             ViewBag.studentId = id;
             return View("Update", dto); 
         }
