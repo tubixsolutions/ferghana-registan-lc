@@ -2,6 +2,7 @@
 using AutoMapper;
 using AutoMapper.Execution;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Service.Common.Exceptions;
@@ -67,6 +68,12 @@ public class AdminTeacherService : IAdminTeacherService
             throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher is not Found");
         var res = _mapper.Map<TeacherViewDto>(temp);
         return res;
+    }
+
+    public async Task<List<TeacherViewDto>> GetFileAllAsync()
+    {
+        var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        return await query.ToListAsync();
     }
 
     public async Task<string> LoginAsync(AccountLoginDto dto)

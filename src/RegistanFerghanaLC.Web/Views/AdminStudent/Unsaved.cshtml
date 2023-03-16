@@ -1,0 +1,47 @@
+﻿@using RegistanFerghanaLC.Service.Common.Utils;
+@using RegistanFerghanaLC.Service.Dtos.FileViewModels;
+@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
+@model FileModeldto
+
+<div class="card card-flush">
+    <div class="card-body pt-0">
+        <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                    <thead>
+                        <tr data-id="1" class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th class="text-start min-w-100px" style="width: 25%">First Name</th>
+                            <th class="text-start min-w-100px" style="width: 25%">Last Name</th>
+                            <th class="text-start min-w-70px" style="width: 25%">Phone Number</th>
+                            <th class="text-start min-w-70px" style="width: 25%">Birth Date</th>
+                            <th class="text-start min-w-100px">Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="fw-semibold text-gray-600">
+                        @if (Model != null)
+                        {
+                            foreach (var student in Model.StudentsUnsaved)
+                            {
+                                <tr class="tr-shadow text-dark">
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.FirstName</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.LastName</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.PhoneNumber</span>
+                                    </td>
+                                    <td class="text-start pe-0">
+                                        <span class="fw-bold text-gray-800 ms-3">@student.BirthDate</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

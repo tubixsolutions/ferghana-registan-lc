@@ -77,7 +77,8 @@ public class AdminStudentService : IAdminStudentService
                          PhoneNumber = student.PhoneNumber,
                          WeeklyLimit = student.WeeklyLimit,
                          Image = student.Image,
-                         Subjects = subjects
+                         Subjects = subjects,
+                         
                      }
                      );
         return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
@@ -122,6 +123,34 @@ public class AdminStudentService : IAdminStudentService
         var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
         return students;
     }
+
+
+    public async Task<List<StudentViewModel>> GetFileAllAsync()
+    {
+        var query = (from student in _repository.Students.GetAll()
+                     let studentSubjects = _repository.StudentSubjects.GetAll()
+                     .Where(ss => ss.StudentId == student.Id).ToList()
+                     let subjects = (from ss in studentSubjects
+                                     join s in _repository.Subjects.GetAll()
+                                     on ss.SubjectId equals s.Id
+                                     select s.Name).ToList()
+
+                     select new StudentViewModel()
+                     {
+                         Id = student.Id,
+                         FirstName = student.FirstName,
+                         LastName = student.LastName,
+                         PhoneNumber = student.PhoneNumber,
+                         WeeklyLimit = student.WeeklyLimit,
+                         Image = student.Image,
+                         Subjects = subjects,
+                         StudentLevel = student.StudentLevel,
+                         BirthDate = student.BirthDate,
+                     }
+                     );
+        return await query.ToListAsync();
+    }
+
 
     public async Task<bool> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
     {

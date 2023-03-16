@@ -52,6 +52,8 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <form asp-area="" asp-controller="adminstudents" asp-action="import" method="post" enctype="multipart/form-data">
+                                <label class="text-style fw-bold text-gray-800 ms-3">Select an Excel file</label>
+                                <div class="menu-item px-5 my-5"></div>
                                 <input type="file" asp-for="File" class="form-control form-control-lg form-control-solid" />
                                 <div class="menu-item px-5 my-5"></div>
                                 <input type="submit" value="Import" class="form-control form-control-lg form-control-solid" />

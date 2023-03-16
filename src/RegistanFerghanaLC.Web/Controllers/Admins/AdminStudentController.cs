@@ -151,7 +151,7 @@ public class AdminStudentController : Controller
     public async Task<IActionResult> Duplicate()
     {
 
-        using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
+        using (var stream = new FileStream(Path.Combine(_rootPath, "files", "student.xlsx"), FileMode.Open))
         {
             byte[] file = new byte[stream.Length];
             await stream.ReadAsync(file, 0, file.Length);
@@ -170,7 +170,10 @@ public class AdminStudentController : Controller
         {
             try
             {
-                List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
+                List<StudentRegisterDto> dtos = await _excelService.ReadStudentFileAsync(filemodel);
+                
+                if (dtos.Count > 0) return View(dtos);
+                
                 return RedirectToAction("Index", "adminteachers", new { area = "" });
             }
             catch (InvalidExcel ex)
@@ -187,27 +190,27 @@ public class AdminStudentController : Controller
     [HttpGet("export")]
     public async Task<IActionResult> Export(int page = 1)
     {
-        PagedList<StudentBaseViewModel> students = await _adminStudentService.GetAllAsync(new PaginationParams(page, _pageSize));
+        List<StudentViewModel> students = await _adminStudentService.GetFileAllAsync();
 
         using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
         {
             var worksheet = workbook.Worksheets.Add("Brands");
-
-            worksheet.Cell("A1").Value = "Full Name";
-            worksheet.Cell("B1").Value = "Birth Data";
-            worksheet.Cell("C1").Value = "Phone Number";
-            worksheet.Cell("D1").Value = "Subject";
+            
+            worksheet.Cell("A1").Value = "Id";
+            worksheet.Cell("B1").Value = "Full Name";
+            worksheet.Cell("C1").Value = "Birth Data";
+            worksheet.Cell("D1").Value = "Phone Number";
+            worksheet.Cell("E1").Value = "Student Level";
             worksheet.Row(1).Style.Font.Bold = true;
 
-
-            //нумерация строк/столбцов начинается с индекса 1 (не 0)
             for (int i = 1; i <= students.Count; i++)
             {
-                var teach = students[i - 1];
-                //worksheet.Cell(i + 1, 1).Value = teach.FirstName + " " + teach.LastName;
-                //worksheet.Cell(i + 1, 2).Value = teach.;
-                //worksheet.Cell(i + 1, 3).Value = teach.PhoneNumber;
-                //worksheet.Cell(i + 1, 4).Value = teach.Subject;
+                var student = students[i - 1];
+                worksheet.Cell(i + 1, 1).Value = student.Id;
+                worksheet.Cell(i + 1, 2).Value = student.FirstName + " " + student.LastName;
+                worksheet.Cell(i + 1, 3).Value = student.BirthDate;
+                worksheet.Cell(i + 1, 4).Value = student.PhoneNumber;
+                worksheet.Cell(i + 1, 5).Value = student.StudentLevel;
             }
 
 
