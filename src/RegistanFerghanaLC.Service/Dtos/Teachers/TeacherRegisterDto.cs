@@ -10,8 +10,14 @@ public class TeacherRegisterDto : AccountRegisterDto
 {
     [Required(ErrorMessage = "Please select the subject of the teacher!")]
     public string Subject { get; set; } = String.Empty;
+   
+    [Required(ErrorMessage = "Please enter the level of the teacher!")]
     public string TeacherLevel { get; set; } = String.Empty;
+
+    [Required(ErrorMessage = "Please enter the work time of the teacher!")]
     public PartOfDay PartOfDay { get; set; }
+
+    [Required(ErrorMessage = "Please enter the work days of the teacher!")]
     public bool WorkDays { get; set; } = true;
 
     public static implicit operator Teacher(TeacherRegisterDto teacherRegisterDto)
