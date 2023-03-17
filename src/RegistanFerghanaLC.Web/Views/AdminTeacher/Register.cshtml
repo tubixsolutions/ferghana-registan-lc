@@ -40,19 +40,21 @@
 
         <label class="form-label fw-bold text-dark fs-6">Part Of Day</label>
         <select asp-for=PartOfDay class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
-            <option value="ture">Morning</option>
-            <option value="false">Afternoon</option>
+            <option value="FirstPartOfDay">Morning</option>
+            <option value="SecondPartOfDay">Afternoon</option>
+            <span asp-validation-for="PartOfDay" class="text-danger"></span>
         </select>
 
         <label class="form-label fw-bold text-dark fs-6">Work Days</label>
-        <select asp-for=PartOfDay class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
-            <option value="ture">Odd</option>
+        <select asp-for=WorkDays class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
+            <option value="true">Odd</option>
             <option value="false">Even</option>
+            <span asp-validation-for="WorkDays" class="text-danger"></span>
         </select>
 
         <div class="fv-row mb-7 fv-plugins-icon-container">
             <label class="form-label fw-bold text-dark fs-6">Phone Number</label>
-            <input type="text" asp-for="PhoneNumber" class="form-control form-control-lg form-control-solid">
+            <input type="tel" asp-for="PhoneNumber" class="form-control form-control-lg form-control-solid">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <div class="mb-10 fv-row fv-plugins-icon-container" data-kt-password-meter="true">
@@ -61,7 +63,7 @@
                     Password
                 </label>
                 <div class="position-relative mb-3">
-                    <input type="password" asp-for="Password" class="form-control form-control-lg form-control-solid" name="password" autocomplete="off">
+                    <input type="password" asp-for="Password" class="form-control form-control-lg form-control-solid">
                 </div>
             </div>
             <div class="text-muted">
