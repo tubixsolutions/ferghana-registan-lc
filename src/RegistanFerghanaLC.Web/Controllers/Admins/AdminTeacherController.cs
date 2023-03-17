@@ -62,7 +62,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 var result = await _adminTeacherService.RegisterTeacherAsync(teacherRegisterDto);
                 if (result)
                 {
-                    return RedirectToAction("index", "home", new { area = "" });
+                    return RedirectToAction("index", "adminteachers", new { area = "" });
                 }
                 else
                 {

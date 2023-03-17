@@ -8,7 +8,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers;
 
 public class TeacherRegisterDto : AccountRegisterDto
 {
-    [Required(ErrorMessage = "Please select the subject of the teacher!")]
+    [Required(ErrorMessage = "Please enter the subject of the teacher!")]
     public string Subject { get; set; } = String.Empty;
    
     [Required(ErrorMessage = "Please enter the level of the teacher!")]
@@ -24,15 +24,15 @@ public class TeacherRegisterDto : AccountRegisterDto
     {
         return new Teacher()
         {
-            FirstName= teacherRegisterDto.FirstName,
-            LastName= teacherRegisterDto.LastName,
-            PhoneNumber= teacherRegisterDto.PhoneNumber,
+            FirstName = teacherRegisterDto.FirstName,
+            LastName = teacherRegisterDto.LastName,
+            PhoneNumber = teacherRegisterDto.PhoneNumber,
             CreatedAt = TimeHelper.GetCurrentServerTime(),
-            LastUpdatedAt= TimeHelper.GetCurrentServerTime(),
-            Subject= teacherRegisterDto.Subject,
+            LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
+            Subject = teacherRegisterDto.Subject,
             TeacherLevel = teacherRegisterDto.TeacherLevel,
-            PartOfDay= teacherRegisterDto.PartOfDay,
-            WorkDays= teacherRegisterDto.WorkDays,
+            PartOfDay = teacherRegisterDto.PartOfDay,
+            WorkDays = teacherRegisterDto.WorkDays,
             BirthDate = teacherRegisterDto.BirthDate
         };
     }
