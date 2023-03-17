@@ -1,7 +1,5 @@
-﻿@using RegistanFerghanaLC.Service.Common.Utils;
-@using RegistanFerghanaLC.Service.Dtos.FileViewModels;
-@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
-@model FileModeldto
+﻿@using RegistanFerghanaLC.Service.Dtos.Students;
+@model List<StudentRegisterDto>
 
 <div class="card card-flush">
     <div class="card-body pt-0">
@@ -21,7 +19,7 @@
                     <tbody class="fw-semibold text-gray-600">
                         @if (Model != null)
                         {
-                            foreach (var student in Model.StudentsUnsaved)
+                            foreach (var student in Model)
                             {
                                 <tr class="tr-shadow text-dark">
                                     <td class="text-start pe-0">

@@ -166,29 +166,37 @@ public class AdminStudentController : Controller
     [HttpPost("import")]
     public async Task<IActionResult> ImportAsync(FileModeldto filemodel)
     {
-        if (ModelState.IsValid)
+        if (filemodel.File is not null)
         {
             try
             {
                 List<StudentRegisterDto> dtos = await _excelService.ReadStudentFileAsync(filemodel);
                 
-                if (dtos.Count > 0) return View(dtos);
+                if (dtos.Count > 0) return View("Unsaved", dtos);
                 
-                return RedirectToAction("Index", "adminteachers", new { area = "" });
+                return RedirectToAction("Index", "adminstudents", new { area = "" });
             }
             catch (InvalidExcel ex)
             {
                 return BadRequest(ex.Mes);
             }
+            catch(AlreadyExistingException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         else
         {
-            return RedirectToAction("Index", "adminteachers", new { area = "" });
+            return RedirectToAction("Index", "adminstudents", new { area = "" });
         }
     }
 
     [HttpGet("export")]
-    public async Task<IActionResult> Export(int page = 1)
+    public async Task<IActionResult> Export()
     {
         List<StudentViewModel> students = await _adminStudentService.GetFileAllAsync();
 

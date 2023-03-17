@@ -51,7 +51,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
                     Enum.TryParse(row.Cell("H").Value.ToString(), out EnglishLevel level);
                     dto.StudentLevel = level;
 
-                    var result = await _adminStudentService.RegisterStudentAsync(dto);
+                    var result = await _adminStudentService.RegisterAsync(dto);
                     
                     if(result == false) dtos.Add(dto);
 

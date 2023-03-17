@@ -7,6 +7,7 @@ namespace RegistanFerghanaLC.Service.Interfaces.Admins;
 public interface IAdminTeacherService
 {
     public Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto);
+    public Task<bool> RegisterAsync(TeacherRegisterDto teacherRegisterDto);
     public Task<bool> DeleteAsync(int id);
     public Task<bool> UpdateAsync(TeacherUpdateDto teacherRegisterDto, int id);
     public Task<TeacherViewDto> GetByIdAsync(int id);

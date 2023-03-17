@@ -142,19 +142,27 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpPost("import")]
         public async Task<IActionResult> ImportAsync(FileModeldto filemodel)
         {
-            if (ModelState.IsValid)
+            if (filemodel.File is not null)
             {
                 try
                 {
                     List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
                     
-                    if (dtos.Count > 0) return View(dtos);
+                    if (dtos.Count > 0) return View("Unsaved", dtos);
 
                     return RedirectToAction("Index", "adminteachers", new { area = "" });
                 }
                 catch (InvalidExcel ex)
                 {
                     return BadRequest(ex.Mes);
+                }
+                catch (AlreadyExistingException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
                 }
             }
             else
@@ -164,7 +172,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet("export")]
-        public async Task<IActionResult> Export(int page = 1)
+        public async Task<IActionResult> Export()
         {
             List<TeacherViewDto> teachers = await _adminTeacherService.GetFileAllAsync();
 

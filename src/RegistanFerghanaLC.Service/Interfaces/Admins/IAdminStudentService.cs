@@ -6,6 +6,7 @@ namespace RegistanFerghanaLC.Service.Interfaces.Admins;
 public interface IAdminStudentService
 {
     public Task<bool> RegisterStudentAsync(StudentRegisterDto sdtudentRegisterDto);
+    public Task<bool> RegisterAsync(StudentRegisterDto sdtudentRegisterDto);
     public Task<bool> DeleteAsync(int id);
     public Task<bool> UpdateAsync(int id, StudentAllUpdateDto studentAllUpdateDto);
     public Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params);

@@ -141,45 +141,5 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
         #endregion
 
-        #region Export
-        [HttpGet("export")]
-        public async Task<IActionResult> Export(int page = 1)
-        {
-            List<AdminViewModel> admins = await _adminService.GetAllAsync();
-
-            using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
-            {
-                var worksheet = workbook.Worksheets.Add("Brands");
-
-                worksheet.Cell("A1").Value = "Id";
-                worksheet.Cell("B1").Value = "Full Name";
-                worksheet.Cell("C1").Value = "Birth Data";
-                worksheet.Cell("D1").Value = "Phone Number";
-                worksheet.Row(1).Style.Font.Bold = true;
-
-                //нумерация строк/столбцов начинается с индекса 1 (не 0)
-                for (int i = 1; i <= admins.Count; i++)
-                {
-                    var teach = admins[i - 1];
-                    worksheet.Cell(i + 1, 1).Value = teach.Id;
-                    worksheet.Cell(i + 1, 2).Value = teach.FirstName + " " + teach.LastName;
-                    worksheet.Cell(i + 1, 3).Value = teach.BirthDate;
-                    worksheet.Cell(i + 1, 4).Value = teach.PhoneNumber;
-                }
-
-                using (var stream = new MemoryStream())
-                {
-                    workbook.SaveAs(stream);
-                    stream.Flush();
-
-                    return new FileContentResult(stream.ToArray(),
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                    {
-                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                    };
-                }
-            }
-        }
-        #endregion
     }
 }
