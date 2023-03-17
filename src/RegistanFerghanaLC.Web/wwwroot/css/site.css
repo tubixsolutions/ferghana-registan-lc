@@ -597,8 +597,7 @@ progress {
     }
 
     .linkOne:nth-child(3):hover {
-        background-color: #181C32 !important;
-        color: white !important;
+        background-color: #FF6D0E !important;
     }
 
     .linkOne:nth-child(1):active {
@@ -607,6 +606,10 @@ progress {
     }
 
     .linkOne:nth-child(2):active {
+        background-color: #181C32 !important;
+        color: white !important;
+    }
+    .linkOne:nth-child(3):active {
         background-color: #181C32 !important;
         color: white !important;
     }

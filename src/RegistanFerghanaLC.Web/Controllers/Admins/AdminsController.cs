@@ -46,11 +46,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
         #endregion
 
-        #region Get
-        [HttpGet("get")]
-        public async Task<IActionResult> GetAsync(int someId)
+        #region GetPhoneNumber
+        [HttpGet("phoneNumber")]
+        public async Task<IActionResult> GetByPhoneNumberAsync(string phoneNumber)
         {
-            var admin = await _adminService.GetByIdAsync(someId);
+            var admin = await _adminService.GetByPhoneNumberAsync(phoneNumber);
             ViewBag.HomeTitle = "Profile";
             var adminView = new AdminViewModel()
             {
@@ -64,7 +64,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 CreatedAt = admin.CreatedAt
             };
 
-            return View("../Admins/Profile", adminView);
+            return View("Profile", adminView);
         }
         #endregion
 
