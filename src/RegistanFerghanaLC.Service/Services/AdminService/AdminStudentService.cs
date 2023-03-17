@@ -146,6 +146,23 @@ public class AdminStudentService : IAdminStudentService
         return await query.ToListAsync();
     }
 
+    public async Task<bool> RegisterAsync(StudentRegisterDto studentRegisterDto)
+    {
+        var checkStudent = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == studentRegisterDto.PhoneNumber);
+        if (checkStudent is not null) return false;
+
+        var hasherResult = PasswordHasher.Hash(studentRegisterDto.Password);
+        var newStudent = (Student)studentRegisterDto;
+        newStudent.PasswordHash = hasherResult.Hash;
+        newStudent.Salt = hasherResult.Salt;
+
+        _repository.Students.Add(newStudent);
+        var dbResult = await _repository.SaveChangesAsync();
+        string subject = studentRegisterDto.Subject;
+        var savedStudent = await _repository.Students.FirstOrDefault(x => x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
+        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(savedStudent.Id, subject);
+        return dbResult > 0;
+    }
 
     public async Task<bool> RegisterStudentAsync(StudentRegisterDto studentRegisterDto)
     {
@@ -160,7 +177,7 @@ public class AdminStudentService : IAdminStudentService
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
         string subject = studentRegisterDto.Subject;
-        var savedStudent = _repository.Students.FirstOrDefault(x=>x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
+        var savedStudent = await _repository.Students.FirstOrDefault(x=>x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
         var subRes = await _studentSubjectService.SaveStudentSubjectAsync(savedStudent.Id, subject);
         return dbResult > 0;
     }

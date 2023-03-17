@@ -95,6 +95,21 @@ public class AdminTeacherService : IAdminTeacherService
         }
     }
 
+    public async Task<bool> RegisterAsync(TeacherRegisterDto teacherRegisterDto)
+    {
+        var checkTeacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == teacherRegisterDto.PhoneNumber);
+        if (checkTeacher is not null) return false;
+
+        var hasherResult = PasswordHasher.Hash(teacherRegisterDto.Password);
+        var newTeacher = (Teacher)teacherRegisterDto;
+        newTeacher.PasswordHash = hasherResult.Hash;
+        newTeacher.Salt = hasherResult.Salt;
+
+         _repository.Teachers.Add(newTeacher);
+        var dbResult = await _repository.SaveChangesAsync();
+        return dbResult > 0;
+    }
+
     public async Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
     {
         var checkTeacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == teacherRegisterDto.PhoneNumber);
