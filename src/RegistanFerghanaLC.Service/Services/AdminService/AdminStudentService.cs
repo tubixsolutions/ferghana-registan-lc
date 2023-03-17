@@ -56,11 +56,6 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
-        /* var query = _repository.Students.GetAll().OrderBy(x => x.CreatedAt).Select(x => _mapper.Map<StudentBaseViewModel>(x));
-         var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
-         if (students.Count != 0) return students;
-         else throw new StatusCodeException(HttpStatusCode.NotFound, "No student in the database.");
-    */
         var query = (from student in _repository.Students.GetAll()
                      let studentSubjects = _repository.StudentSubjects.GetAll()
                      .Where(ss => ss.StudentId == student.Id).ToList()
@@ -109,10 +104,10 @@ public class AdminStudentService : IAdminStudentService
                            CreatedAt = student.CreatedAt,
                            BirthDate= student.BirthDate,
                        }
-                     ).FirstOrDefault();
-        if (query is null)
+                     ).Where(x=>x.Id==id);
+        if (query.Count() ==0)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
-        var res = _mapper.Map<StudentViewModel>(query);
+        var res = _mapper.Map<StudentViewModel>(query.First());
         return res;
     }
 
@@ -165,7 +160,8 @@ public class AdminStudentService : IAdminStudentService
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
         string subject = studentRegisterDto.Subject;
-        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(newStudent.Id, subject);
+        var savedStudent = _repository.Students.FirstOrDefault(x=>x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
+        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(savedStudent.Id, subject);
         return dbResult > 0;
     }
 

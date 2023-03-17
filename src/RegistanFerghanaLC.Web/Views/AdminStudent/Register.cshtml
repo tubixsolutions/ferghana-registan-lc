@@ -26,23 +26,24 @@
             <input type="date" asp-for="BirthDate" class="form-control form-control-lg form-control-solid">
             <span asp-validation-for="BirthDate" class="text-danger"></span>
         </div>
-        <div class="row fv-row mb-7 fv-plugins-icon-container">
+        <div class="fv-row mb-7 fv-plugins-icon-container">
             <label class="form-label fw-bold text-dark fs-6">Subject</label>
+
             <select asp-for=Subject class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
                 @{
                     var subjects = ViewBag.Subjects;
                     foreach (var subject in subjects)
                     {
-                        <option value="ture">@subject.ToString()</option>
+                        <option value="ture">@subject.Name.ToString()</option>
                     }
                 }
             </select>
 
-            <div class="col-xl-6">
-                <label class="form-label fw-bold text-dark fs-6">Level</label>
-                <input type="text" asp-for="StudentLevel" class="form-control form-control-lg form-control-solid">
-                <span asp-validation-for="StudentLevel" class="text-danger"></span>
-            </div>
+        </div>
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="form-label fw-bold text-dark fs-6">Level</label>
+            <input type="text" asp-for="StudentLevel" class="form-control form-control-lg form-control-solid">
+            <span asp-validation-for="StudentLevel" class="text-danger"></span>
         </div>
         <div class="fv-row mb-7 fv-plugins-icon-container">
             <label class="form-label fw-bold text-dark fs-6">Phone Number</label>

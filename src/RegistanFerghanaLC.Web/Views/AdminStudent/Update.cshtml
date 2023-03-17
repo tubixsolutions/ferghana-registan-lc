@@ -34,23 +34,7 @@
                 <input type="text" asp-for=PhoneNumber class="form-control form-control-solid" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-
-            <div class="mt-5">
-                <label class="required form-label text-primary">Subject</label>
-                <input type="text" asp-for=Subject class="form-control form-control-solid" />
-                <span asp-validation-for="Subject" class="text-danger"></span>
-            </div>
-            @*<select asp-for=Subject class="form-select form-select-solid fv-row mb-7 fv-plugins-icon-container">
-                @{
-                    var subjects = ViewBag.Subjects;
-                    foreach (var subject in subjects)
-                    {
-                        <option value="ture">@subject.ToString()</option>
-                    }
-                }
-            </select>*@
-            
-
+           
             <div class="mt-8">
                 <input type="submit" class="btn btn-primary rounded hover-scale" style="width:100%;" value="UPDATE" />
             </div>
