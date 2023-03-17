@@ -32,7 +32,7 @@
         </div>
         <div class="separator my-2"></div>
         <div class="menu-item px-5">
-            <a asp-controller="admins" asp-action="get" asp-route-someId="@ViewBag.someId" class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Profile</a>
+            <a asp-controller="admins" asp-action="phoneNumber" asp-route-phoneNumber="@Model.PhoneNumber" class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Profile</a>
         </div>
         <div class="menu-item px-5 my-1">
             <a asp-controller="admins" asp-action="update" asp-route-adminId="@ViewBag.adminId" class="menu-link px-5 fw-bold text-dark text-hover-info fs-7">Settings</a>
