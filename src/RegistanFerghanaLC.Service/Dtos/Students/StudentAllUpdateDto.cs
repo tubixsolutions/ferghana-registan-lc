@@ -13,6 +13,7 @@ public class StudentAllUpdateDto: AccountRegisterDto
     public IFormFile Image { get; set; }
     [Required(ErrorMessage = "Please select a subject.")]
     public EnglishLevel StudentLevel { get; set; }
+    public string Subject { get; set; }
 
     public static implicit operator Student(StudentAllUpdateDto studentAllUpdateDto)
     {
