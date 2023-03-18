@@ -137,14 +137,14 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
             var teacher = await _adminTeacherService.GetByIdAsync(teacherId);
-
+            ViewBag.Subjects = _subjectService.GetAllAsync();
             var dto = new TeacherUpdateDto()
             {
                 Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 ImagePath = teacher.ImagePath!,
-                WorkDays = teacher.WorkDays,    
+                WorkDays = teacher.WorkDays,
                 PhoneNumber = teacher.PhoneNumber,
                 TeacherLevel = teacher.TeacherLevel,
                 BirthDate = teacher.BirthDate,
@@ -160,6 +160,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpPost("update")]
         public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
         {
+            ViewBag.teacherId = teacherId;
             var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
             if (res)
             {
@@ -167,13 +168,19 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else return View("adminteachers");
         }
+
+        [HttpPost("updatImage")]
+        public async Task<IActionResult> UpdateImageAsync(int teacherId, [FromForm] IFormFile formFile)
+        {
+            var image = await _adminTeacherService.UpdateImageAsync(teacherId, formFile);
+            return View("adminteachers");
+        }
         #endregion
 
         #region Excel
         [HttpGet("duplicate")]
         public async Task<IActionResult> Duplicate()
         {
-
             using (var stream = new FileStream(Path.Combine(_rootPath, "files", "template.xlsx"), FileMode.Open))
             {
                 byte[] file = new byte[stream.Length];
