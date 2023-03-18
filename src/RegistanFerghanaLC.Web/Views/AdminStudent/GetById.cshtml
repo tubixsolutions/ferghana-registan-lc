@@ -1,7 +1,7 @@
 ﻿@using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 @model StudentViewModel;
 
-<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right: auto; box-shadow: 0px 0px 15px gray;">
+@*<div class="card w-lg-500px p-10 mt-20 mb-20 shadow1" style="margin-left:auto; margin-right: auto; box-shadow: 0px 0px 15px gray;">
     
     <div class="row">
         <div class="col-md-4 border-right">
@@ -77,5 +77,123 @@
         
         </div>
         <a asp-area="" asp-controller="adminstudent" asp-action="index" class="btn btn-secondary fw-semibold me-3">Back</a>
+    </div>
+</div>*@
+<div class="d-flex flex-column-fluid align-items-start  container-xxl">
+    <div class="content flex-row-fluid">
+        <div class="d-flex flex-column flex-xl-row">
+            <div class="flex-column flex-lg-row-auto w-100 w-xl-300px mb-10">
+                <div class="card card-flush" data-kt-sticky="true" data-kt-sticky-name="account-navbar" data-kt-sticky-offset="{default: false, xl: '80px'}" data-kt-sticky-height-offset="50" data-kt-sticky-width="{lg: '250px', xl: '300px'}" data-kt-sticky-animation="false" data-kt-sticky-left="auto" data-kt-sticky-top="90px" data-kt-sticky-zindex="95">
+                    <div class="card-header justify-content-end">
+                    </div>
+                    <div class="card-body pt-0 p-10">
+                        <div class="d-flex flex-center flex-column mb-10">
+                            <div class="symbol mb-3 symbol-100px symbol-circle">
+                                @if (String.IsNullOrWhiteSpace(Model.Image))
+                                {
+                                    @if (Model.LastName.EndsWith("a"))
+                                    {
+                                        <img src="~/media/avatars/150-7.jpg"class="w-100">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/media/avatars/150-2.jpg"  class="w-100" />
+                                    }
+                                }
+                                else
+                                {
+                                    <img src="~/@Model.Image" />
+                                }
+                            </div>
+                            <a class="fs-2 text-gray-800 text-hover-primary fw-bold mb-1">
+                                @Model.FirstName @Model.LastName
+                            </a>
+                            <div class="fs-6 fw-semibold text-gray-400 mb-2">
+                                @Model.PhoneNumber
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-lg-row-fluid ms-lg-10">
+                <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                    <div class="card-header cursor-pointer">
+                        <div class="card-title m-0">
+                            <h3 class="fw-bold m-0">Profile Details</h3>
+                        </div>
+                    </div>
+                    <div class="card-body p-9">
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.FirstName @Model.LastName</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.BirthDate.ToString("dd.MM.yyyy")</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Phone Number</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.PhoneNumber</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Subject</label>
+                            <div class="col-lg-8">
+                                @if (Model.Subjects?.Count() != 0)
+                                {
+                                    <span class="fw-bold fs-6 text-dark">
+                                        @String.Join(", ", @Model.Subjects)
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="fw-bold fs-6 text-dark">
+                                        No subject yet.
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Level</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.StudentLevel.ToString()</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Weekly Limit</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.WeeklyLimit.ToString()</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Created At</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.CreatedAt.ToString("dd.MM.yyyy hh:mm")</span>
+                            </div>
+                        </div>
+                        <div class="notice d-flex bg-light-success rounded border-success border border-dashed  p-6">
+                            <span class="svg-icon svg-icon-2tx svg-icon-success me-4">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
+                                    <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect>
+                                    <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect>
+                                </svg>
+                            </span>
+                            <div class="d-flex flex-stack flex-grow-1 ">
+                                <div class=" fw-semibold">
+                                    <h4 class="text-gray-900 fw-bold">Registon maqsadi!</h4>
+                                    <div class="fs-6 text-gray-700 ">O'zbekiston ta'limini dunyoda 1-o'ringa olib chiqish!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
