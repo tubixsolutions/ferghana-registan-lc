@@ -178,8 +178,8 @@ public class AdminStudentService : IAdminStudentService
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
         string subject = studentRegisterDto.Subject;
-        var savedStudent = await _repository.Students.FirstOrDefault(x => x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
-        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(savedStudent.Id, subject);
+        string studentPhoneNumber = studentRegisterDto.PhoneNumber;
+        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(studentPhoneNumber, subject);
         return dbResult > 0;
     }
 
