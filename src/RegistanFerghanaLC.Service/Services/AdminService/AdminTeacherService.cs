@@ -70,6 +70,14 @@ public class AdminTeacherService : IAdminTeacherService
         return res;
     }
 
+    public async Task<TeacherViewDto> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+        if (teacher is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher is not found");
+        var teacherView = _mapper.Map < TeacherViewDto >(teacher);
+        return teacherView;
+    }
+
     public async Task<List<TeacherViewDto>> GetFileAllAsync()
     {
         var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));

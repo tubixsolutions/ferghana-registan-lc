@@ -23,6 +23,8 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
 
         public string Subject { get; set; } = String.Empty;
 
+        public DateTime CreatedAt { get; set; }
+
         public FileModeldto FileModel { get; set; }
     }
 }

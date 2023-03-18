@@ -91,6 +91,25 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             return View();
         }
 
+        [HttpGet("phoneNumber")]
+        public async Task<IActionResult> GetByPhoneNumber(string phoneNumber)
+        {
+            var teacher = await _adminTeacherService.GetByPhoneNumberAsync(phoneNumber);
+            ViewBag.HomeTitle = "Profile";
+            var teacherView = new TeacherViewDto()
+            {
+                Id = teacher.Id,
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                ImagePath = teacher.ImagePath,
+                PhoneNumber = teacher.PhoneNumber,
+                BirthDate = teacher.BirthDate,
+                CreatedAt = teacher.CreatedAt
+            };
+
+            return View("Profile", teacherView);
+        }
+
         [HttpGet("updateredirect")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
