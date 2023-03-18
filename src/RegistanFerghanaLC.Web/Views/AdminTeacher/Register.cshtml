@@ -28,7 +28,15 @@
         <div class="row fv-row mb-7 fv-plugins-icon-container">
             <div class="col-xl-6">
                 <label class="form-label fw-bold text-dark fs-6">Subject</label>
-                <input type="text" asp-for="Subject" class="form-control form-control-lg form-control-solid">
+                <select asp-for=Subject class="form-select form-select-solid fv-row fv-plugins-icon-container">
+                    @{
+                        var subjects = ViewBag.Subjects;
+                        foreach (var subject in subjects)
+                        {
+                            <option value="@subject.Name.ToString()">@subject.Name.ToString()</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="col-xl-6">

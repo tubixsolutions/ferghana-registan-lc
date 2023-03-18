@@ -22,7 +22,6 @@ public class StudentRegisterDto: AccountRegisterDto
             CreatedAt = TimeHelper.GetCurrentServerTime(),
             LastUpdatedAt= TimeHelper.GetCurrentServerTime(),
             StudentLevel= studentRegisterDto.StudentLevel,
-           
         };
     }
 
