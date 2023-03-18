@@ -44,15 +44,15 @@ public class StudentSubjectService : IStudentSubjectService
 
     }
 
-    public async Task<bool> SaveStudentSubjectAsync(int studentId, string subjectName)
+    public async Task<bool> SaveStudentSubjectAsync(string studentPhoneNumber, string subjectName)
     {
         var subject = await _repository.Subjects.FirstOrDefault(x=>x.Name.ToLower() == subjectName.ToLower());
-        var student = await _repository.Students.FindByIdAsync(studentId);
+        var student = await _repository.Students.FirstOrDefault(x=>x.PhoneNumber == studentPhoneNumber);
         if (subject !=null && student != null)
         {
             StudentSubject studentSubject = new StudentSubject()
             {
-                StudentId = studentId,
+                StudentId = student.Id,
                 SubjectId = subject.Id,
                 CreatedAt = TimeHelper.GetCurrentServerTime(),
                 LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
@@ -60,8 +60,10 @@ public class StudentSubjectService : IStudentSubjectService
             _repository.StudentSubjects.Add(studentSubject);
             var res = await _repository.SaveChangesAsync();
             if (res>0) return true;
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Student or subject is not found");
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Student or subject is not found");
         }
         else throw new StatusCodeException(HttpStatusCode.NotFound, "Student or subject is not found");
     }
+
+    
 }
