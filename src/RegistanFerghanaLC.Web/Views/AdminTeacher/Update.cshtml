@@ -13,7 +13,14 @@
                             <div class="symbol mb-3 symbol-100px symbol-circle">
                                 @if (String.IsNullOrWhiteSpace(Model.ImagePath))
                                 {
-                                    <img src="~/media/avatars/150-26.jpg" />
+                                    if (Model.LastName.EndsWith("a"))
+                                    {
+                                        <img src="~/media/avatars/150-7.jpg"/>
+                                    }
+                                    else
+                                    {
+                                        <img src="~/media/avatars/150-26.jpg" />
+                                    }
                                 }
                                 else
                                 {
@@ -57,7 +64,14 @@
                                         <div class="symbol mb-3">
                                             @if (String.IsNullOrEmpty(Model.ImagePath))
                                             {
-                                                <img class="w-125px h-125px" src="~/media/avatars/150-26.jpg" />
+                                                if (Model.LastName.EndsWith("a"))
+                                                {
+                                                    <img class="w-125px h-125px" src="~/media/avatars/150-7.jpg" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="w-125px h-125px" src="~/media/avatars/150-26.jpg" />
+                                                }
                                             }
                                             else
                                             {

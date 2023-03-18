@@ -17,12 +17,14 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         private readonly string _rootPath;
         private readonly int _pageSize = 5;
         private readonly IExcelService _excelService;
+        private readonly IAdminSubjectService _subjectService;
 
-        public AdminTeacherController(IAdminTeacherService adminTeacherService, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
+        public AdminTeacherController(IAdminTeacherService adminTeacherService, IWebHostEnvironment webHostEnvironment, IExcelService excelService, IAdminSubjectService adminSubjectService)
         {
             this._rootPath = webHostEnvironment.WebRootPath;
-            _adminTeacherService = adminTeacherService;
-            _excelService = excelService;
+            this._adminTeacherService = adminTeacherService;
+            this._excelService = excelService;
+            this._subjectService = adminSubjectService;
         }
 
         #region GetAll
@@ -55,7 +57,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region Register
         [HttpGet("register")]
-        public ViewResult Register() => View("Register");
+        public ViewResult Register()
+        {
+            ViewBag.Subjects = _subjectService.GetAllAsync();
+            return View("Register");
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto)
@@ -134,6 +140,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
             var dto = new TeacherUpdateDto()
             {
+                Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 ImagePath = teacher.ImagePath!,
@@ -156,9 +163,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
             if (res)
             {
-                return RedirectToAction("updateredirect", "adminteachers", new { area = "" });
+                return View("adminteachers");
             }
-            else return await UpdateRedirectAsync(teacherId);
+            else return View("adminteachers");
         }
         #endregion
 
