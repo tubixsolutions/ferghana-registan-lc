@@ -2,6 +2,7 @@
 using AutoMapper;
 using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.InkML;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
@@ -28,14 +29,16 @@ public class AdminStudentService : IAdminStudentService
     private readonly IMapper _mapper;
     private readonly IImageService _imageService;
     private readonly IStudentSubjectService _studentSubjectService;
+    private readonly IIdentityService _identityService;
 
-    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IImageService imageService, IStudentSubjectService studentSubjectService)
+    public AdminStudentService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IImageService imageService, IStudentSubjectService studentSubjectService, IIdentityService identityService)
     {
         this._repository = unitOfWork;
         this._authService = authService;
         this._mapper = mapper;
         this._imageService = imageService;
         this._studentSubjectService = studentSubjectService;
+        this._identityService = identityService;
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -54,6 +57,8 @@ public class AdminStudentService : IAdminStudentService
         var res = await _repository.SaveChangesAsync();
         return res > 0;
     }
+
+   
 
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
@@ -207,40 +212,77 @@ public class AdminStudentService : IAdminStudentService
         var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
-        if(studentAllUpdateDto.Image != null && student.Image !=null)
-        {
-            var result = await _imageService.DeleteImageAsync(student.Image);
-        }
+      
         _repository.Students.TrackingDeteched(student);
-        student.FirstName = studentAllUpdateDto.FirstName;
-        student.LastName = studentAllUpdateDto.LastName;
-        student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
-        student.BirthDate = studentAllUpdateDto.BirthDate;
-        student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-        if (studentAllUpdateDto.Image != null)
+        if(_identityService.Id == id)
         {
-            student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
-        }
-        if (studentAllUpdateDto.Subject != null)
-        {
-            var subject = await _repository.Subjects.FirstOrDefault(x => x.Name.ToLower() == studentAllUpdateDto.Subject.ToLower());
-
-            if( subject!=null) 
+            student.FirstName = String.IsNullOrEmpty(studentAllUpdateDto.FirstName) ? student.FirstName : studentAllUpdateDto.FirstName;
+            student.LastName = String.IsNullOrEmpty(studentAllUpdateDto.LastName) ? student.LastName : studentAllUpdateDto.LastName;
+            student.PhoneNumber = String.IsNullOrEmpty(studentAllUpdateDto.PhoneNumber) ? student.PhoneNumber : studentAllUpdateDto.PhoneNumber;
+            student.BirthDate = String.IsNullOrEmpty(studentAllUpdateDto.BirthDate.ToString()) ? student.BirthDate : studentAllUpdateDto.BirthDate;
+            student.StudentLevel = String.IsNullOrEmpty(studentAllUpdateDto.StudentLevel.ToString()) ? student.StudentLevel : studentAllUpdateDto.StudentLevel;
+            student.WeeklyLimit = student.WeeklyLimit;
+            student.CreatedAt = student.CreatedAt;
+            if(studentAllUpdateDto.Image is not null)
             {
-                var studentSubject = new StudentSubject()
+                if(student.Image is not null)
                 {
-                    SubjectId = subject.Id,
-                    StudentId = id,
-                    CreatedAt = TimeHelper.GetCurrentServerTime(),
-                    LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
-                };
-                _repository.StudentSubjects.Add(studentSubject);
+                   await _imageService.DeleteImageAsync(student.Image);
+                }
+                student.Image =await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
             }
+            else
+            {
+                student.Image = student.Image;
+            }
+            student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+            if (studentAllUpdateDto.Subject != null)
+            {
+                var subject = await _repository.Subjects.FirstOrDefault(x => x.Name.ToLower() == studentAllUpdateDto.Subject.ToLower());
+
+                if (subject != null)
+                {
+                    var studentSubject = new StudentSubject()
+                    {
+                        SubjectId = subject.Id,
+                        StudentId = id,
+                        CreatedAt = TimeHelper.GetCurrentServerTime(),
+                        LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
+                    };
+                    _repository.Students.Update(id, student);
+                    _repository.StudentSubjects.Add(studentSubject);
+                }
+            }
+            var res = await _repository.SaveChangesAsync();
+            return res > 0;
         }
-        var res = await _repository.SaveChangesAsync();
-        return res > 0;
+        return false;
+        
     }
-        
-        
-    
+
+    public async Task<bool> UpdateImageAsync(int id, IFormFile formFile)
+    {
+        var student = await _repository.Students.FindByIdAsync(id);
+        StudentAllUpdateDto dto = new StudentAllUpdateDto()
+        {
+            Image = formFile
+        };
+        var res = await UpdateAsync(id, dto);
+
+        throw new NotImplementedException();
+
+    }
+    public async Task<bool> DeleteImageAsync(int id)
+    {
+        var student =await _repository.Students.FindByIdAsync(id);
+        if (student is not null)
+        {
+            await _imageService.DeleteImageAsync(student.Image);
+            student.Image = null;
+            _repository.Students.Update(id, student);
+            var res = await _repository.SaveChangesAsync();
+            return res > 0;
+        }
+        else throw new NotFoundException("Student", "Student is not found");
+    }
 }

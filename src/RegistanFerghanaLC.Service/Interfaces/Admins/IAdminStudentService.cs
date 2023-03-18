@@ -1,4 +1,5 @@
-﻿using RegistanFerghanaLC.Service.Common.Utils;
+﻿using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
@@ -13,4 +14,8 @@ public interface IAdminStudentService
     public Task<StudentViewModel> GetByIdAsync(int id);
     public Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name);
     public Task<List<StudentViewModel>> GetFileAllAsync();
+    public Task<bool> UpdateImageAsync(int id, IFormFile formFile);
+    public Task<bool> DeleteImageAsync(int id);
+
+
 }

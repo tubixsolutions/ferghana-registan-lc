@@ -12,8 +12,10 @@ using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
+using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.Services.AdminService;
+using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
@@ -26,16 +28,18 @@ public class AdminStudentController : Controller
     private readonly IAdminSubjectService _subjectService;
     private readonly IMapper _mapper;
     private readonly IExcelService _excelService;
+    private readonly IIdentityService _identityService;
     private readonly string _rootPath;
     private readonly int _pageSize = 5;
 
-    public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
+    public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService, IIdentityService identityService)
     {
         _rootPath = webHostEnvironment.WebRootPath;
         _adminStudentService = adminStudentService;
         _subjectService = subjectService;
         _mapper = mapper;
         _excelService = excelService;
+        _identityService = identityService;
     }
 
     [HttpGet("register")]
@@ -144,6 +148,19 @@ public class AdminStudentController : Controller
         else return await Update(id);
 
 
+    }
+
+    [HttpPost("updateImage")]
+    public async Task<IActionResult> UpdateImageAsync([FromForm] IFormFile formFile)
+    {
+        var updateImage = await _adminStudentService.UpdateImageAsync((int)_identityService.Id!, formFile);
+        return await Update((int)_identityService.Id);
+    }
+    [HttpPost("deleteImage")]
+    public async Task<IActionResult> DeleteImageAsync(int id)
+    {
+        var student = await _adminStudentService.DeleteImageAsync(id);
+        return await Update(id);
     }
 
     [HttpGet("getbyid")]
