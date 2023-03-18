@@ -3,6 +3,7 @@ using AutoMapper;
 using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities;
 using RegistanFerghanaLC.Domain.Entities.Students;
@@ -56,7 +57,7 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
-        var query = (from student in _repository.Students.GetAll()
+        var query = (from student in _repository.Students.GetAll().OrderByDescending(x=>x.CreatedAt)
                      let studentSubjects = _repository.StudentSubjects.GetAll()
                      .Where(ss => ss.StudentId == student.Id).ToList()
                      let subjects = (from ss in studentSubjects 
@@ -113,10 +114,28 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name)
     {
-        var query = _repository.Students.Where( x=> x.FirstName.ToLower().Contains(name.ToLower()) 
-        || x.LastName.ToLower().Contains(name.ToLower())).OrderByDescending(x=>x.FirstName).Select(x => _mapper.Map<StudentBaseViewModel>(x));
-        var students = await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
-        return students;
+        
+        var query = (from student in _repository.Students.Where(x => x.FirstName.ToLower().Contains(name.ToLower())
+                     || x.LastName.ToLower().Contains(name.ToLower())).OrderByDescending(x => x.FirstName)
+                     let studentSubjects = _repository.StudentSubjects.GetAll()
+                     .Where(ss => ss.StudentId == student.Id).ToList()
+                     let subjects = (from ss in studentSubjects
+                                     join s in _repository.Subjects.GetAll()
+                                     on ss.SubjectId equals s.Id
+                                     select s.Name).ToList()
+
+                     select new StudentBaseViewModel()
+                     {
+                         Id = student.Id,
+                         FirstName = student.FirstName,
+                         LastName = student.LastName,
+                         PhoneNumber = student.PhoneNumber,
+                         WeeklyLimit = student.WeeklyLimit,
+                         Image = student.Image,
+                         Subjects = subjects,
+                     }
+                     );
+        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
     }
 
 
@@ -176,9 +195,10 @@ public class AdminStudentService : IAdminStudentService
         
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
+
         string subject = studentRegisterDto.Subject;
-        var savedStudent = await _repository.Students.FirstOrDefault(x=>x.FirstName.ToLower() == newStudent.FirstName && x.PhoneNumber == newStudent.PhoneNumber);
-        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(savedStudent.Id, subject);
+        string studentPhoneNumber = studentRegisterDto.PhoneNumber;
+        var subRes = await _studentSubjectService.SaveStudentSubjectAsync(studentPhoneNumber, subject);
         return dbResult > 0;
     }
 
@@ -187,16 +207,40 @@ public class AdminStudentService : IAdminStudentService
         var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+        if(studentAllUpdateDto.Image != null && student.Image !=null)
+        {
+            var result = await _imageService.DeleteImageAsync(student.Image);
+        }
         _repository.Students.TrackingDeteched(student);
         student.FirstName = studentAllUpdateDto.FirstName;
         student.LastName = studentAllUpdateDto.LastName;
         student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
         student.BirthDate = studentAllUpdateDto.BirthDate;
         student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-        student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
-        _repository.Students.Update(id, student);
+        if (studentAllUpdateDto.Image != null)
+        {
+            student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
+        }
+        if (studentAllUpdateDto.Subject != null)
+        {
+            var subject = await _repository.Subjects.FirstOrDefault(x => x.Name.ToLower() == studentAllUpdateDto.Subject.ToLower());
 
-        var result = await _repository.SaveChangesAsync();
-        return result > 0;
+            if( subject!=null) 
+            {
+                var studentSubject = new StudentSubject()
+                {
+                    SubjectId = subject.Id,
+                    StudentId = id,
+                    CreatedAt = TimeHelper.GetCurrentServerTime(),
+                    LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
+                };
+                _repository.StudentSubjects.Add(studentSubject);
+            }
+        }
+        var res = await _repository.SaveChangesAsync();
+        return res > 0;
     }
+        
+        
+    
 }

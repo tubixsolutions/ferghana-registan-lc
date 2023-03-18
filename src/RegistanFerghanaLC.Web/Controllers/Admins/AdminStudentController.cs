@@ -110,6 +110,7 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Update(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
+        var subjects = student.Subjects?.Count();
         var dto = new StudentAllUpdateDto()
         {
             FirstName = student.FirstName,
@@ -120,7 +121,12 @@ public class AdminStudentController : Controller
         };
         if (student != null) 
         {
-            //ViewBag.Subjects = _subjectService.GetAllAsync();
+            if(subjects == 0)
+            {
+                ViewBag.HasSubject = "true";
+                ViewBag.Subjects = _subjectService.GetAllAsync();
+
+            }
             ViewBag.studentId = id;
             return View("Update", dto); 
         }
