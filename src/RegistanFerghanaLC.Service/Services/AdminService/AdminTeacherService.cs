@@ -14,6 +14,7 @@ using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
+using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using System.Net;
 
@@ -24,40 +25,44 @@ public class AdminTeacherService : IAdminTeacherService
     private readonly IUnitOfWork _repository;
     private readonly IAuthService _authService;
     private readonly IMapper _mapper;
+    private readonly IFileService _fileService;
 
-    public AdminTeacherService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper)
+    public AdminTeacherService(IUnitOfWork unitOfWork, IAuthService authService, IMapper mapper, IFileService fileService)
     {
         this._repository = unitOfWork;
         this._authService = authService;
-        _mapper = mapper;
+        this._mapper = mapper;
+        this._fileService = fileService;
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if(temp is null)
-            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "Teacher not found");
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher not found");
         _repository.Teachers.Delete(id);
         var result = await _repository.SaveChangesAsync();
         return result > 0;
 
     }
 
+    public async Task<bool> DeleteImageAsync(int teacherId)
+    {
+        var teacher = await _repository.Teachers.FindByIdAsync(teacherId);
+        if (teacher is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher not found");
+        else
+        {
+            await _fileService.DeleteImageAsync(teacher.Image!);
+            teacher.Image = "";
+            _repository.Teachers.Update(teacherId, teacher);
+            var result = await _repository.SaveChangesAsync();
+            return result > 0;
+        }
+    }
+
     public async Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params)
     {
         var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
-        //new TeacherViewDto
-        //{
-        //    id= x.Id,
-        //    FirstName= x.FirstName,
-        //    LastName = x.LastName,
-        //    BirthDate= x.BirthDate,
-        //    PartOfDay= x.PartOfDay,
-        //    Subject= x.Subject,
-        //    PhoneNumber= x.PhoneNumber,
-        //    TeacherLevel= x.TeacherLevel,
-
-        //});
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 
@@ -137,7 +142,6 @@ public class AdminTeacherService : IAdminTeacherService
     {
         var query = _repository.Teachers.GetAll().Where(x => x.FirstName.ToLower().StartsWith(name.ToLower()) || x.LastName.ToLower().StartsWith(name.ToLower())).OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
-
     }
 
     public async Task<bool> UpdateAsync(TeacherUpdateDto dto, int id)
@@ -145,17 +149,27 @@ public class AdminTeacherService : IAdminTeacherService
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Teachers is not found");
-        _repository.Teachers.TrackingDeteched(temp);
-        temp.FirstName = dto.FirstName;
-        temp.LastName =  dto.LastName;
-        temp.PhoneNumber = dto.PhoneNumber;
-        temp.BirthDate = dto.BirthDate;
-        temp.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-        _repository.Teachers.Update(id, temp);
+        else
+        {
+            _repository.Teachers.TrackingDeteched(temp);
+            if(dto is not null)
+            {
+                temp.FirstName = String.IsNullOrEmpty(dto.FirstName) ? temp.FirstName : dto.FirstName;
+                temp.LastName = String.IsNullOrEmpty(dto.LastName) ? temp.LastName : dto.LastName;
+                temp.Image = String.IsNullOrEmpty(dto.ImagePath) ? temp.Image : dto.ImagePath;
+                temp.WorkDays = dto.WorkDays;
+                temp.PhoneNumber = String.IsNullOrEmpty(dto.PhoneNumber) ? temp.PhoneNumber : dto.PhoneNumber;
+                temp.TeacherLevel = String.IsNullOrEmpty(dto.TeacherLevel) ? temp.TeacherLevel : dto.TeacherLevel;
+                temp.BirthDate = dto.BirthDate;
+                temp.Subject = String.IsNullOrEmpty(dto.Subject) ? temp.Subject : dto.Subject;
+                temp.PartOfDay = dto.PartOfDay;
+            }
+            
+            temp.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+            _repository.Teachers.Update(id, temp);
 
-        var result = await _repository.SaveChangesAsync();
-        return result > 0;
+            var result = await _repository.SaveChangesAsync();
+            return result > 0;
+        }
     }
-
-    
 }

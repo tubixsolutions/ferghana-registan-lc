@@ -1,5 +1,4 @@
-﻿using Microsoft.Net.Http.Headers;
-using RegistanFerghanaLC.Service.Common.Utils;
+﻿using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 
@@ -9,6 +8,7 @@ public interface IAdminTeacherService
     public Task<bool> RegisterTeacherAsync(TeacherRegisterDto teacherRegisterDto);
     public Task<bool> RegisterAsync(TeacherRegisterDto teacherRegisterDto);
     public Task<bool> DeleteAsync(int id);
+    public Task<bool> DeleteImageAsync(int teacherId);
     public Task<bool> UpdateAsync(TeacherUpdateDto teacherRegisterDto, int id);
     public Task<TeacherViewDto> GetByIdAsync(int id);
     public Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params);
