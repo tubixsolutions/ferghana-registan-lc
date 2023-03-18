@@ -91,7 +91,7 @@ public class StudentService : IStudentService
     {
         var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
         if(student is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
         else
         {
             var passwordHasher = PasswordHasher.Verify(accountLoginDto.Password, student.Salt, student.PasswordHash);
@@ -106,9 +106,31 @@ public class StudentService : IStudentService
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
     {
-        var student = await _repository.Students.FindByIdAsync(id);
-        if(student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
-        var res = _mapper.Map<StudentViewModel>(student);
+        var query = (from student in _repository.Students.GetAll()
+                     let studentSubjects = _repository.StudentSubjects.GetAll()
+                     .Where(ss => ss.StudentId == student.Id).ToList()
+                     let subjects = (from ss in studentSubjects
+                                     join s in _repository.Subjects.GetAll()
+                                     on ss.SubjectId equals s.Id
+                                     select s.Name).ToList()
+
+                     select new StudentViewModel()
+                     {
+                         Id = student.Id,
+                         FirstName = student.FirstName,
+                         LastName = student.LastName,
+                         PhoneNumber = student.PhoneNumber,
+                         WeeklyLimit = student.WeeklyLimit,
+                         Image = student.Image,
+                         Subjects = subjects,
+                         StudentLevel = student.StudentLevel,
+                         CreatedAt = student.CreatedAt,
+                         BirthDate = student.BirthDate,
+                     }
+                     ).Where(x => x.Id == id);
+        if (query.Count() == 0)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
+        var res = _mapper.Map<StudentViewModel>(query.First());
         return res;
     }
 }

@@ -116,7 +116,7 @@ public class AdminStudentService : IAdminStudentService
     {
         
         var query = (from student in _repository.Students.Where(x => x.FirstName.ToLower().Contains(name.ToLower())
-                     || x.LastName.ToLower().Contains(name.ToLower())).OrderByDescending(x => x.FirstName)
+                     || x.LastName.ToLower().Contains(name.ToLower())).OrderByDescending(x => x.CreatedAt)
                      let studentSubjects = _repository.StudentSubjects.GetAll()
                      .Where(ss => ss.StudentId == student.Id).ToList()
                      let subjects = (from ss in studentSubjects
