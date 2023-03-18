@@ -15,5 +15,6 @@ public interface IAdminTeacherService
     public Task<List<TeacherViewDto>> GetFileAllAsync();
     public Task<string> LoginAsync(AccountLoginDto dto);
     public Task<PagedList<TeacherViewDto>> SearchAsync(PaginationParams @params, String name);
+    public Task<TeacherViewDto> GetByPhoneNumberAsync(string phoneNumber);
 
 }
