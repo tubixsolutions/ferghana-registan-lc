@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using AutoMapper.Execution;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
@@ -171,5 +172,17 @@ public class AdminTeacherService : IAdminTeacherService
             var result = await _repository.SaveChangesAsync();
             return result > 0;
         }
+    }
+
+    public async Task<bool> UpdateImageAsync(int teacherId, IFormFile formFile)
+    {
+        var teacher = await _repository.Teachers.FindByIdAsync(teacherId);
+        var updateImage = await _fileService.UploadImageAsync(formFile);
+        var teacherViewDto = new TeacherUpdateDto()
+        {
+            ImagePath = updateImage
+        };
+        var result = await UpdateAsync(teacherViewDto, teacherId);
+        return result;
     }
 }
