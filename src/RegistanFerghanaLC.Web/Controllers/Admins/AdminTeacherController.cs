@@ -25,6 +25,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             _excelService = excelService;
         }
 
+        #region GetAll
         [HttpGet]
         public async Task<IActionResult> Index(string search, int page = 1)
         {
@@ -50,7 +51,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             //return View("Index", (teachers, filemodeldto ));
         }
+        #endregion
 
+        #region Register
         [HttpGet("register")]
         public ViewResult Register() => View("Register");
 
@@ -71,7 +74,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             }
             else return Register();
         }
+        #endregion
 
+        #region Delete
         [HttpGet("Delete")]
         public async Task<ViewResult> DeleteAsync(int id)
         {
@@ -91,6 +96,16 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             return View();
         }
 
+        [HttpPost("deleteImage")]
+        public async Task<IActionResult> DeleteImageAsync(int teacherId)
+        {
+            var image = await _adminTeacherService.DeleteImageAsync(teacherId);
+            if (image) return await UpdateRedirectAsync(teacherId);
+            else return await UpdateRedirectAsync(teacherId);
+        }
+        #endregion
+
+        #region GetPhoneNumber
         [HttpGet("phoneNumber")]
         public async Task<IActionResult> GetByPhoneNumber(string phoneNumber)
         {
@@ -109,7 +124,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
             return View("Profile", teacherView);
         }
+        #endregion
 
+        #region Update
         [HttpGet("updateredirect")]
         public async Task<IActionResult> UpdateRedirectAsync(int teacherId)
         {
@@ -119,10 +136,13 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             {
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
+                ImagePath = teacher.ImagePath!,
+                WorkDays = teacher.WorkDays,    
                 PhoneNumber = teacher.PhoneNumber,
-                Image = teacher.ImagePath,
+                TeacherLevel = teacher.TeacherLevel,
                 BirthDate = teacher.BirthDate,
-                Subject = teacher.Subject
+                Subject = teacher.Subject,
+                PartOfDay = teacher.PartOfDay
             };
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";
@@ -136,12 +156,13 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
             if (res)
             {
-                return RedirectToAction("Index", "adminteachers", new { area = "" });
+                return RedirectToAction("updateredirect", "adminteachers", new { area = "" });
             }
             else return await UpdateRedirectAsync(teacherId);
-
         }
+        #endregion
 
+        #region Excel
         [HttpGet("duplicate")]
         public async Task<IActionResult> Duplicate()
         {
@@ -237,5 +258,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 }
             }
         }
+        #endregion
     }
 }

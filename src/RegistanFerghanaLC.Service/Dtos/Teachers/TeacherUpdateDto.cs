@@ -1,14 +1,12 @@
-﻿using RegistanFerghanaLC.Domain.Enums;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using RegistanFerghanaLC.Domain.Common;
+using RegistanFerghanaLC.Domain.Entities.Teachers;
+using RegistanFerghanaLC.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
-    public class TeacherUpdateDto
+    public class TeacherUpdateDto : BaseEntity
     {
         [Required (ErrorMessage = "Please enter the Firstname of the teacher!")]
         public string FirstName { get; set; } = String.Empty;
@@ -17,7 +15,9 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         public string LastName { get; set; } = String.Empty;
 
         [Required(ErrorMessage = "Please enter the picture of the teacher!")]
-        public string? Image { get; set; }
+        public IFormFile? Image { get; set; }
+        public string ImagePath { get; set; } = String.Empty;
+        
         [Required(ErrorMessage = "Please enter the work days of the teacher!")]
         public bool WorkDays { get; set; } = true;
 
@@ -36,6 +36,21 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         [Required(ErrorMessage = "Please enter the work time of the teacher!")]
         public PartOfDay PartOfDay { get; set; }
 
-
+        public static implicit operator Teacher(TeacherUpdateDto dto)
+        {
+            return new Teacher()
+            {
+                Id = dto.Id,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Image = dto.ImagePath,
+                WorkDays = dto.WorkDays,
+                PhoneNumber = dto.PhoneNumber,
+                TeacherLevel = dto.TeacherLevel,
+                BirthDate = dto.BirthDate,
+                Subject = dto.Subject,
+                PartOfDay = dto.PartOfDay,
+            };
+        }
     }
 }
