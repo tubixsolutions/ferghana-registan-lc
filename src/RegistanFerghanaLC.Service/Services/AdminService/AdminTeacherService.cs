@@ -86,7 +86,7 @@ public class AdminTeacherService : IAdminTeacherService
     {
         var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
         if (teacher is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher is not found");
-        var teacherView = _mapper.Map < TeacherViewDto >(teacher);
+        var teacherView = (TeacherViewDto)teacher;
         return teacherView;
     }
 

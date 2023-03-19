@@ -73,7 +73,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         public async Task<ViewResult> UpdateAsync(int adminId)
         {
             var admin = await _adminService.GetByIdAsync(adminId);
-            ViewBag.adminId = adminId;
             var adminUpdate = new AdminUpdateDto()
             {
                 ImagePath = admin.ImagePath,

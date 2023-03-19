@@ -47,7 +47,7 @@
                         <div class="row mb-7">
                             <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
                             <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-dark">@Model.BirthDate.ToString("dd.MM.yyyy")</span>
+                                <span class="fw-bold fs-6 text-dark">@Model.BirthDate.ToString("dd-MM-yyyy")</span>
                             </div>
                         </div>
                         <div class="row mb-7">
@@ -57,9 +57,52 @@
                             </div>
                         </div>
                         <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Part Of Day</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">
+                                    @if (Model.PartOfDay.ToString().StartsWith("First"))
+                                    {
+                                        <span class="badge badge-light-info">Morning</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-light-warning">Afternoon</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Subject</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.Subject</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Teacher Level</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.TeacherLevel</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Work Days</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">
+                                    @{
+                                        if (Model.WorkDays)
+                                        {
+                                            <span class="badge badge-light-info">Odd</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-light-warning">Even</span>
+                                        }
+                                    }</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
                             <label class="col-lg-4 fw-semibold text-muted">Created At</label>
                             <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-dark">@Model.CreatedAt.ToString("dd.MM.yyyy hh:mm")</span>
+                                <span class="fw-bold fs-6 text-dark">@Model.CreatedAt.ToString("dd-MM-yyyy hh:mm")</span>
                             </div>
                         </div>
                         <div class="notice d-flex bg-light-success rounded border-success border border-dashed  p-6">
