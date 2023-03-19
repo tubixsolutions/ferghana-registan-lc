@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
+using RegistanFerghanaLC.Domain.Entities.Users;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
+using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
@@ -67,7 +69,7 @@ public class AdminTeacherService : IAdminTeacherService
 
     public async Task<PagedList<TeacherViewDto>> GetAllAsync(PaginationParams @params)
     {
-        var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => _mapper.Map<TeacherViewDto>(x));
+        var query = _repository.Teachers.GetAll().OrderByDescending(x => x.CreatedAt).Select(x => (TeacherViewDto)x);
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 
@@ -76,7 +78,7 @@ public class AdminTeacherService : IAdminTeacherService
         var temp = await _repository.Teachers.FindByIdAsync(id);
         if (temp is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher is not Found");
-        var res = _mapper.Map<TeacherViewDto>(temp);
+        var res = (TeacherViewDto)temp;
         return res;
     }
 
@@ -157,11 +159,15 @@ public class AdminTeacherService : IAdminTeacherService
         else
         {
             _repository.Teachers.TrackingDeteched(temp);
-            if(dto is not null)
+            if(dto != null)
             {
                 temp.FirstName = String.IsNullOrEmpty(dto.FirstName) ? temp.FirstName : dto.FirstName;
                 temp.LastName = String.IsNullOrEmpty(dto.LastName) ? temp.LastName : dto.LastName;
                 temp.Image = String.IsNullOrEmpty(dto.ImagePath) ? temp.Image : dto.ImagePath;
+                if (dto.Image is not null)
+                {
+                    temp.Image = await _fileService.UploadImageAsync(dto.Image);
+                }
                 temp.WorkDays = dto.WorkDays;
                 temp.PhoneNumber = String.IsNullOrEmpty(dto.PhoneNumber) ? temp.PhoneNumber : dto.PhoneNumber;
                 temp.TeacherLevel = String.IsNullOrEmpty(dto.TeacherLevel) ? temp.TeacherLevel : dto.TeacherLevel;
