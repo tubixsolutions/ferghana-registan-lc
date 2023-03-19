@@ -39,7 +39,7 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
         {
             var admin = await _unitOfWork.Admins.FindByIdAsync(adminId);
             if (admin is null) throw new NotFoundException("Admin", $"{adminId} not found");
-            else 
+            else
             {
                 await _fileService.DeleteImageAsync(admin.Image!);
                 admin.Image = "";
@@ -85,31 +85,27 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
 
         public async Task<bool> UpdateAsync(int id, AdminUpdateDto adminUpdatedDto)
         {
-            if (id == _identityService.Id)
+            var admin = await _unitOfWork.Admins.FindByIdAsync(id);
+            if (admin is null) throw new NotFoundException("Admin", $"{id} not found");
+            _unitOfWork.Admins.TrackingDeteched(admin);
+            if (adminUpdatedDto != null)
             {
-                var admin = await _unitOfWork.Admins.FindByIdAsync(id);
-                if (admin is null) throw new NotFoundException("Admin", $"{id} not found");
-                _unitOfWork.Admins.TrackingDeteched(admin);
-                if (adminUpdatedDto != null)
+                admin.FirstName = String.IsNullOrEmpty(adminUpdatedDto.FirstName) ? admin.FirstName : adminUpdatedDto.FirstName;
+                admin.LastName = String.IsNullOrEmpty(adminUpdatedDto.LastName) ? admin.LastName : adminUpdatedDto.LastName;
+                admin.Image = String.IsNullOrEmpty(adminUpdatedDto.ImagePath) ? admin.Image : adminUpdatedDto.ImagePath;
+                admin.PhoneNumber = String.IsNullOrEmpty(adminUpdatedDto.PhoneNumber) ? admin.PhoneNumber : adminUpdatedDto.PhoneNumber;
+                admin.BirthDate = admin.BirthDate;
+                admin.Address = String.IsNullOrEmpty(adminUpdatedDto.Address) ? admin.Address : adminUpdatedDto.Address;
+                if (adminUpdatedDto.Image is not null)
                 {
-                    admin.FirstName = String.IsNullOrEmpty(adminUpdatedDto.FirstName) ? admin.FirstName : adminUpdatedDto.FirstName;
-                    admin.LastName = String.IsNullOrEmpty(adminUpdatedDto.LastName) ? admin.LastName : adminUpdatedDto.LastName;
-                    admin.Image = String.IsNullOrEmpty(adminUpdatedDto.ImagePath) ? admin.Image : adminUpdatedDto.ImagePath;
-                    admin.PhoneNumber = String.IsNullOrEmpty(adminUpdatedDto.PhoneNumber) ? admin.PhoneNumber : adminUpdatedDto.PhoneNumber;
-                    admin.BirthDate = admin.BirthDate;
-                    admin.Address = String.IsNullOrEmpty(adminUpdatedDto.Address) ? admin.Address : adminUpdatedDto.Address;
-                    if (adminUpdatedDto.Image is not null)
-                    {
-                        admin.Image = await _fileService.UploadImageAsync(adminUpdatedDto.Image);
-                    }
-                    admin.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-                    _unitOfWork.Admins.Update(id, admin);
-                    var result = await _unitOfWork.SaveChangesAsync();
-                    return result > 0;
+                    admin.Image = await _fileService.UploadImageAsync(adminUpdatedDto.Image);
                 }
-                else throw new ModelErrorException("", "Not found");
+                admin.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+                _unitOfWork.Admins.Update(id, admin);
+                var result = await _unitOfWork.SaveChangesAsync();
+                return result > 0;
             }
-            else throw new ModelErrorException("", "Permission not granted");
+            else throw new ModelErrorException("", "Not found");
         }
 
         public async Task<bool> UpdateImageAsync(int id, IFormFile formFile)

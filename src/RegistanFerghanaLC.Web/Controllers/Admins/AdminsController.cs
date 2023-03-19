@@ -70,9 +70,8 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
 
         #region Update
         [HttpGet("update")]
-        public async Task<ViewResult> UpdateAsync()
+        public async Task<ViewResult> UpdateAsync(int adminId)
         {
-            var adminId = (int)_identityService.Id!.Value;
             var admin = await _adminService.GetByIdAsync(adminId);
             ViewBag.adminId = adminId;
             var adminUpdate = new AdminUpdateDto()
@@ -92,15 +91,15 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         public async Task<IActionResult> UpdateAsync([FromForm] AdminUpdateDto adminUpdateDto, int adminId)
         {
             var admin = await _adminService.UpdateAsync(adminId, adminUpdateDto);
-            if (admin) return RedirectToAction("Update", "admins");
-            else return RedirectToAction("Update", "admins");
+            if (admin) return await UpdateAsync(adminId);
+            else return await UpdateAsync(adminId);
         }
 
         [HttpPost("updateImage")]
-        public async Task<IActionResult> UpdateImageAsync([FromForm] IFormFile formFile)
+        public async Task<IActionResult> UpdateImageAsync(int adminId, [FromForm] IFormFile formFile)
         {
-            var updateImage = await _adminService.UpdateImageAsync((int)_identityService.Id!, formFile);
-            return await UpdateAsync();
+            var updateImage = await _adminService.UpdateImageAsync(adminId, formFile);
+            return await UpdateAsync(adminId);
         }
 
         [HttpPost("passwordUpdate")]
@@ -109,10 +108,10 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             if (ModelState.IsValid)
             {
                 var result = await _adminService.UpdatePasswordAsync(id, dto);
-                if (result) return await UpdateAsync();
-                else return await UpdateAsync();
+                if (result) return await UpdateAsync(id);
+                else return await UpdateAsync(id);
             }
-            else return await UpdateAsync();
+            else return await UpdateAsync(id);
         }
         #endregion
 
@@ -134,10 +133,10 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpPost("deleteImage")]
-        public async Task<IActionResult> DeleteImageAsync()
+        public async Task<IActionResult> DeleteImageAsync(int adminId)
         {
-            var image = await _adminService.DeleteImageAsync((int)_identityService.Id!);
-            return await UpdateAsync();
+            var image = await _adminService.DeleteImageAsync(adminId);
+            return await UpdateAsync(adminId);
         }
         #endregion
 

@@ -53,11 +53,15 @@ public class AdminTeacherService : IAdminTeacherService
         if (teacher is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher not found");
         else
         {
-            await _fileService.DeleteImageAsync(teacher.Image!);
-            teacher.Image = "";
-            _repository.Teachers.Update(teacherId, teacher);
-            var result = await _repository.SaveChangesAsync();
-            return result > 0;
+            if(teacher.Image != null)
+            {
+                await _fileService.DeleteImageAsync(teacher.Image);
+                teacher.Image = "";
+                _repository.Teachers.Update(teacherId, teacher);
+                var result = await _repository.SaveChangesAsync();
+                return result > 0;
+            }
+            else return false;
         }
     }
 
