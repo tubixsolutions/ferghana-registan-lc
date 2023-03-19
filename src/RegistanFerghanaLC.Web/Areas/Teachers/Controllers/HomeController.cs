@@ -60,4 +60,14 @@ public class HomeController : BaseController
     {
         return Ok(await _extraLessonService.GetAllByDateAsync(teacherId, new PaginationParams(page, _pageSize)));
     }
+    [HttpGet("teacher/count")]
+    public async Task<IActionResult> GetTeachersCountAsync(string subject, int page = 1)
+    {
+        return Ok(await _service.GetTeachersCountAsync(subject, new PaginationParams(page, _pageSize)));
+    }
+    [HttpGet("teacher/get-by-subject")]
+    public async Task<IActionResult> GetTeachersBySubjectAsync(string subject, int page = 1)
+    {
+        return Ok(await _service.GetTeachersBySubjectAsync(subject, new PaginationParams(page, _pageSize)));
+    }
 }

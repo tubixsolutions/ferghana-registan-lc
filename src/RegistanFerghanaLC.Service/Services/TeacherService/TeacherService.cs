@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Security;
+using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
+using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Teachers;
 
@@ -57,4 +59,19 @@ public class TeacherService : ITeacherService
         int res = await _repository.SaveChangesAsync();
         return res > 0;
     }
+    public async Task<int> GetTeachersCountAsync(string subject, PaginationParams @params)
+    {
+        var query = _repository.Teachers.GetAll().Where(x => x.Subject.ToLower() == subject.ToLower()).
+            OrderByDescending(x => x.Id).Select(x => (TeacherViewDto)x).ToList();
+        if (query is null)
+            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "teachers not found");
+        return query.Count;
+    }
+    public async Task<PagedList<TeacherViewDto>> GetTeachersBySubjectAsync(string subject, PaginationParams @params)
+    {
+        var query = _repository.Teachers.GetAll().Where(x => x.Subject.ToLower() == subject.ToLower()).
+            OrderByDescending(x => x.Id).Select(x => (TeacherViewDto)x);
+        return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
+    }
+
 }
