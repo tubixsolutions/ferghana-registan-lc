@@ -125,6 +125,10 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 ImagePath = teacher.ImagePath,
                 PhoneNumber = teacher.PhoneNumber,
                 BirthDate = teacher.BirthDate,
+                PartOfDay = teacher.PartOfDay,
+                Subject = teacher.Subject,
+                TeacherLevel = teacher.TeacherLevel,
+                WorkDays = teacher.WorkDays,
                 CreatedAt = teacher.CreatedAt
             };
 
