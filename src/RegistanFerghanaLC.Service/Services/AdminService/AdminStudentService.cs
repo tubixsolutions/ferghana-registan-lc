@@ -75,11 +75,8 @@ public class AdminStudentService : IAdminStudentService
                          Image = student.Image,
                          Subjects = subjects,
                          
-                     }
-                     );
-        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
-
-             
+                     });
+        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);     
     }
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
@@ -114,7 +111,6 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetByNameAsync(PaginationParams @params, string name)
     {
-        
         var query = (from student in _repository.Students.Where(x => x.FirstName.ToLower().Contains(name.ToLower())
                      || x.LastName.ToLower().Contains(name.ToLower())).OrderByDescending(x => x.FirstName)
                      let studentSubjects = _repository.StudentSubjects.GetAll()
@@ -240,7 +236,4 @@ public class AdminStudentService : IAdminStudentService
         var res = await _repository.SaveChangesAsync();
         return res > 0;
     }
-        
-        
-    
 }
