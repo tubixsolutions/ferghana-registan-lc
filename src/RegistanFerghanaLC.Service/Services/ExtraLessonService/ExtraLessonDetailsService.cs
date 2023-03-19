@@ -1,6 +1,7 @@
 ﻿using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.ExtraLessons;
 using RegistanFerghanaLC.Service.Common.Exceptions;
+using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using System;
@@ -30,8 +31,8 @@ namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
                     IsDone = false,
                     Rank = 2,
                     Comment = string.Empty,
-                    CreatedAt = DateTime.Now,
-                    LastUpdatedAt = DateTime.Now
+                    CreatedAt = TimeHelper.GetCurrentServerTime(),
+                    LastUpdatedAt = TimeHelper.GetCurrentServerTime()
                 };
                 var res = _repository.ExtraLessonDetails.Add(entity);
 
@@ -48,7 +49,7 @@ namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
             if (entity != null)
             {
                 _repository.ExtraLessonDetails.TrackingDeteched(entity);
-                entity.LastUpdatedAt = DateTime.Now;
+                entity.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
                 entity.IsDone = updateDto.IsDone;
                 entity.Rank = updateDto.Rank;
                 entity.Comment = updateDto.Comment;

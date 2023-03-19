@@ -42,7 +42,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
         public async Task<PagedList<SalaryBaseViewModel>> GetAllByDateAsync(PaginationParams @params, DateTime startDate, DateTime endDate)
         {
             var query = (from teacher in _unitOfWork.Teachers.GetAll()
-                         let teacherExtraLessons = _unitOfWork.ExtraLessons.GetAll().Where(x => x.StartTime>startDate && x.EndTime<endDate)
+                         let teacherExtraLessons = _unitOfWork.ExtraLessons.GetAll().Where(x => x.StartTime > startDate && x.EndTime < endDate)
                             .Where(a => a.TeacherId == teacher.Id).ToList()
                          let lessonsNumber = teacherExtraLessons.Count()
                          let averageRank = (from extra in teacherExtraLessons
@@ -72,6 +72,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                              Id = extra.Id,
                              FirstName = student.FirstName,
                              LastName = student.LastName,
+                             LessonTopic = extra.LessonTopic,
                              Rank = extraDetails.Rank,
                              Comment = extraDetails.Comment,
                              StartTime = extra.StartTime,

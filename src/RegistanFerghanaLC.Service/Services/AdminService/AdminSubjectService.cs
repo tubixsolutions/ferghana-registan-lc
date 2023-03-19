@@ -61,7 +61,5 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
             var res = subjects.Select(s => _mapper.Map<SubjectViewModel>(s));
             return res;
         }
-
-        
     }
 }

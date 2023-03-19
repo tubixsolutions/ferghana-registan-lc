@@ -138,13 +138,9 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
                     var result = await _unitOfWork.SaveChangesAsync();
                     return result > 0;
                 }
-                else
-                    throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "new password and verify" +
-                        " password must be match!");
+                else throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "new password and verify" + " password must be match!");
             }
-            else
-                throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "Invalid Password");
+            else throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, "Invalid Password");
         }
-
     }
 }

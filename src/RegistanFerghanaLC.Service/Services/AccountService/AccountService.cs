@@ -93,8 +93,5 @@ public class AccountService : IAccountService
             }
             else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
         }
-    
     }
-
-    
 }
