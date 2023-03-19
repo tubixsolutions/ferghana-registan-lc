@@ -1,4 +1,5 @@
-﻿using RegistanFerghanaLC.Domain.Common;
+﻿
+using RegistanFerghanaLC.Domain.Common;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 
@@ -6,6 +7,7 @@ namespace RegistanFerghanaLC.Domain.Entities.ExtraLessons
 {
     public class ExtraLesson : Auditable
     {
+        public string LessonTopic { get; set; } = string.Empty;
         public int StudentId { get; set; }
         public virtual Student Student { get; set; } = default!;
 

@@ -1,6 +1,7 @@
 ﻿using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.ExtraLessons;
 using RegistanFerghanaLC.Service.Common.Exceptions;
+using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
@@ -32,11 +33,12 @@ namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
             {
                 var entity = new ExtraLesson()
                 {
+                    LessonTopic = extraLesson.LessonTopic,
                     StudentId = extraLesson.StudentId,
                     TeacherId = extraLesson.TeacherId,
                     SubjectId = extraLesson.SubjectId,
-                    CreatedAt = DateTime.Now,
-                    LastUpdatedAt = DateTime.Now,
+                    CreatedAt = TimeHelper.GetCurrentServerTime(),
+                    LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
                     StartTime = DateTime.Parse(extraLesson.StartTime),
                     EndTime = DateTime.Parse(extraLesson.StartTime).AddMinutes(20),
                 };
@@ -55,25 +57,22 @@ namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
 
         public Task<PagedList<ExtraLessonViewModel>> GetAllByDateAsync(int teacherId, PaginationParams @params)
         {
-            var query = (from ExtraLesson in _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == teacherId && x.StartTime >= DateTime.Now)
+            var query = (from ExtraLesson in _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == teacherId && x.StartTime >= TimeHelper.GetCurrentServerTime())
                          join student in _repository.Students.GetAll()
                          on ExtraLesson.StudentId equals student.Id
                          join teacher in _repository.Teachers.GetAll()
                          on teacherId equals teacher.Id
-
-
                          select new ExtraLessonViewModel()
                          {
                              Id = ExtraLesson.Id,
+                             LessonTopic = ExtraLesson.LessonTopic,
                              SubjectName = teacher.Subject,
                              TeacherName = teacher.FirstName,
                              StudentName = student.FirstName,
                              StartTime = ExtraLesson.StartTime,
                              EndTime = ExtraLesson.EndTime,
-
                          }).OrderBy(x => x.StartTime);
             return PagedList<ExtraLessonViewModel>.ToPagedListAsync(query, @params);
-
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Salaries;
 using RegistanFerghanaLC.Service.Interfaces.Salaries;
@@ -24,7 +25,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
             {
                 Salaries = res,
                 StartDate = ("2023-02-25"),
-                EndDate = DateTime.Now.ToString("yyyy-MM-dd")
+                EndDate = TimeHelper.GetCurrentServerTime().ToString("yyyy-MM-dd")
             };
             return View("Index", results);
         }
@@ -51,12 +52,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         {
             var startDate = DateTime.Parse(start); 
             var endDate = DateTime.Parse(end);
-            var ess = endDate.AddDays(1);
-            if (startDate == DateTime.Now && endDate == DateTime.Now || endDate < startDate || startDate==endDate)
+            if (startDate == TimeHelper.GetCurrentServerTime() && endDate == TimeHelper.GetCurrentServerTime() || endDate < startDate || startDate==endDate)
             {
                 var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize));
-                ViewBag.start = DateTime.Now.ToString("yyyy-MM-dd");
-                ViewBag.end = DateTime.Now.ToString("yyyy-MM-dd");
+                ViewBag.start = TimeHelper.GetCurrentServerTime().ToString("yyyy-MM-dd");
+                ViewBag.end = TimeHelper.GetCurrentServerTime().ToString("yyyy-MM-dd");
                 var res = new SoftDto()
                 {
                     Salaries = results,

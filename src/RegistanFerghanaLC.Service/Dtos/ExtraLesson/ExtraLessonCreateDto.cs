@@ -6,6 +6,9 @@ namespace RegistanFerghanaLC.Service.Dtos.ExtraLesson
     public class ExtraLessonCreateDto
     {
         [Required]
+        public string LessonTopic { get; set; } = string.Empty;
+
+        [Required]
         public int StudentId { get; set; }
 
         [Required]

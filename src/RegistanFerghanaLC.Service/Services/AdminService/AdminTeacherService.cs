@@ -46,7 +46,6 @@ public class AdminTeacherService : IAdminTeacherService
         _repository.Teachers.Delete(id);
         var result = await _repository.SaveChangesAsync();
         return result > 0;
-
     }
 
     public async Task<bool> DeleteImageAsync(int teacherId)
