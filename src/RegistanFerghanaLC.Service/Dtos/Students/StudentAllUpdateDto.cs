@@ -9,11 +9,13 @@ using System.ComponentModel.DataAnnotations;
 namespace RegistanFerghanaLC.Service.Dtos.Students;
 public class StudentAllUpdateDto: AccountRegisterDto
 {
-    [ImageFile]
-    public IFormFile Image { get; set; }
+    [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
+    public IFormFile? Image { get; set; }
+    
     [Required(ErrorMessage = "Please select a subject.")]
     public EnglishLevel StudentLevel { get; set; }
-    public string Subject { get; set; }
+    
+    public string Subject { get; set; } = String.Empty;
 
     public static implicit operator Student(StudentAllUpdateDto studentAllUpdateDto)
     {

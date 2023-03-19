@@ -21,7 +21,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins;
 [Route("adminstudents")]
 public class AdminStudentController : Controller
 {
-
     private readonly IAdminStudentService _adminStudentService;
     private readonly IAdminSubjectService _subjectService;
     private readonly IMapper _mapper;

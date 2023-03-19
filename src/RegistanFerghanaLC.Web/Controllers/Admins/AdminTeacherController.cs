@@ -160,13 +160,12 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         [HttpPost("update")]
         public async Task<IActionResult> UpdateAsync(int teacherId, TeacherUpdateDto dto)
         {
-            ViewBag.teacherId = teacherId;
             var res = await _adminTeacherService.UpdateAsync(dto, teacherId);
             if (res)
             {
-                return View("adminteachers");
+                return await UpdateRedirectAsync(teacherId);
             }
-            else return View("adminteachers");
+            else return await UpdateRedirectAsync(teacherId);
         }
 
         [HttpPost("updatImage")]
