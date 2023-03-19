@@ -11,7 +11,7 @@
                     <div class="card-body pt-0 p-10">
                         <div class="d-flex flex-center flex-column mb-10">
                             <div class="symbol mb-3 symbol-100px symbol-circle">
-                                @if (String.IsNullOrWhiteSpace(Model.ImagePath))
+                                @if(String.IsNullOrEmpty(Model.ImagePath))
                                 {
                                     if (Model.LastName.EndsWith("a"))
                                     {
@@ -89,7 +89,6 @@
                                                     <a asp-controller="adminteachers" asp-action="" asp-route-formFile="@Model.Image">
                                                     </a>
                                                 </label>
-                                                <span asp-validation-for="Image" class="text-danger"></span>
                                             </div>
 
                                             <button asp-controller="adminteachers" asp-action="deleteImage" asp-route-teacherId="@Model.Id" method="post" class="btn btn-icon btn-circle btn-active-color-dark w-25px h-25px bg-body shadow" data-bs-toggle="tooltip" data-bs-original-title="Remove avatar">
@@ -101,7 +100,8 @@
                                                 </span>
                                             </button>
                                         </div>
-                                        <div class="form-text">Allowed file types:  png, jpg, jpeg</div>
+                                        <div class="form-text">Allowed file types:  png, jpg, jpeg, svg, webp</div>
+                                        <span asp-validation-for="Image" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-6">

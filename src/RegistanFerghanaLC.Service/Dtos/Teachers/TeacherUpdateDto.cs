@@ -2,6 +2,7 @@
 using RegistanFerghanaLC.Domain.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
+using RegistanFerghanaLC.Service.Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
@@ -14,7 +15,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         [Required(ErrorMessage = "Please enter the LastName of the teacher!")]
         public string LastName { get; set; } = String.Empty;
 
-        [Required(ErrorMessage = "Please enter the picture of the teacher!")]
+        [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
         public IFormFile? Image { get; set; }
         public string ImagePath { get; set; } = String.Empty;
         
