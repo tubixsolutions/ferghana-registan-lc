@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Domain.Common;
 using RegistanFerghanaLC.Domain.Entities.Users;
+using RegistanFerghanaLC.Service.Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Admins
@@ -14,7 +15,8 @@ namespace RegistanFerghanaLC.Service.Dtos.Admins
         [Required(ErrorMessage = "Last Name Required")]
         public string LastName { get; set; } = String.Empty;
 
-        public IFormFile Image { get; set; } = default!;
+        [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
+        public IFormFile? Image { get; set; }
         public string? ImagePath { get; set; }
 
         [Required(ErrorMessage = "Phone Number Required")]

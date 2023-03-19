@@ -75,10 +75,9 @@
                                                     <a asp-controller="admins" asp-action="updateImage" asp-route-formFile="@Model.Image">
                                                     </a>
                                                 </label>
-                                                <span asp-validation-for="Image" class="text-danger"></span>
                                             </div>
 
-                                            <button asp-controller="admins" asp-action="deleteImage" method="post" class="btn btn-icon btn-circle btn-active-color-dark w-25px h-25px bg-body shadow" data-bs-toggle="tooltip" data-bs-original-title="Remove avatar">
+                                            <button asp-controller="admins" asp-action="deleteImage" asp-route-adminId="@ViewBag.adminId" method="post" class="btn btn-icon btn-circle btn-active-color-dark w-25px h-25px bg-body shadow" data-bs-toggle="tooltip" data-bs-original-title="Remove avatar">
                                                 <span class="svg-icon svg-icon-muted">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path opacity="0.3" d="M6.7 19.4L5.3 18C4.9 17.6 4.9 17 5.3 16.6L16.6 5.3C17 4.9 17.6 4.9 18 5.3L19.4 6.7C19.8 7.1 19.8 7.7 19.4 8.1L8.1 19.4C7.8 19.8 7.1 19.8 6.7 19.4Z" fill="currentColor" />
@@ -88,6 +87,8 @@
                                             </button>
                                         </div>
                                         <div class="form-text">Allowed file types:  png, jpg, jpeg</div>
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+
                                     </div>
                                 </div>
                                 <div class="row mb-6">
@@ -136,7 +137,7 @@
 
                             </div>
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <a asp-controller="home" asp-action="index" class="btn btn-light btn-active-light-dark me-2">Discard</a>
+                                <a asp-controller="admins" asp-action="index" class="btn btn-light btn-active-light-dark me-2">Discard</a>
                                 <button type="submit" class="btn btn-registan">Save Changes</button>
                             </div>
                             <input type="hidden">
