@@ -203,37 +203,41 @@ public class AdminStudentService : IAdminStudentService
         var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
-        if(studentAllUpdateDto.Image != null && student.Image !=null)
+        else
         {
-            var result = await _imageService.DeleteImageAsync(student.Image);
-        }
-        _repository.Students.TrackingDeteched(student);
-        student.FirstName = studentAllUpdateDto.FirstName;
-        student.LastName = studentAllUpdateDto.LastName;
-        student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
-        student.BirthDate = studentAllUpdateDto.BirthDate;
-        student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
-        if (studentAllUpdateDto.Image != null)
-        {
-            student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
-        }
-        if (studentAllUpdateDto.Subject != null)
-        {
-            var subject = await _repository.Subjects.FirstOrDefault(x => x.Name.ToLower() == studentAllUpdateDto.Subject.ToLower());
-
-            if( subject!=null) 
+            _repository.Students.TrackingDeteched(student);
+            if(studentAllUpdateDto != null)
             {
-                var studentSubject = new StudentSubject()
+                student.FirstName = studentAllUpdateDto.FirstName;
+                student.LastName = studentAllUpdateDto.LastName;
+                student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
+                student.BirthDate = studentAllUpdateDto.BirthDate;
+                student.Image = String.IsNullOrEmpty(studentAllUpdateDto.ImagePath) ? student.Image : studentAllUpdateDto.ImagePath;
+                student.LastUpdatedAt = TimeHelper.GetCurrentServerTime(); 
+                if (studentAllUpdateDto.Image != null)
                 {
-                    SubjectId = subject.Id,
-                    StudentId = id,
-                    CreatedAt = TimeHelper.GetCurrentServerTime(),
-                    LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
-                };
-                _repository.StudentSubjects.Add(studentSubject);
+                    student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
+                }
+                if (studentAllUpdateDto.Subject != null)
+                {
+                    var subject = await _repository.Subjects.FirstOrDefault(x => x.Name.ToLower() == studentAllUpdateDto.Subject.ToLower());
+
+                    if (subject != null)
+                    {
+                        var studentSubject = new StudentSubject()
+                        {
+                            SubjectId = subject.Id,
+                            StudentId = id,
+                        };
+                    }
+                }
             }
+            student.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
+            _repository.Students.Update(id, student);
+
+            var res = await _repository.SaveChangesAsync();
+            return res > 0;
         }
-        var res = await _repository.SaveChangesAsync();
-        return res > 0;
+        
     }
 }

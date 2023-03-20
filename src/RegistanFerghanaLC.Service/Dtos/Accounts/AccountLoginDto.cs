@@ -1,8 +1,9 @@
-﻿using RegistanFerghanaLC.Service.Common.Attributes;
+﻿using RegistanFerghanaLC.Domain.Common;
+using RegistanFerghanaLC.Service.Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Accounts;
-public class AccountLoginDto
+public class AccountLoginDto : BaseEntity
 {
     [Required(ErrorMessage = "Enter a phone number!")]
     [PhoneNumber]

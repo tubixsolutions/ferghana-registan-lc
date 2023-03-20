@@ -109,27 +109,19 @@ public class AdminStudentController : Controller
     public async Task<ViewResult> Update(int id)
     {
         var student = await _adminStudentService.GetByIdAsync(id);
-        var subjects = student.Subjects?.Count();
+        ViewBag.Subjects = _subjectService.GetAllAsync();
         var dto = new StudentAllUpdateDto()
         {
+            Id = id,
             FirstName = student.FirstName,
             LastName = student.LastName,
             PhoneNumber= student.PhoneNumber,
             BirthDate = student.BirthDate,
             StudentLevel = student.StudentLevel,
         };
-        if (student != null) 
-        {
-            if(subjects == 0)
-            {
-                ViewBag.HasSubject = "true";
-                ViewBag.Subjects = _subjectService.GetAllAsync();
-
-            }
-            ViewBag.studentId = id;
-            return View("Update", dto); 
-        }
-        else return View("Index");
+        ViewBag.HomeTittle = "Admin/Student/Update";
+        ViewBag.studentId = id;
+        return View("Update", dto);
     }
 
     [HttpPost("update")]
@@ -138,7 +130,7 @@ public class AdminStudentController : Controller
         var res = await _adminStudentService.UpdateAsync(id, dto);
         if (res)
         {
-            return RedirectToAction("Index", "adminstudent", new { area = "" });
+            return await Update(id);
         }
         else return await Update(id);
 
