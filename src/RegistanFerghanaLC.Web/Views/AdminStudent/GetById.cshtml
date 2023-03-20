@@ -130,29 +130,17 @@
                             </div>
                         </div>
                         <div class="row mb-7">
-                            <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
-                            <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-dark">@Model.BirthDate.ToString("dd.MM.yyyy")</span>
-                            </div>
-                        </div>
-                        <div class="row mb-7">
-                            <label class="col-lg-4 fw-semibold text-muted">Phone Number</label>
-                            <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-dark">@Model.PhoneNumber</span>
-                            </div>
-                        </div>
-                        <div class="row mb-7">
                             <label class="col-lg-4 fw-semibold text-muted">Subject</label>
                             <div class="col-lg-8">
                                 @if (Model.Subjects?.Count() != 0)
                                 {
-                                    <span class="fw-bold fs-6 text-dark">
-                                        @String.Join(", ", @Model.Subjects)
+                                    <span class="badge badge-light-dark">
+                                        @String.Join(", ", @Model.Subjects!)
                                     </span>
                                 }
                                 else
                                 {
-                                    <span class="fw-bold fs-6 text-dark">
+                                    <span class="badge badge-light-dark">
                                         No subject yet.
                                     </span>
                                 }
@@ -167,7 +155,19 @@
                         <div class="row mb-7">
                             <label class="col-lg-4 fw-semibold text-muted">Weekly Limit</label>
                             <div class="col-lg-8">
-                                <span class="fw-bold fs-6 text-dark">@Model.WeeklyLimit.ToString()</span>
+                                <span class="badge badge-circle badge-outline badge-dark">@Model.WeeklyLimit.ToString()</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.BirthDate.ToString("dd.MM.yyyy")</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">Phone Number</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-dark">@Model.PhoneNumber</span>
                             </div>
                         </div>
                         <div class="row mb-7">
