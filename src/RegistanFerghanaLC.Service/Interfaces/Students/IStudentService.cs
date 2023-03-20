@@ -19,4 +19,6 @@ public interface IStudentService
     public Task<string> LoginAsync(AccountLoginDto accountLoginDto);
 
     public Task<StudentViewModel> GetByIdAsync(int id);
+
+    public Task<StudentViewModel> GetByTokenAsync();
 }

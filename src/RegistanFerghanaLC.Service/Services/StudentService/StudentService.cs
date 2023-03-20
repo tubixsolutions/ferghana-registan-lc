@@ -20,13 +20,15 @@ public class StudentService : IStudentService
     private readonly IAuthService _authService;
     private readonly IImageService _imageService;
     private readonly IMapper _mapper;
+    private readonly IIdentityService _identityService;
 
-    public StudentService(IUnitOfWork unitOfWork, IAuthService authService, IImageService imageService, IMapper mapper)
+    public StudentService(IUnitOfWork unitOfWork, IAuthService authService, IImageService imageService, IMapper mapper, IIdentityService identityService)
     {
         this._repository = unitOfWork;
         this._authService = authService;
         this._imageService = imageService;
         this._mapper = mapper;
+        this._identityService = identityService;
     }
 
     public Task<PagedList<TeacherBySubjectViewModel>> GetAllTeacherBySubjectAsync(string subject, PaginationParams @params)
@@ -110,5 +112,13 @@ public class StudentService : IStudentService
         if(student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
         var res = _mapper.Map<StudentViewModel>(student);
         return res;
+    }
+
+    public async Task<StudentViewModel> GetByTokenAsync()
+    {
+        var student = await _repository.Students.FindByIdAsync(int.Parse(_identityService.Id!.Value.ToString()));
+        if (student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
+        var result = _mapper.Map<StudentViewModel>(student);
+        return result;
     }
 }
