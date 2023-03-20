@@ -11,6 +11,8 @@ public class StudentAllUpdateDto: AccountRegisterDto
 {
     [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
     public IFormFile? Image { get; set; }
+
+    public string ImagePath { get; set; }
     
     [Required(ErrorMessage = "Please select a subject.")]
     public EnglishLevel StudentLevel { get; set; }
@@ -21,7 +23,7 @@ public class StudentAllUpdateDto: AccountRegisterDto
     {
         return new Student()
         {
-           
+            Id = studentAllUpdateDto.Id,
             FirstName = studentAllUpdateDto.FirstName,
             LastName = studentAllUpdateDto.LastName,
             PhoneNumber = studentAllUpdateDto.PhoneNumber,
