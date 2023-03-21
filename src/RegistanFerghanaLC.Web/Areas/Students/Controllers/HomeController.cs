@@ -79,4 +79,7 @@ public class HomeController : BaseController
     [HttpGet("get-free-time")]
     public async Task<IActionResult> GetFreeTimeAsync(int id, string time)
         => Ok(await _teacherSerivice.GetFreeTimeAsync(id, time));
+    [HttpGet("get-group-teachers")]
+    public async Task<IActionResult> GetGroupedAsync(int page = 1)
+        => Ok(await _teacherSerivice.GetTeachersGroupAsync());
 }
