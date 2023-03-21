@@ -14,4 +14,6 @@ public interface ITeacherService
     public Task<List<string>>? GetFreeTimeAsync(int id, string time);  
     public Task<int> GetTeachersCountAsync(string subject, PaginationParams @params);
     public Task<PagedList<TeacherViewDto>> GetTeachersBySubjectAsync(string subject, PaginationParams @params);
+    public Task<List<TeacherGroupDto>> GetTeachersGroupAsync();
+
 }

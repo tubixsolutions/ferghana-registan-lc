@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
@@ -73,5 +74,17 @@ public class TeacherService : ITeacherService
             OrderByDescending(x => x.Id).Select(x => (TeacherViewDto)x);
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
+    public async  Task<List<TeacherGroupDto>>  GetTeachersGroupAsync()
+    {
+        var res =  await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
+            .Select(res => new TeacherGroupDto()
+            {
+                Major = res.First().Subject,
+                Count = res.Count()
+            }).ToListAsync();
+        return res;
+        
+    }
+         
 
 }
