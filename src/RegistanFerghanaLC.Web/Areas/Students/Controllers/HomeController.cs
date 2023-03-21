@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
@@ -35,6 +36,10 @@ public class HomeController : BaseController
     [HttpGet("student/get-by-id")]
     public async Task<IActionResult> GetByIdAsync(int id)
         => Ok(await _studentService.GetByIdAsync(id));
+    [Authorize]
+    [HttpGet("student/get-by-token")]
+    public async Task<IActionResult> GetByTokenAsync()
+        => Ok(await _studentService.GetByTokenAsync());
 
     [HttpGet("student/GetAll")]
     public async Task<IActionResult> Index(int page = 1)
