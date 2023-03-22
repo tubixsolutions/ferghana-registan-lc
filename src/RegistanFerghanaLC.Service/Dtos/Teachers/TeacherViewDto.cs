@@ -12,6 +12,8 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
 
         public string LastName { get; set; } = String.Empty;
 
+        public string Description { get; set; } = String.Empty;
+        
         public string ImagePath { get; set; } = String.Empty;
 
         public string PhoneNumber { get; set; } = String.Empty;

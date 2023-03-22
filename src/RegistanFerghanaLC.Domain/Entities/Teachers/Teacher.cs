@@ -4,6 +4,7 @@ namespace RegistanFerghanaLC.Domain.Entities.Teachers
 {
     public class Teacher : Human
     {
+        public string Description { get; set; } = string.Empty;
         public PartOfDay PartOfDay { get; set; } = PartOfDay.FirstPartOfDay;
 
         public bool WorkDays { get; set; } = true;

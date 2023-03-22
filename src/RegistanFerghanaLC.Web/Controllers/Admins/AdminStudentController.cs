@@ -112,7 +112,6 @@ public class AdminStudentController : Controller
         ViewBag.Subjects = _subjectService.GetAllAsync();
         var dto = new StudentAllUpdateDto()
         {
-            Id = id,
             FirstName = student.FirstName,
             LastName = student.LastName,
             PhoneNumber= student.PhoneNumber,

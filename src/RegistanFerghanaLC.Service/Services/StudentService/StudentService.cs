@@ -39,6 +39,7 @@ public class StudentService : IStudentService
                         Id = teacher.Id,
                         FirstName = teacher.FirstName,
                         LastName = teacher.LastName,
+                        Description = teacher.Description,
                         TeacherLevel = teacher.TeacherLevel,
                         WorkDays = teacher.WorkDays,
                         ImagePath = teacher.Image
