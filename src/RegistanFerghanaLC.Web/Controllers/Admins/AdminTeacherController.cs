@@ -144,7 +144,6 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
             ViewBag.Subjects = _subjectService.GetAllAsync();
             var dto = new TeacherUpdateDto()
             {
-                Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 ImagePath = teacher.ImagePath!,

@@ -10,6 +10,8 @@ namespace RegistanFerghanaLC.Service.ViewModels.TeacherViewModels
 
         public string LastName { get; set; } = String.Empty;
 
+        public string Description { get; set; } = String.Empty;
+
         public string ImagePath { get; set; } = String.Empty;
 
         public string PhoneNumber { get; set; } = String.Empty;
@@ -25,6 +27,7 @@ namespace RegistanFerghanaLC.Service.ViewModels.TeacherViewModels
                 Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
+                Description = teacher.Description,
                 ImagePath = teacher.Image!,
                 PhoneNumber = teacher.PhoneNumber,
                 BirthDate = teacher.BirthDate,

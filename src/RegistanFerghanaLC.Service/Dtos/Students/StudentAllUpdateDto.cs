@@ -23,7 +23,6 @@ public class StudentAllUpdateDto: AccountRegisterDto
     {
         return new Student()
         {
-            Id = studentAllUpdateDto.Id,
             FirstName = studentAllUpdateDto.FirstName,
             LastName = studentAllUpdateDto.LastName,
             PhoneNumber = studentAllUpdateDto.PhoneNumber,

@@ -168,6 +168,7 @@ public class AdminTeacherService : IAdminTeacherService
                     temp.Image = await _fileService.UploadImageAsync(dto.Image);
                 }
                 temp.WorkDays = dto.WorkDays;
+                temp.Description = dto.Description;
                 temp.PhoneNumber = String.IsNullOrEmpty(dto.PhoneNumber) ? temp.PhoneNumber : dto.PhoneNumber;
                 temp.TeacherLevel = String.IsNullOrEmpty(dto.TeacherLevel) ? temp.TeacherLevel : dto.TeacherLevel;
                 temp.BirthDate = dto.BirthDate;

@@ -238,6 +238,5 @@ public class AdminStudentService : IAdminStudentService
             var res = await _repository.SaveChangesAsync();
             return res > 0;
         }
-        
     }
 }

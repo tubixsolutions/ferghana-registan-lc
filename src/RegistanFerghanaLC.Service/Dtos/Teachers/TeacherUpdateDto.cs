@@ -7,13 +7,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
-    public class TeacherUpdateDto : BaseEntity
+    public class TeacherUpdateDto
     {
         [Required (ErrorMessage = "Please enter the Firstname of the teacher!")]
         public string FirstName { get; set; } = String.Empty;
 
         [Required(ErrorMessage = "Please enter the LastName of the teacher!")]
         public string LastName { get; set; } = String.Empty;
+
+        [Required(ErrorMessage = "Please enter the Description of the teacher!")]
+        public string Description { get; set; } = String.Empty;
 
         [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
         public IFormFile? Image { get; set; }
@@ -41,9 +44,9 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         {
             return new Teacher()
             {
-                Id = dto.Id,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
+                Description = dto.Description,
                 Image = dto.ImagePath,
                 WorkDays = dto.WorkDays,
                 PhoneNumber = dto.PhoneNumber,
