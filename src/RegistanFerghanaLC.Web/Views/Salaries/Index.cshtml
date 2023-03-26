@@ -16,7 +16,7 @@
                         <input type="date" asp-for=EndDate class="form-control" data-val="true" data-val-required="The End Date field is required." id="EndDate" name="EndDate" value="@(Model.EndDate==DateTime.Now.ToString("yyyy-MM-dd")?DateTime.Now.ToString("yyyy-MM-dd"):Model.EndDate)">
                         <span class="text-danger field-validation-valid" asp-validation-for="EndDate" data-valmsg-for="EndDate" data-valmsg-replace="true"></span>
                     </div>
-                    <div class="sm-end ms-5">
+                    <div class="sm-end ms-5 mt-2">
                         <button type="submit" class="btn btn-light">
                             <span class="svg-icon svg-icon-muted text-dark">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
