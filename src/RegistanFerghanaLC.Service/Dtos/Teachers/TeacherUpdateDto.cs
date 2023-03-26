@@ -9,6 +9,8 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
     public class TeacherUpdateDto
     {
+        public int Id { get; set; } 
+
         [Required (ErrorMessage = "Please enter the Firstname of the teacher!")]
         public string FirstName { get; set; } = String.Empty;
 
@@ -44,6 +46,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         {
             return new Teacher()
             {
+                Id = dto.Id,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Description = dto.Description,
