@@ -28,7 +28,10 @@ public class HomeController : BaseController
     [HttpGet("teacher/GetAll")]
     public async Task<IActionResult> Index(int page = 1)
         => Ok(await _teacherService.GetAllAsync( new PaginationParams(page, _pageSize)));
-    
+
+    [HttpGet("teacher/get-teacher-rank")]
+    public async Task<IActionResult> GetRankAsync(int id)
+        => Ok(await _service.GetRankAsync(id));
 
     [HttpPut("teacher/update")]
     public async Task<IActionResult> UpdateAsync(int id, [FromForm] TeacherUpdateDto dto)

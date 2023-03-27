@@ -3,6 +3,7 @@ using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
+using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
 
 namespace RegistanFerghanaLC.Service.Interfaces.Teachers;
 public interface ITeacherService
@@ -15,5 +16,5 @@ public interface ITeacherService
     public Task<int> GetTeachersCountAsync(string subject, PaginationParams @params);
     public Task<PagedList<TeacherViewDto>> GetTeachersBySubjectAsync(string subject, PaginationParams @params);
     public Task<List<TeacherGroupDto>> GetTeachersGroupAsync();
-
+    public Task<TeacherRankViewModel> GetRankAsync(int id);
 }
