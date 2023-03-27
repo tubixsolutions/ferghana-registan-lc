@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
+using RegistanFerghanaLC.DataAccess.Repositories.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
@@ -9,6 +10,8 @@ using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Teachers;
+using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
+using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
 
 namespace RegistanFerghanaLC.Service.Services.TeacherService;
 
@@ -28,7 +31,7 @@ public class TeacherService : ITeacherService
     public Task<List<string>>? GetFreeTimeAsync(int id, string time)
     {
         var query = _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == id && x.StartTime >=
-                    DateTime.Parse(time) 
+                    DateTime.Parse(time)
                     && x.EndTime < DateTime.Parse(time).AddDays(1)).Select(x => x.StartTime.
                     ToString("dd-MM-yyyy HH:mm")).ToListAsync();
         return query;
@@ -48,10 +51,10 @@ public class TeacherService : ITeacherService
     public async Task<bool> ImageUpdateAsync(int id, IFormFile path)
     {
         var teacher = await _repository.Teachers.FindByIdAsync(id);
-        if (teacher == null) 
-             throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "teacher is not found");
+        if (teacher == null)
+            throw new StatusCodeException(System.Net.HttpStatusCode.NotFound, "teacher is not found");
         _repository.Teachers.TrackingDeteched(teacher);
-        if(teacher.Image != null)
+        if (teacher.Image != null)
         {
             await _imageService.DeleteImageAsync(teacher.Image);
         }
@@ -74,17 +77,38 @@ public class TeacherService : ITeacherService
             OrderByDescending(x => x.Id).Select(x => (TeacherViewDto)x);
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
-    public async  Task<List<TeacherGroupDto>>  GetTeachersGroupAsync()
+    public async Task<List<TeacherGroupDto>> GetTeachersGroupAsync()
     {
-        var res =  await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
+        var res = await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
             .Select(res => new TeacherGroupDto()
             {
                 Major = res.First().Subject,
                 Count = res.Count()
             }).ToListAsync();
         return res;
-        
     }
-         
 
+    public async Task<TeacherRankViewModel> GetRankAsync(int id)
+    {
+        var all = (from extra in _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == id)
+                   join detail in _repository.ExtraLessonDetails.GetAll()
+                   on extra.Id equals detail.ExtraLessonId
+                   select new
+                   {
+                       rank = detail.Rank,
+                   }).ToListAsync().Result;
+
+        TeacherRankViewModel model = new TeacherRankViewModel()
+        {
+            Id = id,
+            AverageRank = all.Average(x => x.rank),
+            LessonsNumber = all.Count(),
+            One = all.Count(x => x.rank == 1),
+            Two = all.Count(x => x.rank == 2),
+            Three = all.Count(x => x.rank == 3),
+            Four = all.Count(x => x.rank == 4),
+            Five = all.Count(x => x.rank == 5),
+        };
+        return model;
+    }
 }

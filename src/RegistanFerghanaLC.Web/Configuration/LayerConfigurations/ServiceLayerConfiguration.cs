@@ -40,6 +40,7 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IAdminSubjectService , AdminSubjectService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IStudentSubjectService, StudentSubjectService>();
+            services.AddScoped<IAdminHomeService , AdminHomeService>();
 
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
