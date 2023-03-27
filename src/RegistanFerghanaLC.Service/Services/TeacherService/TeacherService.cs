@@ -78,9 +78,15 @@ public class TeacherService : ITeacherService
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public async Task<List<TeacherGroupDto>> GetTeachersGroupAsync()
     {
         var res = await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
+=======
+    public async  Task<List<TeacherGroupDto>>  GetTeachersGroupAsync()
+    {
+        var res =  await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
+>>>>>>> e7de8ad (gruoped by subject)
 =======
     public async  Task<List<TeacherGroupDto>>  GetTeachersGroupAsync()
     {
@@ -93,7 +99,13 @@ public class TeacherService : ITeacherService
             }).ToListAsync();
         return res;
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
+=======
+        
+    }
+         
+>>>>>>> e7de8ad (gruoped by subject)
 =======
         
     }

@@ -17,7 +17,11 @@ public interface ITeacherService
     public Task<PagedList<TeacherViewDto>> GetTeachersBySubjectAsync(string subject, PaginationParams @params);
     public Task<List<TeacherGroupDto>> GetTeachersGroupAsync();
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Task<TeacherRankViewModel> GetRankAsync(int id);
+=======
+
+>>>>>>> e7de8ad (gruoped by subject)
 =======
 
 >>>>>>> e7de8ad (gruoped by subject)
