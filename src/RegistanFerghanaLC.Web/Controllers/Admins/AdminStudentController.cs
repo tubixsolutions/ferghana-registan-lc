@@ -132,8 +132,6 @@ public class AdminStudentController : Controller
             return await Update(id);
         }
         else return await Update(id);
-
-
     }
 
     [HttpGet("getbyid")]

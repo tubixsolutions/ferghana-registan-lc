@@ -45,7 +45,8 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
                 WorkDays = teacher.WorkDays,
                 TeacherLevel = teacher.TeacherLevel,
                 Subject = teacher.Subject,
-                CreatedAt = teacher.CreatedAt
+                CreatedAt = teacher.CreatedAt,
+                Description = teacher.Description,
             };
         }
     }

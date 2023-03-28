@@ -37,7 +37,7 @@
                         </div>
                         <ul class="menu menu-column menu-pill menu-title-gray-700 menu-bullet-gray-300 menu-state-bg menu-state-bullet-primary fw-bold fs-5 mb-10">
                             <li class="menu-item mb-1">
-                                <a class="menu-link px-6 py-4 @(ViewBag.Tab == 1 ? "active":"")">
+                                <a asp-controller="AdminStudent" asp-action="update" asp-route-id="@ViewBag.studentId" class="menu-link px-6 py-4 @(ViewBag.Tab == 1 ? "active":"")">
                                     <span class="menu-bullet"><span class="bullet"></span></span>
                                     <span class="menu-title">
                                         Settings
@@ -45,7 +45,7 @@
                                 </a>
                             </li>
                             <li class="menu-item mb-1">
-                                <a class="menu-link px-6 py-4 @(ViewBag.Tab == 1 ? "active":"")">
+                                <a asp-controller="AdminStudent" asp-action="getbyid" asp-route-id="@ViewBag.studentId" class="menu-link px-6 py-4 @(ViewBag.Tab == 1 ? "active":"")">
                                     <span class="menu-bullet"><span class="bullet"></span></span>
                                     <span class="menu-title">
                                         Profile
@@ -143,6 +143,31 @@
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                         <input type="text" asp-for="PhoneNumber" class="form-control form-control-lg form-control-solid">
                                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Subject</label>
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <select asp-for=Subject class="form-control form-control-lg form-control-solid">
+                                            @{
+                                                var subjects = ViewBag.Subjects;
+                                                foreach (var subject in subjects)
+                                                {
+                                                    <option value="@subject.Name.ToString()">@subject.Name.ToString()</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                        <span class="required">Student Level</span>
+                                    </label>
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input type="text" asp-for="StudentLevel" class="form-control form-control-lg form-control-solid">
+                                        <span asp-validation-for="StudentLevel" class="text-danger"></span>
                                     </div>
                                 </div>
 
