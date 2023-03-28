@@ -152,7 +152,8 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 TeacherLevel = teacher.TeacherLevel,
                 BirthDate = teacher.BirthDate,
                 Subject = teacher.Subject,
-                PartOfDay = teacher.PartOfDay
+                PartOfDay = teacher.PartOfDay,
+                Description = teacher.Description,
             };
 
             ViewBag.HomeTittle = "Admin/Teacher/Update";
