@@ -92,7 +92,6 @@ public class TeacherService : ITeacherService
         });
         return res;
     }
-
     public async Task<TeacherRankViewModel> GetRankAsync(int id)
     {
         var all = (from extra in _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == id)
@@ -102,7 +101,6 @@ public class TeacherService : ITeacherService
                    {
                        rank = detail.Rank,
                    }).ToListAsync().Result;
-
         TeacherRankViewModel model = new TeacherRankViewModel()
         {
             Id = id,
