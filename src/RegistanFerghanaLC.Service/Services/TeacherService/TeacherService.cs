@@ -77,16 +77,15 @@ public class TeacherService : ITeacherService
             OrderByDescending(x => x.Id).Select(x => (TeacherViewDto)x);
         return await PagedList<TeacherViewDto>.ToPagedListAsync(query, @params);
     }
-    public async  Task<List<TeacherGroupDto>>  GetTeachersGroupAsync()
+    public async Task<List<TeacherGroupDto>> GetTeachersGroupAsync()
     {
-        var res =  await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
+        var res = await _repository.Teachers.GetAll().GroupBy(x => x.Subject)
             .Select(res => new TeacherGroupDto()
             {
                 Major = res.First().Subject,
                 Count = res.Count()
             }).ToListAsync();
         return res;
-<<<<<<< HEAD
     }
     public async Task<TeacherRankViewModel> GetRankAsync(int id)
     {
@@ -97,12 +96,6 @@ public class TeacherService : ITeacherService
                    {
                        rank = detail.Rank,
                    }).ToListAsync().Result;
-=======
-        
-    }
-         
->>>>>>> e7de8ad (gruoped by subject)
-
         TeacherRankViewModel model = new TeacherRankViewModel()
         {
             Id = id,
