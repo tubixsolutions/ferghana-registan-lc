@@ -85,6 +85,11 @@ public class TeacherService : ITeacherService
                 Major = res.First().Subject,
                 Count = res.Count()
             }).ToListAsync();
+        res.Add(new TeacherGroupDto()
+        {
+            Major = "All",
+            Count = res.Count()
+        });
         return res;
     }
 
