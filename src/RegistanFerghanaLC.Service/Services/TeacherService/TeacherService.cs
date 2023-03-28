@@ -86,6 +86,7 @@ public class TeacherService : ITeacherService
                 Count = res.Count()
             }).ToListAsync();
         return res;
+<<<<<<< HEAD
     }
     public async Task<TeacherRankViewModel> GetRankAsync(int id)
     {
@@ -96,6 +97,11 @@ public class TeacherService : ITeacherService
                    {
                        rank = detail.Rank,
                    }).ToListAsync().Result;
+=======
+        
+    }
+         
+>>>>>>> e7de8ad (gruoped by subject)
 
         TeacherRankViewModel model = new TeacherRankViewModel()
         {
