@@ -29,7 +29,7 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
                             FirstName = teachers.FirstName,
                             LastName = teachers.LastName,
                             Description = teachers.Description,
-                            ImagePath = teachers.Image,
+                            ImagePath = teachers.Image!,
                             PhoneNumber = teachers.PhoneNumber,
                             LessonsNumber = lessonsNumber,
                             AverageRank = averageRank.Count == 0 ? 0 : averageRank.Average()
