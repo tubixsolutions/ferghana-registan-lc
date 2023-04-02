@@ -30,6 +30,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                          select new SalaryBaseViewModel()
                          {
                              Id = teacher.Id,
+                             ImagePath = teacher.Image,
                              FirstName = teacher.FirstName,
                              LastName = teacher.LastName,
                              LessonsNumber = lessonsNumber,
@@ -52,6 +53,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                          select new SalaryBaseViewModel()
                          {
                              Id = teacher.Id,
+                             ImagePath = teacher.Image,
                              FirstName = teacher.FirstName,
                              LastName = teacher.LastName,
                              LessonsNumber = lessonsNumber,
@@ -70,6 +72,7 @@ namespace RegistanFerghanaLC.Service.Services.SalaryService
                          select new SalaryViewModel()
                          {
                              Id = extra.Id,
+                             ImagePath = student.Image,
                              FirstName = student.FirstName,
                              LastName = student.LastName,
                              LessonTopic = extra.LessonTopic,
