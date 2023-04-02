@@ -85,14 +85,15 @@ public class TeacherService : ITeacherService
                 Major = res.First().Subject,
                 Count = res.Count()
             }).ToListAsync();
+
         res.Add(new TeacherGroupDto()
         {
             Major = "All",
             Count = res.Count()
         });
+
         return res;
     }
-
     public async Task<TeacherRankViewModel> GetRankAsync(int id)
     {
         var all = (from extra in _repository.ExtraLessons.GetAll().Where(x => x.TeacherId == id)
@@ -102,7 +103,6 @@ public class TeacherService : ITeacherService
                    {
                        rank = detail.Rank,
                    }).ToListAsync().Result;
-
         TeacherRankViewModel model = new TeacherRankViewModel()
         {
             Id = id,
