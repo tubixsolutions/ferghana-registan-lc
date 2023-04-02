@@ -53,6 +53,26 @@
                                         <span class="fw-bold">@item.Id</span>
                                     </td>
                                     <td class="text-start px-sm-0 d-flex align-items-center">
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <div class="symbol-label">
+                                                @if (String.IsNullOrEmpty(item.ImagePath))
+                                                {
+                                                    @if (item.LastName.EndsWith("a"))
+                                                    {
+                                                        <img src="~/media/avatars/150-7.jpg" alt="Emma Smith" class="w-100">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/media/avatars/150-2.jpg" alt="Emma Smith" class="w-100" />
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/@item.ImagePath" alt="Emma Smith" class="w-100">
+                                                }
+                                                <img src="~" alt="Emma Smith" class="w-100">
+                                            </div>
+                                        </div>
                                         <span class="fw-bold text-hover-info text-gray-800 ms-3">@item.FirstName @item.LastName</span>
                                     </td>
                                     <td class="text-start">
