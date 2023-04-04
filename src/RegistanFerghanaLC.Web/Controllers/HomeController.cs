@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Web.Models;
 using System.Diagnostics;
 
@@ -9,15 +10,18 @@ namespace RegistanFerghanaLC.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAdminHomeService _adminHomeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAdminHomeService adminHomeService)
         {
-            _logger = logger;
+            this._logger = logger;
+            this._adminHomeService = adminHomeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var topTeachers = await _adminHomeService.GetTopTeachersAsync();
+            return View("Index", topTeachers);
         }
 
         public IActionResult Privacy()
