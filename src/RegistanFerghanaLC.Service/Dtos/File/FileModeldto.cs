@@ -13,7 +13,6 @@ namespace RegistanFerghanaLC.Service.Dtos.FileViewModels
         [AllowedFiles(new string[] { ".xlsx" })]
         [Required]
         public IFormFile? File { get; set; }
-
         public PagedList<TeacherViewDto> Teachers { get; set; }
         public PagedList<StudentBaseViewModel> Students { get; set; }
         public List<StudentViewModel> StudentsUnsaved { get; set; }

@@ -1,7 +1,356 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
+@model List<TeacherByLessonsNumberViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start">
+    <!--begin::Post-->
+    <div class="content flex-row-fluid" id="kt_content">
+        <!--begin::Row-->
+        <div class="row gy-5 g-xl-10">
+            <!--begin::Col-->
+            <div class="col-xl-8 mb-5 mb-xl-10">
+                <!--begin::Table widget 6-->
+                <div class="card card-flush h-xl-100">
+                    <!--begin::Header-->
+                    <div class="card-header pt-7">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold text-gray-800">Top 5 Teachers Rating</span>
+                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Weekly</span>
+                        </h3>
+                        <!--end::Title-->
+                        <!--begin::Toolbar-->
+                        <div class="card-toolbar">
+                            <a asp-controller="adminTeachers" asp-action="register" method="post" class="btn btn-sm btn-registan rounded hover-scale">Add Teacher</a>
+                        </div>
+                        <!--end::Toolbar-->
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <!--begin::Tab Content-->
+                        <div class="tab-content">
+                            <!--begin::Tap pane-->
+                            <div class="tab-pane fade active show" id="kt_stats_widget_6_tab_1" role="tabpanel">
+                                <!--begin::Table container-->
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                            <tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
+                                                <th class="p-0 w-200px w-xxl-450px"></th>
+                                                <th class="p-0 min-w-150px"></th>
+                                                <th class="p-0 min-w-150px"></th>
+                                                <th class="p-0 min-w-190px"></th>
+                                                <th class="p-0 w-50px"></th>
+                                            </tr>
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody>
+                                            @foreach(var teacher in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="symbol symbol-40px me-3">
+                                                                @if (String.IsNullOrEmpty(teacher.ImagePath))
+                                                                {
+                                                                    @if (teacher.LastName.EndsWith("a"))
+                                                                    {
+                                                                        <img src="~/media/avatars/150-7.jpg" alt="" class="">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="~/media/avatars/150-2.jpg" alt="" class=""/>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/@teacher.ImagePath" alt="" class="">
+                                                                }
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-start flex-column">
+                                                                <a class="text-dark fw-bold text-hover-primary mb-1 fs-6">@teacher.FirstName @teacher.LastName</a>
+                                                                  <span class="text-muted fw-semibold d-block fs-7">Teacher</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="text-gray-800 fw-bold d-block mb-1 fs-6">@teacher.PhoneNumber</span>
+                                                        <span class="fw-semibold text-gray-400 d-block">Phone</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <a class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">@teacher.LessonsNumber</a>
+                                                        <span class="text-muted fw-semibold d-block fs-7">Lessons</span>
+                                                    </td>
+
+                                                    <td>
+                                                        @if (teacher.AverageRank <= 1 && teacher.AverageRank < 2)
+                                                        {
+                                                            <div class="rating">
+                                                                <div class="rating-label me-1 checked">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else if (teacher.AverageRank > 1 && teacher.AverageRank >= 2)
+                                                        {
+                                                            <div class="rating">
+                                                                <div class="rating-label me-1 checked">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 checked">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                                <div class="rating-label me-1 ">
+                                                                    <i class="bi bi-star-fill fs-6s"></i>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                        <span class="text-muted fw-semibold d-block fs-7 mt-1">Rating</span>
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <a asp-controller="adminteachers" asp-action="phoneNumber" asp-route-phoneNumber="@teacher.PhoneNumber" class="btn btn-sm btn-icon btn-bg-light btn-active-color-danger w-30px h-30px">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr001.svg-->
+                                                            <span class="svg-icon svg-icon-5 svg-icon-gray-700">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.4 11H3C2.4 11 2 11.4 2 12C2 12.6 2.4 13 3 13H14.4V11Z" fill="currentColor"></path>
+                                                                    <path opacity="0.3" d="M14.4 20V4L21.7 11.3C22.1 11.7 22.1 12.3 21.7 12.7L14.4 20Z" fill="currentColor"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                </div>
+                                <!--end::Table-->
+                            </div>
+                            <!--end::Tap pane-->
+                        </div>
+                        <!--end::Tab Content-->
+                    </div>
+                    <!--end: Card Body-->
+                </div>
+                <!--end::Table widget 6-->
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xl-4 mb-xl-10">
+                <!--begin::List widget 17-->
+                <div class="card card-flush h-xl-100">
+                    <!--begin::Header-->
+                    <div class="card-header pt-7">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold text-gray-800">Popular Products</span>
+                            <span class="text-gray-400 mt-1 fw-semibold fs-6">8k social visitors</span>
+                        </h3>
+                        <!--end::Title-->
+                        <!--begin::Toolbar-->
+                        <div class="card-toolbar">
+                            <a href="/ceres-html-pro/?page=apps/ecommerce/catalog/add-product" class="btn btn-sm btn-light">Add Product</a>
+                        </div>
+                        <!--end::Toolbar-->
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-0">
+                        <!--begin::Content-->
+                        <div class="d-flex flex-stack my-5">
+                            <span class="text-gray-400 fs-7 fw-bold">ITEM</span>
+
+                            <span class="text-gray-400 fw-bold fs-7">ITEM  PRICE</span>
+                        </div>
+                        <!--end::Content-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/14.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Fjallraven</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-6437</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 72.00
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-4"></div>
+                        <!--end::Separator-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/13.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Nike AirMax</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-1836</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 45.00
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-4"></div>
+                        <!--end::Separator-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/41.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Bose QC 35</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-6254</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 168.00
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-4"></div>
+                        <!--end::Separator-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/53.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Greeny</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-1746</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 14.50
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-4"></div>
+                        <!--end::Separator-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/71.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Apple Watches</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-6245</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 362.00
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-4"></div>
+                        <!--end::Separator-->
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex align-items-center me-3">
+                                <!--begin::Icon-->
+                                <img src="/ceres-html-pro/assets/media/stock/ecommerce/194.gif" class="me-4 w-50px" alt="">
+                                <!--end::Icon-->
+                                <!--begin::Section-->
+                                <div class="flex-grow-1">
+                                    <a href="/ceres-html-pro/?page=apps/ecommerce/sales/details" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Friendly Robot</a>
+
+                                    <span class="text-gray-400 fw-semibold d-block fs-7">Item: #XDG-2347</span>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Value-->
+                            <span class="text-gray-800 fw-bold fs-6">
+                                $ 48.00
+                            </span>
+                            <!--end::Value-->
+                        </div>
+                        <!--end::Item-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::List widget 17-->
+            </div>
+            <!--end::Col-->
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Post-->
 </div>
