@@ -1,0 +1,78 @@
+﻿@using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
+@model List<TeacherByLessonsNumberViewModel>
+
+<!--begin::Col-->
+<div class="col-xl-4 mb-xl-10">
+    <!--begin::List widget 17-->
+    <div class="card card-flush h-xl-100">
+        <!--begin::Header-->
+        <div class="card-header pt-7">
+            <!--begin::Title-->
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-gray-800">The most 5 lessons</span>
+                <span class="text-gray-400 mt-1 fw-semibold fs-6">Weekly</span>
+            </h3>
+            <!--end::Title-->
+            <!--begin::Toolbar-->
+            <div class="card-toolbar">
+                <a asp-controller="adminTeachers" asp-action="register" method="post" class="btn btn-sm btn-registan">Add Teacher</a>
+            </div>
+            <!--end::Toolbar-->
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body pt-0">
+            <!--begin::Content-->
+            <div class="d-flex flex-stack my-5">
+                <span class="text-gray-400 fs-7 fw-bold">Teachers</span>
+                <span class="text-gray-400 fw-bold fs-7">Lesson Count</span>
+            </div>
+            <!--end::Content-->
+            <!--begin::Item-->
+            <div class="d-flex flex-stack">
+                @foreach(var teacher in Model)
+                {
+                    <!--begin::Wrapper-->
+                    <div class="d-flex align-items-center me-3">
+                        <!--begin::Icon-->
+                        @if (String.IsNullOrEmpty(teacher.ImagePath))
+                        {
+                            @if (teacher.LastName.EndsWith("a"))
+                            {
+                                <img src="~/media/avatars/150-7.jpg" class="symbol w-45px h-45px me-3">
+                            }
+                            else
+                            {
+                                <img src="~/media/avatars/150-2.jpg" class="symbol w-45px h-45px me-3" />
+                            }
+                        }
+                        else
+                        {
+                            <img src="~/@teacher.ImagePath" class="symbol w-45px h-45px me-3">
+                        }
+                        <!--end::Icon-->
+                        <!--begin::Section-->
+                        <div class="flex-grow-1">
+                            <a class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">@teacher.FirstName @teacher.LastName</a>
+                            <span class="text-gray-400 fw-semibold d-block fs-7">Full Name</span>
+                        </div>
+                        <!--end::Section-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Value-->
+                    <span class="text-gray-800 fw-bold fs-6">
+                        @teacher.LessonsNumber
+                    </span>
+                    <!--end::Value-->
+                }
+            </div>
+            <!--end::Item-->
+            <!--begin::Separator-->
+            <div class="separator separator-dashed my-4"></div>
+            <!--end::Separator-->
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::List widget 17-->
+</div>
+<!--end::Col-->

@@ -20,7 +20,7 @@ namespace RegistanFerghanaLC.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var topTeachers = await _adminHomeService.GetTopTeachersAsync();
+            var topTeachers = await _adminHomeService.GetTopTeachersByRankAsync();
             return View("Index", topTeachers);
         }
 
