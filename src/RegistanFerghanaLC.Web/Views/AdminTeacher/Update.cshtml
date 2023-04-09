@@ -1,5 +1,8 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
 @model TeacherUpdateDto
+@{
+    ViewBag.Tab = 1;
+}
 
 <div class="d-flex flex-column-fluid align-items-start  container-xxl">
     <div class="content flex-row-fluid">
@@ -94,8 +97,6 @@
                                                             <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="currentColor" />
                                                         </svg>
                                                     </span>
-                                                   @* <a asp-controller="adminteachers" asp-action="" asp-route-formFile="@Model.Image">
-                                                    </a>*@
                                                 </label>
                                             </div>
 

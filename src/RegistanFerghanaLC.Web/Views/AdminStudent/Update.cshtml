@@ -1,6 +1,9 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Students;
 @using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 @model StudentAllUpdateDto;
+@{
+    ViewBag.Tab = 1;
+}
 
 <div class="d-flex flex-column-fluid align-items-start  container-xxl">
     <div class="content flex-row-fluid">
@@ -45,7 +48,7 @@
                                 </a>
                             </li>
                             <li class="menu-item mb-1">
-                                <a asp-controller="AdminStudent" asp-action="getbyid" asp-route-id="@ViewBag.studentId" class="menu-link px-6 py-4 @(ViewBag.Tab == 1 ? "active":"")">
+                                <a asp-controller="AdminStudent" asp-action="getbyid" asp-route-id="@ViewBag.studentId" class="menu-link px-6 py-4 @(ViewBag.Tab == 2 ? "active":"")">
                                     <span class="menu-bullet"><span class="bullet"></span></span>
                                     <span class="menu-title">
                                         Profile
