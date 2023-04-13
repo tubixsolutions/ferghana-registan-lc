@@ -1,5 +1,8 @@
 ﻿@using RegistanFerghanaLC.Service.Dtos.Teachers;
 @model TeacherRegisterDto
+@{
+    ViewBag.Tab = 2;
+}
 
 <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <form asp-controller="adminTeachers" asp-action="register" method="post" novalidate="novalidate" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" id="kt_sign_up_form">
