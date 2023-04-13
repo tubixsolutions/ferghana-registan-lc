@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RegistanFerghanaLC.Service.ViewModels.SalaryViewModels
+﻿namespace RegistanFerghanaLC.Service.ViewModels.SalaryViewModels
 {
-    public class SalaryBaseViewModel
+	public class SalaryBaseViewModel
     {
         public int Id { get; set; }
         public string? ImagePath { get; set; } = string.Empty;
