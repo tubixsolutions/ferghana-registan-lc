@@ -1,5 +1,9 @@
 ﻿@using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 @model AdminViewModel
+@{
+    ViewBag.Tab = 4;
+    ViewBag.Tabb = 1;
+}
 
 <div class="d-flex flex-column-fluid align-items-start  container-xxl">
     <div class="content flex-row-fluid">
@@ -27,6 +31,24 @@
                                 @Model.PhoneNumber
                             </div>
                         </div>
+                        <ul class="menu menu-column menu-pill menu-title-gray-700 menu-bullet-gray-300 menu-state-bg menu-state-bullet-primary fw-bold fs-5 mb-10">
+                            <li class="menu-item mb-1">
+                                <a asp-controller="admins" asp-action="update" asp-route-adminId="@Model.Id" class="menu-link px-6 py-4">
+                                    <span class="menu-bullet"><span class="bullet"></span></span>
+                                    <span class="menu-title">
+                                        Settings
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="menu-item mb-1">
+                                <a class="menu-link px-6 py-4 @(ViewBag.Tabb == 1 ? "active":"")">
+                                    <span class="menu-bullet"><span class="bullet"></span></span>
+                                    <span class="menu-title">
+                                        Profile
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
