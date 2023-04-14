@@ -208,12 +208,11 @@ public class AdminStudentService : IAdminStudentService
             _repository.Students.TrackingDeteched(student);
             if(studentAllUpdateDto != null)
             {
-                student.FirstName = studentAllUpdateDto.FirstName;
-                student.LastName = studentAllUpdateDto.LastName;
-                student.PhoneNumber = studentAllUpdateDto.PhoneNumber;
+                student.FirstName = String.IsNullOrEmpty(studentAllUpdateDto.FirstName) ? student.FirstName : studentAllUpdateDto.FirstName;
+                student.LastName = String.IsNullOrEmpty(studentAllUpdateDto.LastName) ? student.LastName : studentAllUpdateDto.LastName;
+                student.PhoneNumber = String.IsNullOrEmpty(studentAllUpdateDto.PhoneNumber) ? student.PhoneNumber : studentAllUpdateDto.PhoneNumber;
                 student.BirthDate = studentAllUpdateDto.BirthDate;
                 student.Image = String.IsNullOrEmpty(studentAllUpdateDto.ImagePath) ? student.Image : studentAllUpdateDto.ImagePath;
-                student.LastUpdatedAt = TimeHelper.GetCurrentServerTime(); 
                 if (studentAllUpdateDto.Image != null)
                 {
                     student.Image = await _imageService.SaveImageAsync(studentAllUpdateDto.Image);
