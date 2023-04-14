@@ -54,7 +54,7 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
             var query = _unitOfWork.Admins.GetAll();
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(x => x.FirstName.ToLower().StartsWith(search.ToLower()) || x.LastName.ToLower().StartsWith(search.ToLower()));
+                query = query.Where(x => x.FirstName.ToLower().StartsWith(search.ToLower()) || x.LastName.ToLower().StartsWith(search.ToLower()) || x.Address.ToLower().StartsWith(search.ToLower()));
             }
 
             var result = await query.OrderByDescending(x => x.CreatedAt).Select(x => (AdminViewModel)x).ToListAsync();
