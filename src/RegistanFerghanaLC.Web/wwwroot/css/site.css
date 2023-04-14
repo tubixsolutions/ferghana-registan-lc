@@ -48229,7 +48229,17 @@ code:not([class*=language-]) {
 
     .svg-icon.svg-icon-registan svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #FF6D0E;
+        fill: #fff !important;
+    }
+
+    .svg-icon.svg-icon-registan svg:hover [fill]:not(.permanent):not(g) {
+        transition: fill 0.3s ease;
+        fill: #eee !important;
+    }
+
+    .svg-icon.svg-icon-registan svg:active [fill]:not(.permanent):not(g) {
+        transition: fill 0.3s ease;
+        fill: #fff !important;
     }
 
     .svg-icon.svg-icon-dark svg [fill]:not(.permanent):not(g) {
