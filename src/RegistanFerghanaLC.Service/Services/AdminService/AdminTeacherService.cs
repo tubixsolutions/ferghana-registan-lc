@@ -1,24 +1,18 @@
 ﻿
 using AutoMapper;
-using AutoMapper.Execution;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
-using RegistanFerghanaLC.Domain.Entities.Users;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
-using RegistanFerghanaLC.Service.Dtos.Admins;
-using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Files;
-using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using System.Net;
 
 namespace RegistanFerghanaLC.Service.Services.AdminService;
