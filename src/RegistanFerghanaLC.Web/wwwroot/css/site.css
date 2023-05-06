@@ -48229,18 +48229,18 @@ code:not([class*=language-]) {
 
     .svg-icon.svg-icon-registan svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        fill: #fff;
+        fill: #FF6D0E;
     }
 
     .svg-icon.svg-icon-registan svg:hover [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
-        /*fill: #eee;*/
+        fill: #323232;
     }
 
-    /*.svg-icon.svg-icon-registan svg:active [fill]:not(.permanent):not(g) {
+    .svg-icon.svg-icon-registan svg:active [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
         fill: #fff;
-    }*/
+    }
 
     .svg-icon.svg-icon-dark svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
