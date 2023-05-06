@@ -30,30 +30,30 @@
             <!--end::Content-->
             <!--begin::Item-->
             <div class="d-flex flex-stack">
-                @foreach(var teacher in Model)
+                @foreach (var teacher in Model)
                 {
                     <!--begin::Wrapper-->
                     <div class="d-flex align-items-center me-3">
-                        <!--begin::Icon-->
-                        @if (String.IsNullOrEmpty(teacher.ImagePath))
-                        {
-                            @if (teacher.LastName.EndsWith("a"))
+                        <a asp-controller="adminteachers" asp-action="phoneNumber" asp-route-phoneNumber="@teacher.PhoneNumber">
+                            @if (String.IsNullOrEmpty(teacher.ImagePath))
                             {
-                                <img src="~/media/avatars/150-7.jpg" class="symbol w-45px h-45px me-3">
+                                @if (teacher.LastName.EndsWith("a"))
+                                {
+                                    <img src="~/media/avatars/150-7.jpg" class="symbol w-45px h-45px me-3">
+                                }
+                                else
+                                {
+                                    <img src="~/media/avatars/150-26.jpg" class="symbol w-45px h-45px me-3" />
+                                }
                             }
                             else
                             {
-                                <img src="~/media/avatars/150-26.jpg" class="symbol w-45px h-45px me-3" />
+                                <img src="~/@teacher.ImagePath" class="symbol w-45px h-45px me-3">
                             }
-                        }
-                        else
-                        {
-                            <img src="~/@teacher.ImagePath" class="symbol w-45px h-45px me-3">
-                        }
-                        <!--end::Icon-->
+                        </a>
                         <!--begin::Section-->
                         <div class="flex-grow-1">
-                            <a class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">@teacher.FirstName @teacher.LastName</a>
+                            <a asp-controller="adminteachers" asp-action="phoneNumber" asp-route-phoneNumber="@teacher.PhoneNumber" class="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">@teacher.FirstName @teacher.LastName</a>
                             <span class="text-gray-400 fw-semibold d-block fs-7">Full Name</span>
                         </div>
                         <!--end::Section-->

@@ -48237,10 +48237,10 @@ code:not([class*=language-]) {
         /*fill: #eee;*/
     }
 
-    .svg-icon.svg-icon-registan svg:active [fill]:not(.permanent):not(g) {
+    /*.svg-icon.svg-icon-registan svg:active [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
         fill: #fff;
-    }
+    }*/
 
     .svg-icon.svg-icon-dark svg [fill]:not(.permanent):not(g) {
         transition: fill 0.3s ease;
