@@ -234,7 +234,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         {
             List<TeacherViewDto> teachers = await _adminTeacherService.GetFileAllAsync();
 
-            using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+            using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Brands");
                 
@@ -266,13 +266,11 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 using (var stream = new MemoryStream())
                 {
                     workbook.SaveAs(stream);
-                    stream.Flush();
+                    var content = stream.ToArray();
 
-                    return new FileContentResult(stream.ToArray(),
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                    {
-                        FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
-                    };
+                    return File(content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+                        "Teachers.xlsx");
                 }
             }
         }

@@ -15,6 +15,7 @@ using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Files;
 using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
+using System.IO;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
 
@@ -194,10 +195,14 @@ public class AdminStudentController : Controller
     {
         List<StudentViewModel> students = await _adminStudentService.GetFileAllAsync();
 
-        using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+
+        string path = Path.Combine("files", "DownloadStudent.xlsx");
+        string fullPath = Path.Combine(_rootPath, path);
+
+        List<StudentRegisterDto> dtos = new();
+        using (IXLWorkbook workbook = new XLWorkbook(fullPath, XLEventTracking.Disabled))
         {
-            var worksheet = workbook.Worksheets.Add("Brands");
-            
+            IXLWorksheet worksheet = workbook.Worksheets.First();
             worksheet.Cell("A1").Value = "Id";
             worksheet.Cell("B1").Value = "Full Name";
             worksheet.Cell("C1").Value = "Birth Data";
@@ -214,20 +219,54 @@ public class AdminStudentController : Controller
                 worksheet.Cell(i + 1, 4).Value = student.PhoneNumber;
                 worksheet.Cell(i + 1, 5).Value = student.StudentLevel;
             }
+            workbook.SaveAs(fullPath);
 
-
-            using (var stream = new MemoryStream())
+            using (var stream = new FileStream(Path.Combine(_rootPath, "files", "DownloadStudent.xlsx"), FileMode.Open))
             {
-                workbook.SaveAs(stream);
-                stream.Flush();
-
-                return new FileContentResult(stream.ToArray(),
+                byte[] file = new byte[stream.Length];
+                await stream.ReadAsync(file, 0, file.Length);
+                return new FileContentResult(file,
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
                     FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
                 };
             }
         }
+
+        //using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+        //{
+        //    var worksheet = workbook.Worksheets.Add("Brands");
+
+        //    worksheet.Cell("A1").Value = "Id";
+        //    worksheet.Cell("B1").Value = "Full Name";
+        //    worksheet.Cell("C1").Value = "Birth Data";
+        //    worksheet.Cell("D1").Value = "Phone Number";
+        //    worksheet.Cell("E1").Value = "Student Level";
+        //    worksheet.Row(1).Style.Font.Bold = true;
+
+        //    for (int i = 1; i <= students.Count; i++)
+        //    {
+        //        var student = students[i - 1];
+        //        worksheet.Cell(i + 1, 1).Value = student.Id;
+        //        worksheet.Cell(i + 1, 2).Value = student.FirstName + " " + student.LastName;
+        //        worksheet.Cell(i + 1, 3).Value = student.BirthDate;
+        //        worksheet.Cell(i + 1, 4).Value = student.PhoneNumber;
+        //        worksheet.Cell(i + 1, 5).Value = student.StudentLevel;
+        //    }
+
+
+        //    using (var stream = new MemoryStream())
+        //    {
+        //        workbook.SaveAs(stream);
+        //        stream.Flush();
+
+        //        return new FileContentResult(stream.ToArray(),
+        //            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        //        {
+        //            FileDownloadName = $"brands_{DateTime.UtcNow.ToShortDateString()}.xlsx"
+        //        };
+        //    }
+        //}
     }
     
 }
