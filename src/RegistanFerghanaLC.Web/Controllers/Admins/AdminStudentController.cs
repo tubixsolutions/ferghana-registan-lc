@@ -1,21 +1,13 @@
 using AutoMapper;
 using ClosedXML.Excel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using RegistanFerghanaLC.Domain.Entities.Students;
-using RegistanFerghanaLC.Domain.Entities.Teachers;
-using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
-using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Files;
-using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
-using System.IO;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins;
 
@@ -27,7 +19,7 @@ public class AdminStudentController : Controller
     private readonly IMapper _mapper;
     private readonly IExcelService _excelService;
     private readonly string _rootPath;
-    private readonly int _pageSize = 5;
+    private readonly int _pageSize = 10;
 
     public AdminStudentController(IAdminStudentService adminStudentService, IAdminSubjectService subjectService, IMapper mapper, IWebHostEnvironment webHostEnvironment, IExcelService excelService)
     {

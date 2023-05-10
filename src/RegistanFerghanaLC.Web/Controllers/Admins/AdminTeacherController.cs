@@ -1,6 +1,5 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
-using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.FileViewModels;
@@ -15,7 +14,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
     {
         private readonly IAdminTeacherService _adminTeacherService;
         private readonly string _rootPath;
-        private readonly int _pageSize = 5;
+        private readonly int _pageSize = 10;
         private readonly IExcelService _excelService;
         private readonly IAdminSubjectService _subjectService;
 
