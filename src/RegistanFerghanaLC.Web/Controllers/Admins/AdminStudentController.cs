@@ -134,6 +134,7 @@ public class AdminStudentController : Controller
         if (student is not null) return View("GetById", student);
         return View("Index");
     }
+    
     [HttpGet("duplicate")]
     public async Task<IActionResult> Duplicate()
     {
