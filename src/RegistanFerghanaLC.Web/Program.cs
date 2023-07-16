@@ -39,6 +39,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// sending a loan
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
