@@ -39,6 +39,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
                     headers.Cell("H").Value.ToString() != "level"
                     )
                     throw new Exception("Invalid excel table");
+
                 foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
                 {
                     StudentRegisterDto dto = new StudentRegisterDto();
