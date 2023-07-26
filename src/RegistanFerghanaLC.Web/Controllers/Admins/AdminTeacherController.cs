@@ -229,7 +229,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet("export")]
-        public async Task<IActionResult> Export()
+        public async Task<IActionResult> Export()   
         {
             List<TeacherViewDto> teachers = await _adminTeacherService.GetFileAllAsync();
 
