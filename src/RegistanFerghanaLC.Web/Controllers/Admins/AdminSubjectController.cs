@@ -28,5 +28,5 @@ public class AdminSubjectController : Controller
         else
             return Register();
     }
-    
+
 }

@@ -1,16 +1,11 @@
-﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
-using RegistanFerghanaLC.DataAccess.Repositories.Common;
 using RegistanFerghanaLC.Service.Common.Exceptions;
-using RegistanFerghanaLC.Service.Common.Security;
 using RegistanFerghanaLC.Service.Common.Utils;
-using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Teachers;
-using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
 using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
 
 namespace RegistanFerghanaLC.Service.Services.TeacherService;

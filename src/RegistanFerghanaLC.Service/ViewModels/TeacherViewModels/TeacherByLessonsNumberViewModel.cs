@@ -15,7 +15,7 @@
         public string PhoneNumber { get; set; } = String.Empty;
 
         public int LessonsNumber { get; set; }
-        
+
         public double AverageRank { get; set; }
     }
 }

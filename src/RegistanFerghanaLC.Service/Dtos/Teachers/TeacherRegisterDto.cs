@@ -10,7 +10,7 @@ public class TeacherRegisterDto : AccountRegisterDto
 {
     [Required(ErrorMessage = "Please enter the subject of the teacher!")]
     public string Subject { get; set; } = String.Empty;
-   
+
     [Required(ErrorMessage = "Please enter the level of the teacher!")]
     public string TeacherLevel { get; set; } = String.Empty;
 

@@ -1,6 +1,6 @@
 ﻿namespace RegistanFerghanaLC.Service.Common.Exceptions;
 
-public class NotFoundException: Exception
+public class NotFoundException : Exception
 {
     public string Point { get; set; } = String.Empty;
 

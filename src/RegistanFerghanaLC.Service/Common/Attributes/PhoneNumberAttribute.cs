@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace RegistanFerghanaLC.Service.Common.Attributes;
 [AttributeUsage(AttributeTargets.Property)]
-public class PhoneNumberAttribute: ValidationAttribute
+public class PhoneNumberAttribute : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {

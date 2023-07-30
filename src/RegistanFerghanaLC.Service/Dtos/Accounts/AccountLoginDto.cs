@@ -1,5 +1,4 @@
-﻿using RegistanFerghanaLC.Domain.Common;
-using RegistanFerghanaLC.Service.Common.Attributes;
+﻿using RegistanFerghanaLC.Service.Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Accounts;

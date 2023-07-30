@@ -1,5 +1,5 @@
 ﻿namespace RegistanFerghanaLC.Service.Common.Exceptions;
-public class ModelErrorException: Exception
+public class ModelErrorException : Exception
 {
     public string Property { get; set; } = String.Empty;
 

@@ -9,7 +9,7 @@ namespace RegistanFerghanaLC.Web.Exceptions
         {
 
         }
-        public StatusCodeException(HttpStatusCode statusCode, string message):
+        public StatusCodeException(HttpStatusCode statusCode, string message) :
             base(message)
         {
             StatusCode = statusCode;

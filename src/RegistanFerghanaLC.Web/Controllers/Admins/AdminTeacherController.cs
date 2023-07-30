@@ -204,7 +204,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 try
                 {
                     List<TeacherRegisterDto> dtos = await _excelService.ReadTeacherFileAsync(filemodel);
-                    
+
                     if (dtos.Count > 0) return View("Unsaved", dtos);
 
                     return RedirectToAction("Index", "adminteachers", new { area = "" });
@@ -217,7 +217,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                 {
                     return BadRequest(ex.Message);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
                 }
@@ -229,14 +229,14 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
         }
 
         [HttpGet("export")]
-        public async Task<IActionResult> Export()   
+        public async Task<IActionResult> Export()
         {
             List<TeacherViewDto> teachers = await _adminTeacherService.GetFileAllAsync();
 
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Brands");
-                
+
                 worksheet.Cell("A1").Value = "Id";
                 worksheet.Cell("B1").Value = "Full Name";
                 worksheet.Cell("C1").Value = "Birth Data";
@@ -268,7 +268,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Admins
                     var content = stream.ToArray();
 
                     return File(content,
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                         "Teachers.xlsx");
                 }
             }

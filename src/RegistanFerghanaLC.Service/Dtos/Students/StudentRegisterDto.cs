@@ -5,7 +5,7 @@ using RegistanFerghanaLC.Service.Dtos.Accounts;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Students;
-public class StudentRegisterDto: AccountRegisterDto
+public class StudentRegisterDto : AccountRegisterDto
 {
     [Required(ErrorMessage = "Please select a subject.")]
     public string Subject { get; set; } = string.Empty;
@@ -15,13 +15,13 @@ public class StudentRegisterDto: AccountRegisterDto
     {
         return new Student()
         {
-            FirstName= studentRegisterDto.FirstName,
-            LastName= studentRegisterDto.LastName,
-            PhoneNumber= studentRegisterDto.PhoneNumber,
-            BirthDate= studentRegisterDto.BirthDate,
+            FirstName = studentRegisterDto.FirstName,
+            LastName = studentRegisterDto.LastName,
+            PhoneNumber = studentRegisterDto.PhoneNumber,
+            BirthDate = studentRegisterDto.BirthDate,
             CreatedAt = TimeHelper.GetCurrentServerTime(),
-            LastUpdatedAt= TimeHelper.GetCurrentServerTime(),
-            StudentLevel= studentRegisterDto.StudentLevel,
+            LastUpdatedAt = TimeHelper.GetCurrentServerTime(),
+            StudentLevel = studentRegisterDto.StudentLevel,
         };
     }
 

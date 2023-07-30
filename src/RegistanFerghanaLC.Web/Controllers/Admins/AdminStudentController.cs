@@ -107,7 +107,7 @@ public class AdminStudentController : Controller
         {
             FirstName = student.FirstName,
             LastName = student.LastName,
-            PhoneNumber= student.PhoneNumber,
+            PhoneNumber = student.PhoneNumber,
             BirthDate = student.BirthDate,
             StudentLevel = student.StudentLevel,
         };
@@ -134,7 +134,7 @@ public class AdminStudentController : Controller
         if (student is not null) return View("GetById", student);
         return View("Index");
     }
-    
+
     [HttpGet("duplicate")]
     public async Task<IActionResult> Duplicate()
     {
@@ -159,16 +159,16 @@ public class AdminStudentController : Controller
             try
             {
                 List<StudentRegisterDto> dtos = await _excelService.ReadStudentFileAsync(filemodel);
-                
+
                 if (dtos.Count > 0) return View("Unsaved", dtos);
-                
+
                 return RedirectToAction("Index", "adminstudents", new { area = "" });
             }
             catch (InvalidExcel ex)
             {
                 return BadRequest(ex.Mes);
             }
-            catch(AlreadyExistingException ex)
+            catch (AlreadyExistingException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -261,5 +261,5 @@ public class AdminStudentController : Controller
         //    }
         //}
     }
-    
+
 }

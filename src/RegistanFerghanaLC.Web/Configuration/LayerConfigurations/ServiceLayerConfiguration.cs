@@ -37,10 +37,10 @@ namespace RegistanFerghanaLC.Web.Configuration.LayerConfigurations
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IExcelService, ExcelService>();
-            services.AddScoped<IAdminSubjectService , AdminSubjectService>();
+            services.AddScoped<IAdminSubjectService, AdminSubjectService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IStudentSubjectService, StudentSubjectService>();
-            services.AddScoped<IAdminHomeService , AdminHomeService>();
+            services.AddScoped<IAdminHomeService, AdminHomeService>();
 
             services.AddMemoryCache();
             services.AddHttpContextAccessor();

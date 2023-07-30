@@ -2,11 +2,6 @@
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Interfaces.Salaries;
 using RegistanFerghanaLC.Service.ViewModels.SalaryViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistanFerghanaLC.Service.Services.SalaryService
 {

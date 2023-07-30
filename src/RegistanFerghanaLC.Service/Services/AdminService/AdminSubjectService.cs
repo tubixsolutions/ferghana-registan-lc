@@ -22,15 +22,15 @@ namespace RegistanFerghanaLC.Service.Services.AdminService
         public async Task<bool> SubjectCreateAsync(string subject)
         {
             var check = await _repository.Subjects.GetAll().FirstOrDefaultAsync(x => x.Name == subject);
-            if(check is not null)
+            if (check is not null)
             {
                 throw new AlreadyExistingException(nameof(subject), "The subject is already registered");
             }
             var newsubject = new Subject()
             {
-                Name= subject,
-                CreatedAt= TimeHelper.GetCurrentServerTime(),
-                LastUpdatedAt= TimeHelper.GetCurrentServerTime()
+                Name = subject,
+                CreatedAt = TimeHelper.GetCurrentServerTime(),
+                LastUpdatedAt = TimeHelper.GetCurrentServerTime()
             };
             _repository.Subjects.Add(newsubject);
             var res = await _repository.SaveChangesAsync();

@@ -2,7 +2,6 @@
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Dtos.FileViewModels;
-using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 
 namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
@@ -13,7 +12,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         public string LastName { get; set; } = String.Empty;
 
         public string Description { get; set; } = String.Empty;
-        
+
         public string ImagePath { get; set; } = String.Empty;
 
         public string PhoneNumber { get; set; } = String.Empty;

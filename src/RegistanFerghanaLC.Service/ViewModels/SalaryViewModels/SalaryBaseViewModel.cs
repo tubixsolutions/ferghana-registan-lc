@@ -1,6 +1,6 @@
 ﻿namespace RegistanFerghanaLC.Service.ViewModels.SalaryViewModels
 {
-	public class SalaryBaseViewModel
+    public class SalaryBaseViewModel
     {
         public int Id { get; set; }
         public string? ImagePath { get; set; } = string.Empty;

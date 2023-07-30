@@ -12,7 +12,7 @@ public class AuthService : IAuthService
 {
     private readonly IConfiguration _config;
 
-    public AuthService(IConfiguration config )
+    public AuthService(IConfiguration config)
     {
         this._config = config.GetSection("Jwt");
     }

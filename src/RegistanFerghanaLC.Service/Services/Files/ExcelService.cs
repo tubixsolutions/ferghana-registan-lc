@@ -10,7 +10,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
 {
     public class ExcelService : IExcelService
     {
-        private readonly IFileService _fileService; 
+        private readonly IFileService _fileService;
         private readonly IAdminStudentService _adminStudentService;
         private readonly IAdminTeacherService _adminTeacherService;
         public ExcelService(IFileService fileService, IAdminStudentService adminStudentService, IAdminTeacherService adminTeacherService)
@@ -53,8 +53,8 @@ namespace RegistanFerghanaLC.Service.Services.Files
                     dto.StudentLevel = level;
 
                     var result = await _adminStudentService.RegisterAsync(dto);
-                    
-                    if(result == false) dtos.Add(dto);
+
+                    if (result == false) dtos.Add(dto);
 
                 }
 
@@ -100,7 +100,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
                     dto.Password = row.Cell("J").Value.ToString();
 
                     var result = await _adminTeacherService.RegisterTeacherAsync(dto);
-                    if(result == false) dtos.Add(dto);
+                    if (result == false) dtos.Add(dto);
                 }
             }
             await _fileService.DeleteFileAsync(fullPath);

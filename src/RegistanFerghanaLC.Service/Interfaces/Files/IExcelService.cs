@@ -1,7 +1,6 @@
 ﻿using RegistanFerghanaLC.Service.Dtos.FileViewModels;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
-using System.IO;
 
 namespace RegistanFerghanaLC.Service.Interfaces.Files
 {

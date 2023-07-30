@@ -6,13 +6,7 @@ using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
 using RegistanFerghanaLC.Service.Interfaces.ExtraLesson;
 using RegistanFerghanaLC.Service.ViewModels.ExtraLessonViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 
 namespace RegistanFerghanaLC.Service.Services.ExtraLessonService
 {

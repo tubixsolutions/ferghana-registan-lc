@@ -8,6 +8,6 @@ public class AccountRegisterDto : AccountLoginDto
 
     [Required(ErrorMessage = "Enter a surname!")]
     public string LastName { get; set; } = String.Empty;
-    
+
     public DateTime BirthDate { get; set; }
 }

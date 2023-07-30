@@ -8,7 +8,7 @@ public class IdentityService : IIdentityService
     private readonly IHttpContextAccessor _accessor;
     public IdentityService(IHttpContextAccessor accessor)
     {
-        this._accessor = accessor;       
+        this._accessor = accessor;
     }
     public long? Id
     {
