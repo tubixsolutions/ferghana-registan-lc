@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Helpers;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Salaries;
@@ -20,7 +18,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         [HttpGet]
         public async Task<ViewResult> Index(int page = 1)
         {
-            var res = await _salaryService.GetAllAsync(new PaginationParams(page,_pageSize));
+            var res = await _salaryService.GetAllAsync(new PaginationParams(page, _pageSize));
             var results = new SoftDto()
             {
                 Salaries = res,
@@ -50,9 +48,9 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         [HttpGet("GetAllByDateGet")]
         public async Task<ViewResult> GetAllByDateGetAsync(string start, string end, int page = 1)
         {
-            var startDate = DateTime.Parse(start); 
+            var startDate = DateTime.Parse(start);
             var endDate = DateTime.Parse(end);
-            if (startDate == TimeHelper.GetCurrentServerTime() && endDate == TimeHelper.GetCurrentServerTime() || endDate < startDate || startDate==endDate)
+            if (startDate == TimeHelper.GetCurrentServerTime() && endDate == TimeHelper.GetCurrentServerTime() || endDate < startDate || startDate == endDate)
             {
                 var results = await _salaryService.GetAllAsync(new PaginationParams(ViewBag.page, _pageSize));
                 ViewBag.start = TimeHelper.GetCurrentServerTime().ToString("yyyy-MM-dd");
@@ -84,7 +82,7 @@ namespace RegistanFerghanaLC.Web.Controllers.Salaries
         public async Task<ViewResult> GetAllByIdAsync(int teacherId, string teacherName, int page = 1)
         {
             ViewBag.teacherName = teacherName;
-            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page,_pageSize));
+            var results = await _salaryService.GetAllByIdAsync(teacherId, new PaginationParams(page, _pageSize));
             return View("GetAllById", results);
         }
     }

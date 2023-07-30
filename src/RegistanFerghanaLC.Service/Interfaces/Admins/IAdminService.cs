@@ -21,7 +21,7 @@ namespace RegistanFerghanaLC.Service.Interfaces.Admins
         public Task<bool> DeleteAsync(int id);
 
         public Task<bool> DeleteImageAsync(int adminId);
-        
+
         public Task<bool> UpdatePasswordAsync(int id, PasswordUpdateDto dto);
     }
 }

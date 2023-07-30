@@ -13,7 +13,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
         private readonly string RESOUCE_IMAGE_FOLDER;
         private readonly string AVATAR_FOLDER;
 
-        public FileService(IWebHostEnvironment webHostEnvironment) 
+        public FileService(IWebHostEnvironment webHostEnvironment)
         {
             ASSETS_FOLDER = webHostEnvironment.WebRootPath;
             MEDIA_FOLDER = "media";
@@ -40,7 +40,7 @@ namespace RegistanFerghanaLC.Service.Services.Files
         public async Task<bool> DeleteImageAsync(string imagePartPath)
         {
             string path = Path.Combine(ASSETS_FOLDER, imagePartPath);
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 try
                 {

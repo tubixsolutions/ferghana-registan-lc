@@ -1,8 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using RegistanFerghanaLC.Domain.Entities.Students;
-using RegistanFerghanaLC.Service.Dtos.Students;
-using RegistanFerghanaLC.Service.ViewModels.StudentSubjectViewModels;
+﻿using RegistanFerghanaLC.Service.ViewModels.StudentSubjectViewModels;
 
 namespace RegistanFerghanaLC.Service.Interfaces.Common;
 public interface IStudentSubjectService

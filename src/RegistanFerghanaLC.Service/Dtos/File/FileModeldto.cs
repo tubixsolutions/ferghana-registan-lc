@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using RegistanFerghanaLC.Service.Common.Attributes;
 using RegistanFerghanaLC.Service.Common.Utils;
-using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using System.ComponentModel.DataAnnotations;

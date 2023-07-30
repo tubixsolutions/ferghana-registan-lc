@@ -1,10 +1,4 @@
-﻿using RegistanFerghanaLC.Domain.Entities.ExtraLessons;
-using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RegistanFerghanaLC.Service.Dtos.ExtraLesson;
 
 namespace RegistanFerghanaLC.Service.Interfaces.ExtraLesson
 {

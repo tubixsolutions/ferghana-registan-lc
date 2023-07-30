@@ -35,7 +35,7 @@ public class AdminTeacherService : IAdminTeacherService
     public async Task<bool> DeleteAsync(int id)
     {
         var temp = await _repository.Teachers.FindByIdAsync(id);
-        if(temp is null)
+        if (temp is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher not found");
         _repository.Teachers.Delete(id);
         var result = await _repository.SaveChangesAsync();
@@ -48,7 +48,7 @@ public class AdminTeacherService : IAdminTeacherService
         if (teacher is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Teacher not found");
         else
         {
-            if(teacher.Image != null)
+            if (teacher.Image != null)
             {
                 await _fileService.DeleteImageAsync(teacher.Image);
                 teacher.Image = "";
@@ -92,7 +92,7 @@ public class AdminTeacherService : IAdminTeacherService
     public async Task<string> LoginAsync(AccountLoginDto dto)
     {
         var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == dto.PhoneNumber);
-        if(teacher is null)
+        if (teacher is null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "teacher is not found");
         }
@@ -118,7 +118,7 @@ public class AdminTeacherService : IAdminTeacherService
         newTeacher.PasswordHash = hasherResult.Hash;
         newTeacher.Salt = hasherResult.Salt;
 
-         _repository.Teachers.Add(newTeacher);
+        _repository.Teachers.Add(newTeacher);
         var dbResult = await _repository.SaveChangesAsync();
         return dbResult > 0;
     }
@@ -152,7 +152,7 @@ public class AdminTeacherService : IAdminTeacherService
         else
         {
             _repository.Teachers.TrackingDeteched(temp);
-            if(dto != null)
+            if (dto != null)
             {
                 temp.FirstName = String.IsNullOrEmpty(dto.FirstName) ? temp.FirstName : dto.FirstName;
                 temp.LastName = String.IsNullOrEmpty(dto.LastName) ? temp.LastName : dto.LastName;
@@ -169,7 +169,7 @@ public class AdminTeacherService : IAdminTeacherService
                 temp.Subject = String.IsNullOrEmpty(dto.Subject) ? temp.Subject : dto.Subject;
                 temp.PartOfDay = dto.PartOfDay;
             }
-            
+
             temp.LastUpdatedAt = TimeHelper.GetCurrentServerTime();
             _repository.Teachers.Update(id, temp);
 

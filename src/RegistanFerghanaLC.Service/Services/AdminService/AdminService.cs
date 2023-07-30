@@ -8,7 +8,6 @@ using RegistanFerghanaLC.Service.Dtos.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Files;
-using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 
 namespace RegistanFerghanaLC.Service.Services.AdminService

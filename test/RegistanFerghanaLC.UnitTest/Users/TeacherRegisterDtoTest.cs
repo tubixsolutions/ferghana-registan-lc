@@ -1,21 +1,16 @@
 ﻿using RegistanFerghanaLC.Service.Dtos.Teachers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistanFerghanaLC.UnitTest.Users;
 
 public class TeacherRegisterDtoTest
 {
     [Theory]
-    [InlineData("Fazliddin", "Mustafoyev", "09/21/2001", "middle",  true, "21O92oo1", "+998932313101", "subject" )]
-    [InlineData("Qahhor", "Xurramov", "04/12/2002", "senior", false, "Qa123456","+998933242002", "physics")]
-    [InlineData("Normadjon", "G'offorov", "03/13/2003", "senior", false ,"Nn123456", "+998901230011", "IT")]
+    [InlineData("Fazliddin", "Mustafoyev", "09/21/2001", "middle", true, "21O92oo1", "+998932313101", "subject")]
+    [InlineData("Qahhor", "Xurramov", "04/12/2002", "senior", false, "Qa123456", "+998933242002", "physics")]
+    [InlineData("Normadjon", "G'offorov", "03/13/2003", "senior", false, "Nn123456", "+998901230011", "IT")]
 
-    public void TeacherRegisterReturnTrue(string name, string lastname, DateTime time, string level, 
+    public void TeacherRegisterReturnTrue(string name, string lastname, DateTime time, string level,
         bool days, string password, string number, string subject)
     {
         TeacherRegisterDto dto = new()

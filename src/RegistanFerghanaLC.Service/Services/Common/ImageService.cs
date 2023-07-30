@@ -5,7 +5,7 @@ using RegistanFerghanaLC.Service.Interfaces.Common;
 
 namespace RegistanFerghanaLC.Service.Services.Common;
 
-public class ImageService: IImageService
+public class ImageService : IImageService
 {
     private readonly string rootPath;
     private readonly string images = "media/images";

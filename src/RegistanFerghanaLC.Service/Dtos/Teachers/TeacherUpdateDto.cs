@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using RegistanFerghanaLC.Domain.Common;
 using RegistanFerghanaLC.Domain.Entities.Teachers;
 using RegistanFerghanaLC.Domain.Enums;
 using RegistanFerghanaLC.Service.Common.Attributes;
@@ -9,9 +8,9 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
 {
     public class TeacherUpdateDto
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
-        [Required (ErrorMessage = "Please enter the Firstname of the teacher!")]
+        [Required(ErrorMessage = "Please enter the Firstname of the teacher!")]
         public string FirstName { get; set; } = String.Empty;
 
         [Required(ErrorMessage = "Please enter the LastName of the teacher!")]
@@ -23,7 +22,7 @@ namespace RegistanFerghanaLC.Service.Dtos.Teachers
         [AllowedFiles(new string[] { ".jpg", ".png", ".jpeg", ".svg", ".webp" }), MaxFile(2)]
         public IFormFile? Image { get; set; }
         public string ImagePath { get; set; } = String.Empty;
-        
+
         [Required(ErrorMessage = "Please enter the work days of the teacher!")]
         public bool WorkDays { get; set; } = true;
 

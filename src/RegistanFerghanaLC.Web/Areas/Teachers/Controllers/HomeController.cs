@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RegistanFerghanaLC.DataAccess.Interfaces.Common;
+﻿using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Dtos.Teachers;
@@ -27,7 +25,7 @@ public class HomeController : BaseController
 
     [HttpGet("teacher/GetAll")]
     public async Task<IActionResult> Index(int page = 1)
-        => Ok(await _teacherService.GetAllAsync( new PaginationParams(page, _pageSize)));
+        => Ok(await _teacherService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
     [HttpGet("teacher/get-teacher-rank")]
     public async Task<IActionResult> GetRankAsync(int id)
@@ -46,12 +44,12 @@ public class HomeController : BaseController
     [HttpPost("teacher/login")]
     public async Task<IActionResult> LoginAsync([FromForm] AccountLoginDto dto)
         => Ok(await _teacherService.LoginAsync(dto));
-    
+
 
     [HttpPatch("teacher/update-image")]
     public async Task<IActionResult> UpdateImageAsync(int id, IFormFile file)
         => Ok(await _service.ImageUpdateAsync(id, file));
-    
+
 
     [HttpPatch("teacher/delete-image")]
     public async Task<IActionResult> DeleteImageAsyn(int id)

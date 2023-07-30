@@ -12,7 +12,7 @@ public class GenericRepository<T> : BaseRepository<T>, IGenericRepository<T>
     {
 
     }
-    public  IQueryable<T> GetAll() => _dbSet;
+    public IQueryable<T> GetAll() => _dbSet;
 
-    public  IQueryable<T> Where(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate);
+    public IQueryable<T> Where(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate);
 }

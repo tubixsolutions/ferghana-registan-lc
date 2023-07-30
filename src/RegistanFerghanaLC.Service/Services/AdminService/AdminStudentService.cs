@@ -1,11 +1,7 @@
 ﻿
 using AutoMapper;
-using DocumentFormat.OpenXml.Drawing.ChartDrawing;
-using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;
-using RegistanFerghanaLC.Domain.Entities;
 using RegistanFerghanaLC.Domain.Entities.Students;
 using RegistanFerghanaLC.Service.Common.Exceptions;
 using RegistanFerghanaLC.Service.Common.Helpers;
@@ -14,10 +10,8 @@ using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Students;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
-using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RegistanFerghanaLC.Service.Services.AdminService;
 
@@ -40,12 +34,12 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var student = await  _repository.Students.FindByIdAsync(id);
+        var student = await _repository.Students.FindByIdAsync(id);
         if (student is null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found.");
         }
-        if(!String.IsNullOrEmpty(student.Image))
+        if (!String.IsNullOrEmpty(student.Image))
         {
             var imageRes = await _imageService.DeleteImageAsync(student.Image);
         }
@@ -57,14 +51,14 @@ public class AdminStudentService : IAdminStudentService
 
     public async Task<PagedList<StudentBaseViewModel>> GetAllAsync(PaginationParams @params)
     {
-        var query = (from student in _repository.Students.GetAll().OrderByDescending(x=>x.CreatedAt)
+        var query = (from student in _repository.Students.GetAll().OrderByDescending(x => x.CreatedAt)
                      let studentSubjects = _repository.StudentSubjects.GetAll()
                      .Where(ss => ss.StudentId == student.Id).ToList()
-                     let subjects = (from ss in studentSubjects 
+                     let subjects = (from ss in studentSubjects
                                      join s in _repository.Subjects.GetAll()
                                      on ss.SubjectId equals s.Id
                                      select s.Name).ToList()
-                                    
+
                      select new StudentBaseViewModel()
                      {
                          Id = student.Id,
@@ -74,36 +68,36 @@ public class AdminStudentService : IAdminStudentService
                          WeeklyLimit = student.WeeklyLimit,
                          Image = student.Image,
                          Subjects = subjects,
-                         
+
                      });
-        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);     
+        return await PagedList<StudentBaseViewModel>.ToPagedListAsync(query, @params);
     }
 
     public async Task<StudentViewModel> GetByIdAsync(int id)
     {
         var query = (from student in _repository.Students.GetAll()
-                       let studentSubjects = _repository.StudentSubjects.GetAll()
-                       .Where(ss => ss.StudentId == student.Id).ToList()
-                       let subjects = (from ss in studentSubjects
-                                       join s in _repository.Subjects.GetAll()
-                                       on ss.SubjectId equals s.Id
-                                       select s.Name).ToList()
+                     let studentSubjects = _repository.StudentSubjects.GetAll()
+                     .Where(ss => ss.StudentId == student.Id).ToList()
+                     let subjects = (from ss in studentSubjects
+                                     join s in _repository.Subjects.GetAll()
+                                     on ss.SubjectId equals s.Id
+                                     select s.Name).ToList()
 
-                       select new StudentViewModel()
-                       {
-                           Id = student.Id,
-                           FirstName = student.FirstName,
-                           LastName = student.LastName,
-                           PhoneNumber = student.PhoneNumber,
-                           WeeklyLimit = student.WeeklyLimit,
-                           Image = student.Image,
-                           Subjects = subjects,
-                           StudentLevel = student.StudentLevel,
-                           CreatedAt = student.CreatedAt,
-                           BirthDate= student.BirthDate,
-                       }
-                     ).Where(x=>x.Id==id);
-        if (query.Count() ==0)
+                     select new StudentViewModel()
+                     {
+                         Id = student.Id,
+                         FirstName = student.FirstName,
+                         LastName = student.LastName,
+                         PhoneNumber = student.PhoneNumber,
+                         WeeklyLimit = student.WeeklyLimit,
+                         Image = student.Image,
+                         Subjects = subjects,
+                         StudentLevel = student.StudentLevel,
+                         CreatedAt = student.CreatedAt,
+                         BirthDate = student.BirthDate,
+                     }
+                     ).Where(x => x.Id == id);
+        if (query.Count() == 0)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student is not found");
         var res = _mapper.Map<StudentViewModel>(query.First());
         return res;
@@ -188,7 +182,7 @@ public class AdminStudentService : IAdminStudentService
         var newStudent = (Student)studentRegisterDto;
         newStudent.PasswordHash = hasherResult.Hash;
         newStudent.Salt = hasherResult.Salt;
-        
+
         _repository.Students.Add(newStudent);
         var dbResult = await _repository.SaveChangesAsync();
 
@@ -206,7 +200,7 @@ public class AdminStudentService : IAdminStudentService
         else
         {
             _repository.Students.TrackingDeteched(student);
-            if(studentAllUpdateDto != null)
+            if (studentAllUpdateDto != null)
             {
                 student.FirstName = String.IsNullOrEmpty(studentAllUpdateDto.FirstName) ? student.FirstName : studentAllUpdateDto.FirstName;
                 student.LastName = String.IsNullOrEmpty(studentAllUpdateDto.LastName) ? student.LastName : studentAllUpdateDto.LastName;

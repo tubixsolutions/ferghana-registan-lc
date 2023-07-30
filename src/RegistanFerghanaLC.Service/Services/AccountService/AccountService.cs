@@ -49,8 +49,8 @@ public class AccountService : IAccountService
         var admin = await _repository.Admins.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
         if (admin is null)
         {
-            var teacher = await _repository.Teachers.FirstOrDefault(x=>x.PhoneNumber == accountLoginDto.PhoneNumber);
-            if(teacher is null)
+            var teacher = await _repository.Teachers.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
+            if (teacher is null)
             {
                 var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
                 if (student is null) throw new NotFoundException(nameof(accountLoginDto.PhoneNumber), "No user with this phone number is found!");
@@ -75,7 +75,7 @@ public class AccountService : IAccountService
                 }
                 else throw new NotFoundException(nameof(accountLoginDto.Password), "Incorrect password!");
             }
-            
+
         }
         else
         {
@@ -83,7 +83,7 @@ public class AccountService : IAccountService
             if (hasherResult)
             {
                 string token = "";
-                if(admin.PhoneNumber != null)
+                if (admin.PhoneNumber != null)
                 {
                     token = _authService.GenerateToken(admin, "admin");
                     return token;

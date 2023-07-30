@@ -1,10 +1,5 @@
 ﻿using RegistanFerghanaLC.Service.Common.Attributes;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistanFerghanaLC.Service.Dtos.ExtraLesson
 {
@@ -13,7 +8,7 @@ namespace RegistanFerghanaLC.Service.Dtos.ExtraLesson
         [Required]
         public bool IsDone { get; set; }
 
-        [Required,Rank]
+        [Required, Rank]
         public int Rank { get; set; }
 
         [Required]

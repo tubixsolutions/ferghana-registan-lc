@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore;
 using RegistanFerghanaLC.DataAccess.DbContexts;
 using RegistanFerghanaLC.DataAccess.Interfaces;
 using RegistanFerghanaLC.DataAccess.Interfaces.Common;

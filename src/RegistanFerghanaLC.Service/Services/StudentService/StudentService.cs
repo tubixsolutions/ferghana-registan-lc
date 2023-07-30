@@ -8,7 +8,6 @@ using RegistanFerghanaLC.Service.Common.Utils;
 using RegistanFerghanaLC.Service.Dtos.Accounts;
 using RegistanFerghanaLC.Service.Interfaces.Common;
 using RegistanFerghanaLC.Service.Interfaces.Students;
-using RegistanFerghanaLC.Service.Services.Common;
 using RegistanFerghanaLC.Service.ViewModels.StudentViewModels;
 using RegistanFerghanaLC.Service.ViewModels.TeacherViewModels;
 using System.Net;
@@ -93,7 +92,7 @@ public class StudentService : IStudentService
     public async Task<string> LoginAsync(AccountLoginDto accountLoginDto)
     {
         var student = await _repository.Students.FirstOrDefault(x => x.PhoneNumber == accountLoginDto.PhoneNumber);
-        if(student is null)
+        if (student is null)
             throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
         else
         {
@@ -110,7 +109,7 @@ public class StudentService : IStudentService
     public async Task<StudentViewModel> GetByIdAsync(int id)
     {
         var student = await _repository.Students.FindByIdAsync(id);
-        if(student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
+        if (student is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found!");
         var res = _mapper.Map<StudentViewModel>(student);
         return res;
     }

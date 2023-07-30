@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Common.Attributes;
-public class StrongPasswordAttribute: ValidationAttribute
+public class StrongPasswordAttribute : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {

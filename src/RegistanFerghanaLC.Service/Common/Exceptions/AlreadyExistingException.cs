@@ -1,6 +1,6 @@
 ﻿namespace RegistanFerghanaLC.Service.Common.Exceptions
 {
-    public class AlreadyExistingException: Exception
+    public class AlreadyExistingException : Exception
     {
         public string Point { get; set; } = String.Empty;
 

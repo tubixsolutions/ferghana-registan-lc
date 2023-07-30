@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RegistanFerghanaLC.Web.Exceptions;
 using RegistanFerghanaLC.Web.Models;
-using System.Text.Json.Serialization;
 
 namespace RegistanFerghanaLC.Web.Midllewares
 {
@@ -31,7 +30,7 @@ namespace RegistanFerghanaLC.Web.Midllewares
         }
         public async Task UserErrorHandlerAsync(StatusCodeException exception, HttpContext context)
         {
-            context.Response.ContentType= "application/json";
+            context.Response.ContentType = "application/json";
             ErrorDto dto = new ErrorDto()
             {
                 StatusCode = (int)exception.StatusCode,

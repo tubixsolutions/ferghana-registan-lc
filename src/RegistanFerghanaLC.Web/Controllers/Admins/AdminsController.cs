@@ -1,15 +1,7 @@
-﻿using ClosedXML.Excel;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RegistanFerghanaLC.DataAccess.Migrations;
-using RegistanFerghanaLC.Domain.Constants;
-using RegistanFerghanaLC.Domain.Entities.Users;
-using RegistanFerghanaLC.Domain.Enums;
+﻿using Microsoft.AspNetCore.Mvc;
 using RegistanFerghanaLC.Service.Dtos.Admins;
-using RegistanFerghanaLC.Service.Dtos.Teachers;
 using RegistanFerghanaLC.Service.Interfaces.Admins;
 using RegistanFerghanaLC.Service.Interfaces.Common;
-using RegistanFerghanaLC.Service.Services.AdminService;
 using RegistanFerghanaLC.Service.ViewModels.AdminViewModels;
 
 namespace RegistanFerghanaLC.Web.Controllers.Admins

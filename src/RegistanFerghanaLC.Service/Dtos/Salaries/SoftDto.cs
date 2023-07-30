@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistanFerghanaLC.Service.Dtos.Salaries
 {
-	public class SoftDto
+    public class SoftDto
     {
         [Required(ErrorMessage = "Please enter the start date")]
         public string StartDate { get; set; } = string.Empty;
